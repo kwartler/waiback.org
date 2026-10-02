@@ -14,7 +14,7 @@ captured yet, up to WAIBACK_MAX_CALLS new calls (default 300). Re-runs fill in
 new models/questions, so it is safe and idempotent. Sample placeholders are
 replaced by real answers.
 """
-import os, sys, csv, json, time
+import os, sys, csv, json, time, hashlib
 from datetime import date, datetime, timezone
 
 try:
@@ -28,6 +28,12 @@ API_CHAT = "https://openrouter.ai/api/v1/chat/completions"
 TODAY = date.today().isoformat()
 MAX_CALLS = int(os.environ.get("WAIBACK_MAX_CALLS", "300"))
 MAX_TOKENS = int(os.environ.get("WAIBACK_MAX_TOKENS", "600"))
+
+# Standard capture conditions, identical for every model so answers are comparable.
+TEMPERATURE = float(os.environ.get("WAIBACK_TEMPERATURE", "0"))
+_spf = os.path.join(ROOT, "data/system_prompt.txt")
+SYSTEM_PROMPT = open(_spf).read().strip() if os.path.exists(_spf) else ""
+PROMPT_SHA = hashlib.sha256(SYSTEM_PROMPT.encode("utf-8")).hexdigest()[:8] if SYSTEM_PROMPT else "none"
 
 KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 if not KEY:
@@ -78,8 +84,11 @@ def refresh_models(allow):
     return models
 
 def ask(model_id, question):
-    body = {"model": model_id, "temperature": 0, "max_tokens": MAX_TOKENS,
-            "messages": [{"role": "user", "content": question}]}
+    msgs = ([{"role": "system", "content": SYSTEM_PROMPT}] if SYSTEM_PROMPT else []) + \
+           [{"role": "user", "content": question}]
+    body = {"model": model_id, "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
+            "messages": msgs,
+            "usage": {"include": True}}  # ask OpenRouter to report token usage + charged cost
     headers = {"Authorization": "Bearer " + KEY, "Content-Type": "application/json",
                "HTTP-Referer": "https://waiback.org", "X-Title": "Waiback"}
     r = requests.post(API_CHAT, headers=headers, json=body, timeout=90)
@@ -87,13 +96,25 @@ def ask(model_id, question):
         return None, f"http {r.status_code}"
     j = r.json()
     try:
-        return j["choices"][0]["message"]["content"].strip(), None
+        u = j.get("usage") or {}
+        return {"answer": j["choices"][0]["message"]["content"].strip(),
+                "prompt_tokens": u.get("prompt_tokens"),
+                "completion_tokens": u.get("completion_tokens"),
+                "total_tokens": u.get("total_tokens"),
+                "or_cost": u.get("cost")}, None
     except Exception:
         return None, "no content"
 
 def main():
     allow = read_allowlist()
     questions = read_questions()
+    # archive the prompt registry (sha -> text) so past capture conditions are preserved
+    ppath = os.path.join(ROOT, "data/prompts.json")
+    try: prompts = json.load(open(ppath))
+    except Exception: prompts = {}
+    if SYSTEM_PROMPT and PROMPT_SHA not in prompts:
+        prompts[PROMPT_SHA] = {"system_prompt": SYSTEM_PROMPT, "temperature": TEMPERATURE, "since": TODAY}
+        json.dump(prompts, open(ppath, "w"), indent=2)
     models = refresh_models(allow)
 
     # keep only real (non-sample) prior answers; samples get replaced
@@ -114,14 +135,23 @@ def main():
                 print(f"reached WAIBACK_MAX_CALLS={MAX_CALLS}; {len(responses)} answers saved, rest will fill on the next run.")
                 json.dump(responses, open(os.path.join(ROOT, "data/responses.json"), "w"), indent=2)
                 return
-            answer, err = ask(m["id"], q["question"])
+            res, err = ask(m["id"], q["question"])
             calls += 1
             if err:
                 print(f"  skip {m['id']} / {q['id']}: {err}")
                 time.sleep(0.4)
                 continue
-            responses.append({"model_id": m["id"], "question_id": q["id"],
-                              "answer": answer, "response_date": TODAY})
+            pt, ct = res.get("prompt_tokens"), res.get("completion_tokens")
+            ip, op = m.get("input_per_1m"), m.get("output_per_1m")
+            cost = None
+            if pt is not None and ct is not None and ip is not None and op is not None:
+                cost = round(pt / 1e6 * ip + ct / 1e6 * op, 6)  # cost at the pricing captured now
+            responses.append({"model_id": m["id"], "question_id": q["id"], "response_date": TODAY,
+                              "answer": res["answer"],
+                              "prompt_tokens": pt, "completion_tokens": ct, "total_tokens": res.get("total_tokens"),
+                              "input_per_1m": ip, "output_per_1m": op,
+                              "cost_usd": cost, "or_cost": res.get("or_cost"),
+                              "temperature": TEMPERATURE, "prompt_sha": PROMPT_SHA})
             have.add(key)
             print(f"  captured {m['id']} / {q['id']}")
             time.sleep(0.4)

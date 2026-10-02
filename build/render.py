@@ -16,6 +16,23 @@ BUILT = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 def esc(s): return html.escape(str(s if s is not None else ""))
 
+def fmt_usd(c):
+    if c is None: return "n/a"
+    if c == 0: return "$0"
+    if c < 0.01: return "$" + ("%.6f" % c).rstrip("0").rstrip(".")
+    return "$%.4f" % c
+
+def resp_meta(r):
+    bits = ["captured " + esc(r.get("response_date"))]
+    tt, pt, ct = r.get("total_tokens"), r.get("prompt_tokens"), r.get("completion_tokens")
+    if tt:
+        s = f"{tt:,} tokens"
+        if pt is not None and ct is not None: s += f" ({pt:,} in / {ct:,} out)"
+        bits.append(s)
+    if r.get("cost_usd") is not None:
+        bits.append(fmt_usd(r["cost_usd"]))
+    return " &middot; ".join(bits)
+
 def load():
     with open(os.path.join(ROOT, "data/questions.csv"), newline="") as f:
         questions = [r for r in csv.DictReader(f) if r.get("id") and r.get("question")]
@@ -80,6 +97,10 @@ def fmt_price(v):
 
 def render():
     questions, models, responses = load()
+    # capture conditions (shown for transparency)
+    sp_path = os.path.join(ROOT, "data/system_prompt.txt")
+    system_prompt = open(sp_path).read().strip() if os.path.exists(sp_path) else ""
+    temp = next((r["temperature"] for r in responses if r.get("temperature") is not None), 0)
     # index responses by (model,q)
     rmap = {}
     for r in responses:
@@ -110,6 +131,10 @@ def render():
   <h1>A wayback machine for language models.</h1>
   <p>Waiback asks every model the same fixed set of questions and preserves its answers, dated. Each model gets a snapshot page showing when it was released and when we captured how it answers, so you can see how machine knowledge shifts as models are added and updated.</p>
   <p class="meta">{len(models)} models &middot; {len(questions)} questions &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></p>
+  <details class="conditions"><summary>Capture conditions</summary>
+    <p>Every answer is captured under identical conditions: <b>temperature {temp:g}</b> and one fixed system prompt, the same for every model.</p>
+    <blockquote class="sysprompt">{esc(system_prompt)}</blockquote>
+  </details>
 </div></section>
 <section><div class="wrap">
   <div class="section-head"><h2>The archive</h2><span class="count">{len(models)} snapshots, newest first</span></div>
@@ -125,8 +150,16 @@ def render():
         if m.get("knowledge_cutoff"): chips.append(f'<span class="chip"><b>knowledge cutoff</b> {esc(m["knowledge_cutoff"])}</span>')
         if m.get("context_length"): chips.append(f'<span class="chip"><b>context</b> {int(m["context_length"]):,}</span>')
         chips.append(f'<span class="chip"><b>price</b> {fmt_price(m.get("input_per_1m"))} in / {fmt_price(m.get("output_per_1m"))} out</span>')
-        caps = [rmap[(m["id"], q["id"])]["response_date"] for q in questions if (m["id"], q["id"]) in rmap]
+        snap = [rmap[(m["id"], q["id"])] for q in questions if (m["id"], q["id"]) in rmap]
+        caps = [r["response_date"] for r in snap]
         captured = max(caps) if caps else None
+        tot_tok = sum((r.get("total_tokens") or 0) for r in snap)
+        tot_cost = sum((r.get("cost_usd") or 0) for r in snap)
+        if snap and tot_tok:
+            chips.append(f'<span class="chip"><b>this snapshot</b> {tot_tok:,} tokens / {fmt_usd(tot_cost)}</span>')
+        cond = next((r for r in snap if r.get("temperature") is not None), None)
+        if cond:
+            chips.append(f'<span class="chip"><b>conditions</b> temp {cond["temperature"]:g} / prompt {esc(cond.get("prompt_sha", "?"))}</span>')
         entries = []
         for q in questions:
             r = rmap.get((m["id"], q["id"]))
@@ -136,7 +169,7 @@ def render():
                 entries.append(f"""<div class="entry">
   <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}{tag}</p>
   <div class="a">{esc(r['answer'])}</div>
-  <div class="when">captured {esc(r['response_date'])}</div>
+  <div class="when">{resp_meta(r)}</div>
 </div>""")
             else:
                 entries.append(f"""<div class="entry">
@@ -174,7 +207,7 @@ def render():
             if not r: continue
             tag = '<span class="sample-tag">sample</span>' if r.get("sample") else ""
             ans.append(f"""<div class="ans">
-  <div class="who"><a href="../models/{esc(m['slug'])}.html">{esc(m['name'])}</a>{tag}<span class="d">released {esc(m.get('release_date') or '?')} &middot; captured {esc(r['response_date'])}</span></div>
+  <div class="who"><a href="../models/{esc(m['slug'])}.html">{esc(m['name'])}</a>{tag}<span class="d">released {esc(m.get('release_date') or '?')} &middot; {resp_meta(r)}</span></div>
   <div class="body">{esc(r['answer'])}</div>
 </div>""")
         cat = f'<span class="cat">{esc(q.get("category"))}</span>' if q.get("category") else ""
