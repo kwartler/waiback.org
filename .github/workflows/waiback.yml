@@ -1,0 +1,47 @@
+name: Waiback Capture & Build
+
+on:
+  schedule:
+    - cron: '0 10 * * *'   # daily 10:00 UTC (idempotent: only new model/question pairs are queried)
+  workflow_dispatch:
+    inputs:
+      max_calls:
+        description: 'Max new OpenRouter calls this run (cost cap)'
+        required: false
+        default: '300'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: waiback
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install requests
+      - name: Capture answers (OpenRouter)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          WAIBACK_MAX_CALLS: ${{ github.event.inputs.max_calls || '300' }}
+        run: python build/generate.py
+      - name: Render site
+        run: python build/render.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "waiback: capture + build $(date -u +%Y-%m-%d)"
+            git push
+          fi
