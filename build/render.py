@@ -8,6 +8,7 @@ No third-party dependencies (stdlib only). Paths are relative so the site works
 at a custom domain or a /repo/ preview path.
 """
 import csv, json, html, os
+from collections import defaultdict, Counter
 from datetime import date, datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,7 +79,7 @@ def page(title, desc, body, base="", canonical="/", extra_head=""):
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}questions/index.html">Questions</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
 </div></header>
 <main>
 {body}
@@ -108,25 +109,36 @@ def render():
     qby = {q["id"]: q for q in questions}
     models_sorted = sorted(models, key=lambda m: (m.get("release_date") or ""), reverse=True)
 
-    os.makedirs(os.path.join(ROOT, "models"), exist_ok=True)
-    os.makedirs(os.path.join(ROOT, "questions"), exist_ok=True)
-    urls = ["/"]
-
-    # ---------- INDEX ----------
-    cards = []
+    # group models by publisher (OpenRouter author slug), with a display label from the name prefix
+    pubs = defaultdict(list)
     for m in models_sorted:
+        pubs[m["provider"]].append(m)
+    pub_name = {}
+    for prov, ms in pubs.items():
+        labels = [mm["name"].split(":")[0].strip() for mm in ms if ":" in mm["name"]]
+        pub_name[prov] = Counter(labels).most_common(1)[0][0] if labels else prov.replace("-", " ").title()
+
+    def snap_card(m, prefix):
         answered = sum(1 for q in questions if (m["id"], q["id"]) in rmap)
         caps = [rmap[(m["id"], q["id"])]["response_date"] for q in questions if (m["id"], q["id"]) in rmap]
         captured = max(caps) if caps else None
-        cards.append(f"""<article class="snap" data-name="{esc(m['name'].lower())} {esc(m['id'])}">
-  <div class="prov">{esc(m['provider'])}</div>
-  <a class="title" href="models/{esc(m['slug'])}.html"><h3>{esc(m['name'])}</h3></a>
+        return f"""<article class="snap" data-name="{esc(m['name'].lower())} {esc(m['id'])}">
+  <a class="prov" href="{prefix}publishers/{esc(m['provider'])}.html">{esc(pub_name[m['provider']])}</a>
+  <a class="title" href="{prefix}models/{esc(m['slug'])}.html"><h3>{esc(m['name'])}</h3></a>
   <div class="dates">
     <div><span class="k">released</span> {esc(m.get('release_date') or 'unknown')}</div>
     <div><span class="k">captured</span> {esc(captured or 'not yet')}</div>
   </div>
   <div class="foot">{answered} / {len(questions)} answers &middot; <span class="mono">{esc(m['id'])}</span></div>
-</article>""")
+</article>"""
+
+    os.makedirs(os.path.join(ROOT, "models"), exist_ok=True)
+    os.makedirs(os.path.join(ROOT, "questions"), exist_ok=True)
+    os.makedirs(os.path.join(ROOT, "publishers"), exist_ok=True)
+    urls = ["/"]
+
+    # ---------- INDEX ----------
+    cards = [snap_card(m, "") for m in models_sorted]
     intro = f"""<section class="hero"><div class="wrap">
   <h1>A wayback machine for language models.</h1>
   <p>Waiback asks every model the same fixed set of questions and preserves its answers, dated. Each model gets a snapshot page showing when it was released and when we captured how it answers, so you can see how machine knowledge shifts as models are added and updated.</p>
@@ -181,7 +193,7 @@ def render():
   <div class="model-head">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
       <div>
-        <div class="prov">{esc(m['provider'])}</div>
+        <a class="prov" href="../publishers/{esc(m['provider'])}.html">{esc(pub_name[m['provider']])}</a>
         <h1>{esc(m['name'])}</h1>
         <div class="id">{esc(m['id'])}</div>
       </div>
@@ -237,6 +249,59 @@ def render():
         page("The question set | Waiback", "The fixed set of questions every model answers on Waiback.", qbody, base="../", canonical="/questions/index.html"))
     urls.append("/questions/index.html")
 
+    # ---------- PUBLISHER PAGES ----------
+    pub_cards = []
+    for prov in sorted(pubs, key=lambda p: (-len(pubs[p]), p)):
+        ms = sorted(pubs[prov], key=lambda x: (x.get("release_date") or ""), reverse=True)
+        disp = pub_name[prov]
+        rels = [m.get("release_date") for m in ms if m.get("release_date")]
+        answered = 0; tot_tok = 0; tot_cost = 0.0; caps = []
+        for m in ms:
+            for q in questions:
+                r = rmap.get((m["id"], q["id"]))
+                if r:
+                    answered += 1
+                    tot_tok += (r.get("total_tokens") or 0)
+                    tot_cost += (r.get("cost_usd") or 0)
+                    caps.append(r["response_date"])
+        rel_range = (min(rels) + " to " + max(rels)) if rels else "unknown"
+        chips = [f'<span class="chip"><b>models</b> {len(ms)}</span>',
+                 f'<span class="chip"><b>released</b> {esc(rel_range)}</span>']
+        if answered: chips.append(f'<span class="chip"><b>answers captured</b> {answered}</span>')
+        if tot_tok: chips.append(f'<span class="chip"><b>captured</b> {tot_tok:,} tokens / {fmt_usd(tot_cost)}</span>')
+        cards_p = "".join(snap_card(m, "../") for m in ms)
+        body = f"""<div class="wrap">
+  <div class="model-head">
+    <div class="prov">publisher</div>
+    <h1>{esc(disp)}</h1>
+    <div class="id">{esc(prov)} &middot; {len(ms)} model{'s' if len(ms)!=1 else ''} in the archive</div>
+    <div class="metabar">{''.join(chips)}</div>
+  </div>
+  <section><div class="section-head"><h2>Models</h2><span class="count">newest first</span></div>
+  <div class="snaps">{cards_p}</div></section>
+  <p class="crumb"><a href="index.html">&larr; all publishers</a> &middot; <a href="../index.html">the archive</a></p>
+</div>"""
+        open(os.path.join(ROOT, "publishers", prov + ".html"), "w").write(
+            page(f"{disp} models on Waiback", f"Every {disp} model in the Waiback archive ({len(ms)} models), with release dates and dated answer snapshots. By Ted Kwartler.",
+                 body, base="../", canonical=f"/publishers/{prov}.html"))
+        urls.append(f"/publishers/{prov}.html")
+        pub_cards.append(f"""<article class="snap" data-name="{esc(disp.lower())} {esc(prov)}">
+  <a class="title" href="{esc(prov)}.html"><h3>{esc(disp)}</h3></a>
+  <div class="dates"><div><span class="k">models</span> {len(ms)}</div><div><span class="k">released</span> {esc(rel_range)}</div></div>
+  <div class="foot">{answered} answers captured &middot; <span class="mono">{esc(prov)}</span></div>
+</article>""")
+
+    pbody = f"""<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)"><h1>Publishers</h1>
+  <p>The labs behind the models. Pick one to see all of its models and their answer snapshots.</p></section>
+  <section><input class="search" id="q" placeholder="filter publishers..." oninput="(function(v){{document.querySelectorAll('.snap').forEach(function(c){{c.style.display=c.dataset.name.indexOf(v.toLowerCase())>=0?'':'none'}})}})(this.value)">
+  <div class="snaps">{''.join(pub_cards)}</div></section>
+  <p class="crumb"><a href="../index.html">&larr; the archive</a></p>
+</div>"""
+    open(os.path.join(ROOT, "publishers", "index.html"), "w").write(
+        page("Publishers | Waiback", "The model publishers (labs) in the Waiback archive, each with all of its models and dated answer snapshots.", pbody, base="../", canonical="/publishers/index.html"))
+    urls.append("/publishers/index.html")
+
     # ---------- sitemap + llms ----------
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
@@ -251,12 +316,15 @@ def render():
             f"Models: {len(models)} | Questions: {len(questions)} | Updated: {BUILT}",
             "", "## Models (newest first)"]
     for m in models_sorted:
-        llms.append(f"- [{m['name']}]({SITE}/models/{m['slug']}.html): released {m.get('release_date','?')}, provider {m['provider']}.")
+        llms.append(f"- [{m['name']}]({SITE}/models/{m['slug']}.html): released {m.get('release_date','?')}, publisher {pub_name[m['provider']]}.")
+    llms += ["", "## Publishers"]
+    for prov in sorted(pubs, key=lambda p: (-len(pubs[p]), p)):
+        llms.append(f"- [{pub_name[prov]}]({SITE}/publishers/{prov}.html): {len(pubs[prov])} models.")
     llms += ["", "## Related", f"- By Ted Kwartler: https://tedkwartler.com/"]
     open(os.path.join(ROOT, "llms.txt"), "w").write("\n".join(llms) + "\n")
     open(os.path.join(ROOT, "llms-full.txt"), "w").write("\n".join(llms) + "\n")
 
-    print(f"rendered: 1 index + {len(models_sorted)} model pages + {len(questions)} question pages + questions index; sitemap {len(urls)} urls")
+    print(f"rendered: index + {len(models_sorted)} model pages + {len(pubs)} publisher pages + {len(questions)} question pages; sitemap {len(urls)} urls")
 
 if __name__ == "__main__":
     render()
