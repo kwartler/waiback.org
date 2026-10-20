@@ -181,9 +181,12 @@ def render():
   <div class="foot">{answered} / {len(questions)} answers &middot; <span class="mono">{esc(m['id'])}</span></div>
 </article>"""
 
-    os.makedirs(os.path.join(ROOT, "models"), exist_ok=True)
-    os.makedirs(os.path.join(ROOT, "questions"), exist_ok=True)
-    os.makedirs(os.path.join(ROOT, "publishers"), exist_ok=True)
+    for d in ("models", "questions", "publishers"):
+        dd = os.path.join(ROOT, d)
+        os.makedirs(dd, exist_ok=True)
+        for fn in os.listdir(dd):  # prune stale pages so renamed/removed ids don't linger
+            if fn.endswith(".html"):
+                os.remove(os.path.join(dd, fn))
     urls = ["/"]
 
     # ---------- INDEX ----------
