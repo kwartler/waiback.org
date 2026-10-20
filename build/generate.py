@@ -26,7 +26,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API_MODELS = "https://openrouter.ai/api/v1/models"
 API_CHAT = "https://openrouter.ai/api/v1/chat/completions"
 TODAY = date.today().isoformat()
-MAX_CALLS = int(os.environ.get("WAIBACK_MAX_CALLS", "300"))
+MAX_CALLS = int(os.environ.get("WAIBACK_MAX_CALLS", "0"))    # 0 = no call cap (cost ceiling)
+MAX_MODELS = int(os.environ.get("WAIBACK_MAX_MODELS", "0"))  # 0 = no model cap (do N not-yet-captured models)
 MAX_TOKENS = int(os.environ.get("WAIBACK_MAX_TOKENS", "600"))
 
 # Standard capture conditions, identical for every model so answers are comparable.
@@ -125,16 +126,25 @@ def main():
     responses = [r for r in prior if not r.get("sample")]
     have = {(r["model_id"], r["question_id"]) for r in responses}
 
-    calls = 0
+    RPATH = os.path.join(ROOT, "data/responses.json")
+    def save(): json.dump(responses, open(RPATH, "w"), indent=2)
+
+    total_pairs = len(models) * len(questions)
+    already = len(have)
+    calls = 0; models_worked = 0; stopped = None
     for m in models:
-        for q in questions:
-            key = (m["id"], q["id"])
-            if key in have:
-                continue
-            if calls >= MAX_CALLS:
-                print(f"reached WAIBACK_MAX_CALLS={MAX_CALLS}; {len(responses)} answers saved, rest will fill on the next run.")
-                json.dump(responses, open(os.path.join(ROOT, "data/responses.json"), "w"), indent=2)
-                return
+        # the ledger (data/responses.json) is the source of truth: skip pairs already captured
+        missing = [q for q in questions if (m["id"], q["id"]) not in have]
+        if not missing:
+            continue  # model already fully captured -> never re-polled
+        if MAX_MODELS and models_worked >= MAX_MODELS:
+            stopped = f"model cap WAIBACK_MAX_MODELS={MAX_MODELS}"
+            break
+        models_worked += 1
+        for q in missing:
+            if MAX_CALLS and calls >= MAX_CALLS:
+                stopped = f"call cap WAIBACK_MAX_CALLS={MAX_CALLS}"
+                break
             res, err = ask(m["id"], q["question"])
             calls += 1
             if err:
@@ -152,12 +162,21 @@ def main():
                               "input_per_1m": ip, "output_per_1m": op,
                               "cost_usd": cost, "or_cost": res.get("or_cost"),
                               "temperature": TEMPERATURE, "prompt_sha": PROMPT_SHA})
-            have.add(key)
+            have.add((m["id"], q["id"]))
             print(f"  captured {m['id']} / {q['id']}")
             time.sleep(0.4)
+        save()  # checkpoint after every model so an interrupted run loses nothing
+        if stopped and "call cap" in stopped:
+            break
 
-    json.dump(responses, open(os.path.join(ROOT, "data/responses.json"), "w"), indent=2)
-    print(f"done: {calls} new calls, {len(responses)} total answers saved.")
+    save()
+    done = len(have)
+    models_left = sum(1 for m in models if any((m["id"], q["id"]) not in have for q in questions))
+    print(f"done: {calls} new calls this run across {models_worked} model(s).")
+    print(f"progress: {done}/{total_pairs} answers captured ({done - already} new); "
+          f"models fully captured {len(models)-models_left}/{len(models)}, {models_left} remaining.")
+    if stopped:
+        print(f"stopped early ({stopped}). Re-run to continue; captured pairs are skipped automatically.")
 
 if __name__ == "__main__":
     main()

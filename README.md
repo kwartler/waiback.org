@@ -21,8 +21,13 @@ build/render.py      builds index.html + models/*.html + questions/*.html + site
 3. **Edit `data/models.txt`** with the model ids to capture (one per line; cost scales with models x questions).
 4. **Run it:** Actions tab -> "Waiback Capture & Build" -> Run workflow. Or wait for the daily run.
 
-## Cost control
-`build/generate.py` only queries (model, question) pairs it has not captured yet, up to `WAIBACK_MAX_CALLS` (default 300) per run. Re-runs fill in new models/questions, so it is safe and idempotent. Raise the cap via the manual-run input.
+## Cost control & resuming
+`data/responses.json` is the ledger: it holds one record per (model, question) already captured. `build/generate.py` loads it and **skips any pair already there**, so nothing is ever re-polled. Batch the work with the manual-run inputs:
+- `max_models` (default 15): capture that many not-yet-finished models this run, then stop. Do 15 now, re-run later for the balance; the finished models are skipped automatically.
+- `max_calls` (0 = none): a hard ceiling on API calls as a cost backstop.
+
+It checkpoints `responses.json` after every model, so an interrupted run loses nothing, and prints a progress line (models fully captured / remaining).
+
 
 ## Deploy
 GitHub Pages, custom domain `waiback.org` (CNAME). Point the apex A records at GitHub Pages IPs (185.199.108-111.153) at your DNS and enable Enforce HTTPS.

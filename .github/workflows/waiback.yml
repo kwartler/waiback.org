@@ -5,10 +5,14 @@ on:
     - cron: '0 10 * * *'   # daily 10:00 UTC (idempotent: only new model/question pairs are queried)
   workflow_dispatch:
     inputs:
-      max_calls:
-        description: 'Max new OpenRouter calls this run (cost cap)'
+      max_models:
+        description: 'Not-yet-captured models to do this run (0 = all remaining)'
         required: false
-        default: '300'
+        default: '15'
+      max_calls:
+        description: 'Hard cap on new OpenRouter calls this run (0 = none)'
+        required: false
+        default: '0'
 
 permissions:
   contents: write
@@ -30,7 +34,8 @@ jobs:
       - name: Capture answers (OpenRouter)
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          WAIBACK_MAX_CALLS: ${{ github.event.inputs.max_calls || '300' }}
+          WAIBACK_MAX_MODELS: ${{ github.event.inputs.max_models || '15' }}
+          WAIBACK_MAX_CALLS: ${{ github.event.inputs.max_calls || '0' }}
         run: python build/generate.py
       - name: Render site
         run: python build/render.py
