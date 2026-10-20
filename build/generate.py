@@ -164,6 +164,8 @@ def main():
             continue  # model already fully captured -> never re-polled
         if m["id"] in attempted and not RETRY:
             continue  # attempted in a prior run; skip so batches advance to new models
+        if RETRY and m["id"] not in attempted:
+            continue  # backfill mode: only fill gaps in already-attempted models, no new ones
         if MAX_MODELS and models_worked >= MAX_MODELS:
             stopped = f"model cap WAIBACK_MAX_MODELS={MAX_MODELS}"
             break
