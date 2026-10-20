@@ -99,28 +99,35 @@ def fmt_price(v):
 CAL_TEMPLATE = """<div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <h1>Calendar</h1>
-    <p>Browse the archive by date. Toggle between the day each model was <b>collected</b> (its snapshot date) and the day it was <b>released</b>. Click a shaded day to see the models.</p>
-    <div class="cal-toggle"><button id="btnC" class="active">Collected</button><button id="btnR">Released</button></div>
+    <p>Browse the archive by date. Toggle between the day each model was <b>collected</b> (its snapshot date) and the day it was <b>released</b>, and filter to a publisher. Click a shaded day to see the models and open their responses.</p>
+    <div class="cal-controls">
+      <div class="cal-toggle"><button id="btnC" class="active">Collected</button><button id="btnR">Released</button></div>
+      <label class="pub-label">Publisher <select id="pubSel" class="pub-sel"><option value="all">All publishers</option></select></label>
+    </div>
   </section>
   <section><div id="cal"></div><div id="detail" class="cal-detail"></div></section>
   <p class="crumb"><a href="index.html">the archive</a> &middot; <a href="publishers/index.html">publishers</a></p>
 </div>
 <script>
-var CAL=__CAL_DATA__, mode='collected';
+var CAL=__CAL_DATA__, mode='collected', pub='all', VIEW={};
 var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var PUBS={}; ['collected','released'].forEach(function(mm){var dd=CAL[mm]||{}; for(var d in dd){for(var i=0;i<dd[d].length;i++){PUBS[dd[d][i].provider]=dd[d][i].pub;}}});
+(function(){var sel=document.getElementById('pubSel'); var ks=Object.keys(PUBS).sort(function(a,b){return PUBS[a].toLowerCase()<PUBS[b].toLowerCase()?-1:1;}); for(var i=0;i<ks.length;i++){var o=document.createElement('option'); o.value=ks[i]; o.textContent=PUBS[ks[i]]; sel.appendChild(o);} sel.addEventListener('change',function(){pub=this.value; render();});})();
 function bucket(n){return n>=8?'l4':n>=4?'l3':n>=2?'l2':'l1';}
+function computeView(){var raw=CAL[mode]||{}; VIEW={}; for(var d in raw){var arr=pub==='all'?raw[d]:raw[d].filter(function(m){return m.provider===pub;}); if(arr.length) VIEW[d]=arr;}}
 function pick(ds){
   var cur=document.querySelector('.cell.sel'); if(cur) cur.classList.remove('sel');
   var c=document.querySelector('.cell[data-d="'+ds+'"]'); if(c) c.classList.add('sel');
-  var arr=(CAL[mode]||{})[ds]||[], lab=mode==='collected'?'collected':'released';
-  var h='<h3>'+arr.length+' model'+(arr.length!==1?'s':'')+' '+lab+' on '+ds+'</h3><div class="snaps">';
+  var arr=VIEW[ds]||[], lab=mode==='collected'?'collected':'released', who=pub==='all'?'':(' from '+PUBS[pub]);
+  var h='<h3>'+arr.length+' model'+(arr.length!==1?'s':'')+who+' '+lab+' on '+ds+'</h3><div class="snaps">';
   for(var i=0;i<arr.length;i++){var m=arr[i];
     h+='<article class="snap"><a class="prov" href="publishers/'+m.provider+'.html">'+m.pub+'</a><a class="title" href="models/'+m.slug+'.html"><h3>'+m.name+'</h3></a></article>';}
   document.getElementById('detail').innerHTML=h+'</div>';
 }
 function render(){
-  var data=CAL[mode]||{}, dates=Object.keys(data).sort(), cal=document.getElementById('cal');
-  if(!dates.length){cal.innerHTML='<p class="muted">Nothing '+mode+' yet. Run a capture to populate the collected calendar.</p>';document.getElementById('detail').innerHTML='';return;}
+  computeView();
+  var dates=Object.keys(VIEW).sort(), cal=document.getElementById('cal');
+  if(!dates.length){cal.innerHTML='<p class="muted">Nothing '+mode+(pub==='all'?'':' for '+PUBS[pub])+' yet.</p>';document.getElementById('detail').innerHTML='';return;}
   var yms={}; for(var i=0;i<dates.length;i++) yms[dates[i].slice(0,7)]=1;
   var keys=Object.keys(yms).sort(), html='<div class="months">';
   for(var k=0;k<keys.length;k++){
@@ -130,7 +137,7 @@ function render(){
     var fd=new Date(y,mo-1,1).getDay(), dn=new Date(y,mo,0).getDate();
     for(var i=0;i<fd;i++) html+='<div class="cell"></div>';
     for(var d=1;d<=dn;d++){
-      var ds=y+'-'+String(mo).padStart(2,'0')+'-'+String(d).padStart(2,'0'), arr=data[ds];
+      var ds=y+'-'+String(mo).padStart(2,'0')+'-'+String(d).padStart(2,'0'), arr=VIEW[ds];
       if(arr&&arr.length) html+='<div class="cell has '+bucket(arr.length)+'" data-d="'+ds+'" title="'+ds+': '+arr.length+'">'+d+'</div>';
       else html+='<div class="cell">'+d+'</div>';
     }
