@@ -79,7 +79,7 @@ def page(title, desc, body, base="", canonical="/", extra_head=""):
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
 </div></header>
 <main>
 {body}
@@ -95,6 +95,55 @@ def page(title, desc, body, base="", canonical="/", extra_head=""):
 def fmt_price(v):
     if v is None: return "n/a"
     return f"${v:g}/1M"
+
+CAL_TEMPLATE = """<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)">
+    <h1>Calendar</h1>
+    <p>Browse the archive by date. Toggle between the day each model was <b>collected</b> (its snapshot date) and the day it was <b>released</b>. Click a shaded day to see the models.</p>
+    <div class="cal-toggle"><button id="btnC" class="active">Collected</button><button id="btnR">Released</button></div>
+  </section>
+  <section><div id="cal"></div><div id="detail" class="cal-detail"></div></section>
+  <p class="crumb"><a href="index.html">the archive</a> &middot; <a href="publishers/index.html">publishers</a></p>
+</div>
+<script>
+var CAL=__CAL_DATA__, mode='collected';
+var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function bucket(n){return n>=8?'l4':n>=4?'l3':n>=2?'l2':'l1';}
+function pick(ds){
+  var cur=document.querySelector('.cell.sel'); if(cur) cur.classList.remove('sel');
+  var c=document.querySelector('.cell[data-d="'+ds+'"]'); if(c) c.classList.add('sel');
+  var arr=(CAL[mode]||{})[ds]||[], lab=mode==='collected'?'collected':'released';
+  var h='<h3>'+arr.length+' model'+(arr.length!==1?'s':'')+' '+lab+' on '+ds+'</h3><div class="snaps">';
+  for(var i=0;i<arr.length;i++){var m=arr[i];
+    h+='<article class="snap"><a class="prov" href="publishers/'+m.provider+'.html">'+m.pub+'</a><a class="title" href="models/'+m.slug+'.html"><h3>'+m.name+'</h3></a></article>';}
+  document.getElementById('detail').innerHTML=h+'</div>';
+}
+function render(){
+  var data=CAL[mode]||{}, dates=Object.keys(data).sort(), cal=document.getElementById('cal');
+  if(!dates.length){cal.innerHTML='<p class="muted">Nothing '+mode+' yet. Run a capture to populate the collected calendar.</p>';document.getElementById('detail').innerHTML='';return;}
+  var yms={}; for(var i=0;i<dates.length;i++) yms[dates[i].slice(0,7)]=1;
+  var keys=Object.keys(yms).sort(), html='<div class="months">';
+  for(var k=0;k<keys.length;k++){
+    var y=+keys[k].slice(0,4), mo=+keys[k].slice(5,7);
+    html+='<div class="month"><h4>'+MON[mo-1]+' '+y+'</h4><div class="grid7">';
+    html+='<div class="dow">S</div><div class="dow">M</div><div class="dow">T</div><div class="dow">W</div><div class="dow">T</div><div class="dow">F</div><div class="dow">S</div>';
+    var fd=new Date(y,mo-1,1).getDay(), dn=new Date(y,mo,0).getDate();
+    for(var i=0;i<fd;i++) html+='<div class="cell"></div>';
+    for(var d=1;d<=dn;d++){
+      var ds=y+'-'+String(mo).padStart(2,'0')+'-'+String(d).padStart(2,'0'), arr=data[ds];
+      if(arr&&arr.length) html+='<div class="cell has '+bucket(arr.length)+'" data-d="'+ds+'" title="'+ds+': '+arr.length+'">'+d+'</div>';
+      else html+='<div class="cell">'+d+'</div>';
+    }
+    html+='</div></div>';
+  }
+  cal.innerHTML=html+'</div>';
+  pick(dates[dates.length-1]);
+}
+document.getElementById('cal').addEventListener('click',function(e){var c=e.target.closest('.cell.has'); if(c) pick(c.getAttribute('data-d'));});
+document.getElementById('btnC').addEventListener('click',function(){mode='collected';this.classList.add('active');document.getElementById('btnR').classList.remove('active');render();});
+document.getElementById('btnR').addEventListener('click',function(){mode='released';this.classList.add('active');document.getElementById('btnC').classList.remove('active');render();});
+render();
+</script>"""
 
 def render():
     questions, models, responses = load()
@@ -301,6 +350,27 @@ def render():
     open(os.path.join(ROOT, "publishers", "index.html"), "w").write(
         page("Publishers | Waiback", "The model publishers (labs) in the Waiback archive, each with all of its models and dated answer snapshots.", pbody, base="../", canonical="/publishers/index.html"))
     urls.append("/publishers/index.html")
+
+    # ---------- CALENDAR ----------
+    mbyid = {m["id"]: m for m in models}
+    def cal_entry(m): return {"name": m["name"], "slug": m["slug"], "provider": m["provider"], "pub": pub_name[m["provider"]]}
+    collected = {}
+    seen = set()
+    for r in responses:
+        kk = (r["model_id"], r.get("response_date"))
+        if kk in seen or not r.get("response_date"): continue
+        seen.add(kk)
+        m = mbyid.get(r["model_id"])
+        if m: collected.setdefault(r["response_date"], []).append(cal_entry(m))
+    released = {}
+    for m in models_sorted:
+        d = m.get("release_date")
+        if d: released.setdefault(d, []).append(cal_entry(m))
+    cal_body = CAL_TEMPLATE.replace("__CAL_DATA__", json.dumps({"collected": collected, "released": released}))
+    open(os.path.join(ROOT, "calendar.html"), "w").write(
+        page("Calendar | Waiback", "Browse the Waiback archive by date: toggle between model collection dates and release dates.",
+             cal_body, base="", canonical="/calendar.html"))
+    urls.append("/calendar.html")
 
     # ---------- sitemap + llms ----------
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
