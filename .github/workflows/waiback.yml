@@ -13,6 +13,10 @@ on:
         description: 'Hard cap on new OpenRouter calls this run (0 = none)'
         required: false
         default: '0'
+      retry:
+        description: 'Re-work already-attempted models to fill in failed/skipped answers'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -36,6 +40,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           WAIBACK_MAX_MODELS: ${{ github.event.inputs.max_models || '15' }}
           WAIBACK_MAX_CALLS: ${{ github.event.inputs.max_calls || '0' }}
+          WAIBACK_RETRY: ${{ github.event.inputs.retry || '' }}
         run: python build/generate.py
       - name: Render site
         run: python build/render.py

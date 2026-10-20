@@ -126,8 +126,16 @@ def main():
     responses = [r for r in prior if not r.get("sample")]
     have = {(r["model_id"], r["question_id"]) for r in responses}
 
+    # "attempted" models ledger so batches advance to NEW models instead of re-touching
+    # partially-captured ones. Set WAIBACK_RETRY=1 to re-work attempted models and fill gaps.
+    APATH = os.path.join(ROOT, "data/attempted.json")
+    try: attempted = set(json.load(open(APATH)))
+    except Exception: attempted = set()
+    RETRY = os.environ.get("WAIBACK_RETRY", "").lower() in ("1", "true", "yes")
+
     RPATH = os.path.join(ROOT, "data/responses.json")
     def save(): json.dump(responses, open(RPATH, "w"), indent=2)
+    def save_attempted(): json.dump(sorted(attempted), open(APATH, "w"), indent=2)
 
     total_pairs = len(models) * len(questions)
     already = len(have)
@@ -136,7 +144,10 @@ def main():
         # the ledger (data/responses.json) is the source of truth: skip pairs already captured
         missing = [q for q in questions if (m["id"], q["id"]) not in have]
         if not missing:
+            attempted.add(m["id"])
             continue  # model already fully captured -> never re-polled
+        if m["id"] in attempted and not RETRY:
+            continue  # attempted in a prior run; skip so batches advance to new models
         if MAX_MODELS and models_worked >= MAX_MODELS:
             stopped = f"model cap WAIBACK_MAX_MODELS={MAX_MODELS}"
             break
@@ -165,11 +176,12 @@ def main():
             have.add((m["id"], q["id"]))
             print(f"  captured {m['id']} / {q['id']}")
             time.sleep(0.4)
-        save()  # checkpoint after every model so an interrupted run loses nothing
+        attempted.add(m["id"])
+        save(); save_attempted()  # checkpoint after every model so an interrupted run loses nothing
         if stopped and "call cap" in stopped:
             break
 
-    save()
+    save(); save_attempted()
     done = len(have)
     models_left = sum(1 for m in models if any((m["id"], q["id"]) not in have for q in questions))
     print(f"done: {calls} new calls this run across {models_worked} model(s).")
