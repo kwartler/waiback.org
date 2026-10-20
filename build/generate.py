@@ -92,19 +92,35 @@ def ask(model_id, question):
             "usage": {"include": True}}  # ask OpenRouter to report token usage + charged cost
     headers = {"Authorization": "Bearer " + KEY, "Content-Type": "application/json",
                "HTTP-Referer": "https://waiback.org", "X-Title": "Waiback"}
-    r = requests.post(API_CHAT, headers=headers, json=body, timeout=90)
-    if r.status_code != 200:
+    # A network/timeout error must never crash the whole batch: retry transient
+    # failures a few times with backoff, then return a soft error so the loop
+    # keeps going and already-captured work is still saved + committed.
+    last_err = "unknown"
+    for attempt in range(3):
+        try:
+            r = requests.post(API_CHAT, headers=headers, json=body, timeout=90)
+        except requests.exceptions.RequestException as e:
+            last_err = f"request error: {type(e).__name__}"
+            time.sleep(2 * (attempt + 1))
+            continue
+        if r.status_code == 200:
+            try:
+                j = r.json()
+                u = j.get("usage") or {}
+                return {"answer": j["choices"][0]["message"]["content"].strip(),
+                        "prompt_tokens": u.get("prompt_tokens"),
+                        "completion_tokens": u.get("completion_tokens"),
+                        "total_tokens": u.get("total_tokens"),
+                        "or_cost": u.get("cost")}, None
+            except Exception:
+                return None, "no content"
+        # 429 / 5xx are transient: back off and retry. Other 4xx are permanent.
+        if r.status_code == 429 or r.status_code >= 500:
+            last_err = f"http {r.status_code}"
+            time.sleep(2 * (attempt + 1))
+            continue
         return None, f"http {r.status_code}"
-    j = r.json()
-    try:
-        u = j.get("usage") or {}
-        return {"answer": j["choices"][0]["message"]["content"].strip(),
-                "prompt_tokens": u.get("prompt_tokens"),
-                "completion_tokens": u.get("completion_tokens"),
-                "total_tokens": u.get("total_tokens"),
-                "or_cost": u.get("cost")}, None
-    except Exception:
-        return None, "no content"
+    return None, last_err
 
 def main():
     allow = read_allowlist()
@@ -152,6 +168,8 @@ def main():
             stopped = f"model cap WAIBACK_MAX_MODELS={MAX_MODELS}"
             break
         models_worked += 1
+        dead = 0  # consecutive errors for this model
+        got = 0   # successful captures for this model this run
         for q in missing:
             if MAX_CALLS and calls >= MAX_CALLS:
                 stopped = f"call cap WAIBACK_MAX_CALLS={MAX_CALLS}"
@@ -160,8 +178,17 @@ def main():
             calls += 1
             if err:
                 print(f"  skip {m['id']} / {q['id']}: {err}")
+                dead += 1
+                # a model that errors on its first few questions and has captured
+                # nothing (e.g. a 404 :batch/non-chat variant) is not worth 46
+                # wasted calls -> abandon it and move to the next model
+                if dead >= 3 and got == 0:
+                    print(f"  abandon {m['id']}: {dead} consecutive errors, no captures")
+                    break
                 time.sleep(0.4)
                 continue
+            dead = 0
+            got += 1
             pt, ct = res.get("prompt_tokens"), res.get("completion_tokens")
             ip, op = m.get("input_per_1m"), m.get("output_per_1m")
             cost = None
