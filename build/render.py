@@ -262,7 +262,7 @@ def render():
     {('<p class="desc">'+esc(m['description'][:420])+('...' if len(m.get('description',''))>420 else '')+'</p>') if m.get('description') else ''}
   </div>
   <div class="qa"><h2 style="font-size:1.3rem;margin-bottom:4px">Answer sheet</h2>{''.join(entries)}</div>
-  <p class="crumb"><a href="../index.html">&larr; back to the archive</a></p>
+  <p class="crumb"><a href="../index.html">&larr; back to the archive</a> &middot; <a href="../api/models/{esc(m['slug'])}.json">download this snapshot as JSON</a></p>
 </div>"""
         open(os.path.join(ROOT, "models", m["slug"] + ".html"), "w").write(
             page(f"{m['name']} on Waiback", f"How {m['name']} (released {m.get('release_date','?')}) answers {len(questions)} fixed questions, captured {captured or 'soon'}. A Waiback snapshot by Ted Kwartler.",
@@ -289,7 +289,7 @@ def render():
     <p class="meta">How {len(ans)} models answer, each captured on a date.</p>
   </section>
   <section><div class="ans-list">{''.join(ans) if ans else '<p class="muted">No answers captured yet.</p>'}</div></section>
-  <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a></p>
+  <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/{esc(q['id'])}.json">download as JSON</a></p>
 </div>"""
         open(os.path.join(ROOT, "questions", q["id"] + ".html"), "w").write(
             page(f"How language models answer: {q['question'][:60]}", f"A Waiback comparison: how {len(ans)} language models answer the question, with release and capture dates. By Ted Kwartler.",
@@ -382,6 +382,61 @@ def render():
              cal_body, base="", canonical="/calendar.html"))
     urls.append("/calendar.html")
 
+    # ---------- machine-readable JSON (for researchers) ----------
+    # One file per model and per question, plus an index, under /api so they are
+    # fetchable at https://waiback.org/api/... These are derived purely from the
+    # stored responses: no API calls are needed to (re)generate them.
+    def answer_fields(r):
+        return {k: r.get(k) for k in (
+            "response_date", "answer", "prompt_tokens", "completion_tokens", "total_tokens",
+            "input_per_1m", "output_per_1m", "cost_usd", "or_cost", "temperature", "prompt_sha")}
+    conditions = {"temperature": temp, "system_prompt": system_prompt,
+                  "prompt_sha": next((r.get("prompt_sha") for r in responses if r.get("prompt_sha")), None)}
+    api = os.path.join(ROOT, "api")
+    for d in ("models", "questions"):
+        dd = os.path.join(api, d)
+        os.makedirs(dd, exist_ok=True)
+        for fn in os.listdir(dd):  # prune stale json so removed ids don't linger
+            if fn.endswith(".json"):
+                os.remove(os.path.join(dd, fn))
+    # per model
+    for m in models_sorted:
+        snap = [rmap[(m["id"], q["id"])] for q in questions if (m["id"], q["id"]) in rmap]
+        caps = [r["response_date"] for r in snap]
+        ans = []
+        for q in questions:
+            r = rmap.get((m["id"], q["id"]))
+            if not r: continue
+            ans.append({"question_id": q["id"], "question": q["question"],
+                        "category": q.get("category") or None, **answer_fields(r)})
+        json.dump({"model": m, "captured": (max(caps) if caps else None),
+                   "answered": len(ans), "question_count": len(questions),
+                   "conditions": conditions, "answers": ans},
+                  open(os.path.join(api, "models", m["slug"] + ".json"), "w"), indent=2)
+    # per question
+    for q in questions:
+        ans = []
+        for m in models_sorted:
+            r = rmap.get((m["id"], q["id"]))
+            if not r: continue
+            ans.append({"model_id": m["id"], "model_name": m["name"], "provider": m["provider"],
+                        "publisher": pub_name[m["provider"]], "release_date": m.get("release_date"),
+                        **answer_fields(r)})
+        json.dump({"question": {"id": q["id"], "question": q["question"], "category": q.get("category") or None},
+                   "answered": len(ans), "conditions": conditions, "answers": ans},
+                  open(os.path.join(api, "questions", q["id"] + ".json"), "w"), indent=2)
+    # index
+    json.dump({"site": SITE, "updated": BUILT, "model_count": len(models), "question_count": len(questions),
+               "conditions": conditions,
+               "models": [{"id": m["id"], "slug": m["slug"], "name": m["name"], "provider": m["provider"],
+                           "release_date": m.get("release_date"),
+                           "answered": sum(1 for q in questions if (m["id"], q["id"]) in rmap),
+                           "json": f"{SITE}/api/models/{m['slug']}.json"} for m in models_sorted],
+               "questions": [{"id": q["id"], "question": q["question"],
+                              "json": f"{SITE}/api/questions/{q['id']}.json"} for q in questions]},
+              open(os.path.join(api, "index.json"), "w"), indent=2)
+    print(f"json api: {len(models_sorted)} model files + {len(questions)} question files + index.json")
+
     # ---------- sitemap + llms ----------
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
@@ -400,6 +455,10 @@ def render():
     llms += ["", "## Publishers"]
     for prov in sorted(pubs, key=lambda p: (-len(pubs[p]), p)):
         llms.append(f"- [{pub_name[prov]}]({SITE}/publishers/{prov}.html): {len(pubs[prov])} models.")
+    llms += ["", "## Data (machine-readable)",
+             f"- Index of all data: {SITE}/api/index.json",
+             f"- Per-model answers: {SITE}/api/models/<slug>.json",
+             f"- Per-question answers: {SITE}/api/questions/<id>.json"]
     llms += ["", "## Related", f"- By Ted Kwartler: https://tedkwartler.com/"]
     open(os.path.join(ROOT, "llms.txt"), "w").write("\n".join(llms) + "\n")
     open(os.path.join(ROOT, "llms-full.txt"), "w").write("\n".join(llms) + "\n")
