@@ -13,6 +13,8 @@ from datetime import date, datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://waiback.org"
+REPO = "https://github.com/kwartler/waiback.org"
+ISSUE_NEW = REPO + "/issues/new?template=question-suggestion.yml"
 BUILT = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 def esc(s): return html.escape(str(s if s is not None else ""))
@@ -79,7 +81,7 @@ def page(title, desc, body, base="", canonical="/", extra_head=""):
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="{base}data.html">Data</a><a href="{base}contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
 </div></header>
 <main>
 {body}
@@ -382,6 +384,70 @@ def render():
              cal_body, base="", canonical="/calendar.html"))
     urls.append("/calendar.html")
 
+    # ---------- CONTRIBUTE ----------
+    cbody = f"""<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)">
+    <h1>Suggest a question</h1>
+    <p>Waiback asks every model the same fixed set of questions. If you have a good one, propose it and Ted will review it. Strong questions force a model to make a judgment it cannot dodge, and stay meaningful as models change over the years.</p>
+    <p><a class="btn-issue" href="{ISSUE_NEW}">Open a question suggestion &rarr;</a></p>
+    <p class="meta">This opens a prefilled issue on GitHub. You will need a free GitHub account. Every suggestion lands in the project's issue tracker for review.</p>
+  </section>
+  <section><div class="section-head"><h2>What makes a good question</h2></div>
+    <ul class="give">
+      <li>It demands a decision or a stance, not a summary. The standing system prompt tells models not to placate both sides.</li>
+      <li>It is self-contained: no links, no attachments, no context the model would not have.</li>
+      <li>It will still make sense in five years, so the archive stays comparable over time.</li>
+      <li>It is one question (follow-up clauses are fine), phrased the same way for every model.</li>
+    </ul>
+    <p class="crumb">Prefer email or want to browse the set first? See <a href="questions/index.html">the current questions</a>, or open an issue directly on <a href="{REPO}/issues">GitHub</a>.</p>
+  </section>
+</div>"""
+    open(os.path.join(ROOT, "contribute.html"), "w").write(
+        page("Suggest a question | Waiback", "Propose a question for Waiback to ask every language model. Submissions are reviewed by Ted Kwartler via GitHub issues.",
+             cbody, base="", canonical="/contribute.html"))
+    urls.append("/contribute.html")
+
+    # ---------- DATA (for researchers) ----------
+    year = BUILT[:4]
+    bibtex = (f"@misc{{waiback,\n"
+              f"  author       = {{Kwartler, Ted}},\n"
+              f"  title        = {{Waiback: A Wayback Machine for Language Models}},\n"
+              f"  year         = {{{year}}},\n"
+              f"  howpublished = {{\\url{{{SITE}}}}},\n"
+              f"  note         = {{Dataset. Accessed YYYY-MM-DD}}\n"
+              f"}}")
+    apa = f"Kwartler, T. ({year}). <i>Waiback: A wayback machine for language models</i> [Data set]. {SITE}"
+    dbody = f"""<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)">
+    <h1>Data for researchers</h1>
+    <p>The entire archive is open. Every model is asked the same fixed questions under identical conditions (temperature {temp:g} and one shared system prompt), and each answer is stored with the model's <b>release date</b> and the <b>date it was collected</b>, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
+  </section>
+
+  <section><div class="section-head"><h2>How to obtain the data</h2></div>
+    <ul class="give">
+      <li><b>Programmatic (JSON).</b> Start at <a href="{SITE}/api/index.json"><span class="mono">/api/index.json</span></a>, a catalog of every model and question with links to:
+        <br><span class="mono">/api/models/&lt;slug&gt;.json</span> (one model, its full answer sheet) and
+        <span class="mono">/api/questions/&lt;id&gt;.json</span> (one question, every model's answer).</li>
+      <li><b>Bulk / raw.</b> The whole repository is public: <a href="{REPO}">{REPO.split('//')[1]}</a>. The <span class="mono">data/</span> folder holds <span class="mono">questions.csv</span>, <span class="mono">models.json</span>, <span class="mono">responses.json</span> (every answer), <span class="mono">prompts.json</span> (the capture conditions over time), and the generated <span class="mono">api/</span> files.</li>
+      <li><b>Reproducible.</b> The capture and build scripts (<span class="mono">build/generate.py</span>, <span class="mono">build/render.py</span>) are in the same repo, so the full pipeline is inspectable.</li>
+    </ul>
+  </section>
+
+  <section><div class="section-head"><h2>What each record contains</h2></div>
+    <p>Per-answer fields: <span class="mono">question_id</span>, <span class="mono">answer</span>, <span class="mono">response_date</span> (collected), <span class="mono">prompt_tokens</span>, <span class="mono">completion_tokens</span>, <span class="mono">total_tokens</span>, <span class="mono">input_per_1m</span> and <span class="mono">output_per_1m</span> (USD per million tokens, frozen at capture), <span class="mono">cost_usd</span> (computed from those), <span class="mono">or_cost</span> (OpenRouter's reported charge), <span class="mono">temperature</span>, and <span class="mono">prompt_sha</span> (which system prompt was used). Per-model records add <span class="mono">release_date</span>, <span class="mono">knowledge_cutoff</span>, <span class="mono">context_length</span>, pricing, and <span class="mono">description</span>.</p>
+  </section>
+
+  <section><div class="section-head"><h2>How to cite</h2><span class="count">dataset slug: <span class="mono">waiback</span></span></div>
+    <p>{apa}</p>
+    <pre class="cite">{esc(bibtex)}</pre>
+    <p class="crumb"><a href="index.html">&larr; the archive</a> &middot; <a href="contribute.html">suggest a question</a></p>
+  </section>
+</div>"""
+    open(os.path.join(ROOT, "data.html"), "w").write(
+        page("Data for researchers | Waiback", "Open dataset: how every language model answers a fixed set of questions, with release and collection dates. Download, API, and citation.",
+             dbody, base="", canonical="/data.html"))
+    urls.append("/data.html")
+
     # ---------- machine-readable JSON (for researchers) ----------
     # One file per model and per question, plus an index, under /api so they are
     # fetchable at https://waiback.org/api/... These are derived purely from the
@@ -459,6 +525,11 @@ def render():
              f"- Index of all data: {SITE}/api/index.json",
              f"- Per-model answers: {SITE}/api/models/<slug>.json",
              f"- Per-question answers: {SITE}/api/questions/<id>.json"]
+    llms += ["", "## Data",
+             f"- For researchers (download, API, citation): {SITE}/data.html",
+             f"- JSON index: {SITE}/api/index.json",
+             "", "## Contribute",
+             f"- Suggest a question: {SITE}/contribute.html (opens a GitHub issue reviewed by Ted Kwartler)"]
     llms += ["", "## Related", f"- By Ted Kwartler: https://tedkwartler.com/"]
     open(os.path.join(ROOT, "llms.txt"), "w").write("\n".join(llms) + "\n")
     open(os.path.join(ROOT, "llms-full.txt"), "w").write("\n".join(llms) + "\n")

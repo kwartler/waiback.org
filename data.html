@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data for researchers | Waiback</title>
+<meta name="description" content="Open dataset: how every language model answers a fixed set of questions, with release and collection dates. Download, API, and citation.">
+<link rel="canonical" href="https://waiback.org/data.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#f4efe2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Data for researchers | Waiback">
+<meta property="og:description" content="Open dataset: how every language model answers a fixed set of questions, with release and collection dates. Download, API, and citation.">
+<meta property="og:url" content="https://waiback.org/data.html">
+<meta property="og:image" content="https://waiback.org/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://waiback.org/assets/og-image.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Waiback", "url": "https://waiback.org/", "description": "A wayback machine for large language models: fixed questions, dated answers, preserved over time.", "author": {"@type": "Person", "name": "Ted Kwartler", "url": "https://tedkwartler.com/"}}</script>
+
+</head>
+<body>
+<header class="site"><div class="wrap masthead">
+  <a class="logo" href="index.html">
+    <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
+    <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
+  </a>
+  <nav class="topnav"><a href="index.html">Archive</a><a href="calendar.html">Calendar</a><a href="publishers/index.html">Publishers</a><a href="questions/index.html">Questions</a><a href="data.html">Data</a><a href="contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+</div></header>
+<main>
+<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)">
+    <h1>Data for researchers</h1>
+    <p>The entire archive is open. Every model is asked the same fixed questions under identical conditions (temperature 0 and one shared system prompt), and each answer is stored with the model's <b>release date</b> and the <b>date it was collected</b>, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
+  </section>
+
+  <section><div class="section-head"><h2>How to obtain the data</h2></div>
+    <ul class="give">
+      <li><b>Programmatic (JSON).</b> Start at <a href="https://waiback.org/api/index.json"><span class="mono">/api/index.json</span></a>, a catalog of every model and question with links to:
+        <br><span class="mono">/api/models/&lt;slug&gt;.json</span> (one model, its full answer sheet) and
+        <span class="mono">/api/questions/&lt;id&gt;.json</span> (one question, every model's answer).</li>
+      <li><b>Bulk / raw.</b> The whole repository is public: <a href="https://github.com/kwartler/waiback.org">github.com/kwartler/waiback.org</a>. The <span class="mono">data/</span> folder holds <span class="mono">questions.csv</span>, <span class="mono">models.json</span>, <span class="mono">responses.json</span> (every answer), <span class="mono">prompts.json</span> (the capture conditions over time), and the generated <span class="mono">api/</span> files.</li>
+      <li><b>Reproducible.</b> The capture and build scripts (<span class="mono">build/generate.py</span>, <span class="mono">build/render.py</span>) are in the same repo, so the full pipeline is inspectable.</li>
+    </ul>
+  </section>
+
+  <section><div class="section-head"><h2>What each record contains</h2></div>
+    <p>Per-answer fields: <span class="mono">question_id</span>, <span class="mono">answer</span>, <span class="mono">response_date</span> (collected), <span class="mono">prompt_tokens</span>, <span class="mono">completion_tokens</span>, <span class="mono">total_tokens</span>, <span class="mono">input_per_1m</span> and <span class="mono">output_per_1m</span> (USD per million tokens, frozen at capture), <span class="mono">cost_usd</span> (computed from those), <span class="mono">or_cost</span> (OpenRouter's reported charge), <span class="mono">temperature</span>, and <span class="mono">prompt_sha</span> (which system prompt was used). Per-model records add <span class="mono">release_date</span>, <span class="mono">knowledge_cutoff</span>, <span class="mono">context_length</span>, pricing, and <span class="mono">description</span>.</p>
+  </section>
+
+  <section><div class="section-head"><h2>How to cite</h2><span class="count">dataset slug: <span class="mono">waiback</span></span></div>
+    <p>Kwartler, T. (2026). <i>Waiback: A wayback machine for language models</i> [Data set]. https://waiback.org</p>
+    <pre class="cite">@misc{waiback,
+  author       = {Kwartler, Ted},
+  title        = {Waiback: A Wayback Machine for Language Models},
+  year         = {2026},
+  howpublished = {\url{https://waiback.org}},
+  note         = {Dataset. Accessed YYYY-MM-DD}
+}</pre>
+    <p class="crumb"><a href="index.html">&larr; the archive</a> &middot; <a href="contribute.html">suggest a question</a></p>
+  </section>
+</div>
+</main>
+<footer class="site"><div class="wrap">
+  <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-10-21</span>
+</div></footer>
+</body>
+</html>

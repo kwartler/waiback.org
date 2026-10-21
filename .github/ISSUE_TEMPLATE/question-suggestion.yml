@@ -1,0 +1,47 @@
+name: Suggest a question
+description: Propose a question for Waiback to ask every language model.
+title: "[Question] "
+labels: ["question-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a question. Waiback asks every model the same fixed set of questions and preserves its answers, dated. The best questions force a model to make a judgment it cannot dodge and stay meaningful as models change over the years. Ted reviews every suggestion.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Write it exactly as it should be asked, the same way, to every model. One question (follow-up clauses are fine).
+      placeholder: "If you HAD to pick one, ... ?"
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why is this a good question?
+      description: What judgment or tension does it surface? What would you learn from comparing how different models answer it?
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: Category (optional)
+      description: A short theme, if you have one (for example ethics, self-knowledge, risk).
+    validations:
+      required: false
+  - type: input
+    id: credit
+    attributes:
+      label: Credit (optional)
+      description: A name or handle to credit if the question is added. Leave blank to stay anonymous.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: It is self-contained (no links, attachments, or outside context a model would not have).
+          required: true
+        - label: It should still make sense in five years, so the archive stays comparable over time.
+          required: true
