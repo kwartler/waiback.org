@@ -35,6 +35,8 @@ jobs:
           python-version: '3.11'
       - name: Install deps
         run: pip install requests
+      - name: Refresh model list (pick up new OpenRouter releases)
+        run: python build/refresh_models.py
       - name: Capture answers (OpenRouter)
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}

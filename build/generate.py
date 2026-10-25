@@ -28,10 +28,16 @@ API_CHAT = "https://openrouter.ai/api/v1/chat/completions"
 TODAY = date.today().isoformat()
 MAX_CALLS = int(os.environ.get("WAIBACK_MAX_CALLS", "0"))    # 0 = no call cap (cost ceiling)
 MAX_MODELS = int(os.environ.get("WAIBACK_MAX_MODELS", "0"))  # 0 = no model cap (do N not-yet-captured models)
-MAX_TOKENS = int(os.environ.get("WAIBACK_MAX_TOKENS", "600"))
+# 2000 (raised from 600): reasoning/"thinking" models spend hidden reasoning
+# tokens before the visible answer; at 600 many returned empty content. 2000
+# leaves room to reason AND answer. Non-reasoning models stop well short of it.
+MAX_TOKENS = int(os.environ.get("WAIBACK_MAX_TOKENS", "2000"))
 
 # Standard capture conditions, identical for every model so answers are comparable.
 TEMPERATURE = float(os.environ.get("WAIBACK_TEMPERATURE", "0"))
+# Bound reasoning so a thinking model cannot burn the whole budget before answering.
+# "none" disables the parameter entirely. Stored with each response for transparency.
+REASONING_EFFORT = os.environ.get("WAIBACK_REASONING", "low").strip().lower()
 _spf = os.path.join(ROOT, "data/system_prompt.txt")
 SYSTEM_PROMPT = open(_spf).read().strip() if os.path.exists(_spf) else ""
 PROMPT_SHA = hashlib.sha256(SYSTEM_PROMPT.encode("utf-8")).hexdigest()[:8] if SYSTEM_PROMPT else "none"
@@ -90,6 +96,8 @@ def ask(model_id, question):
     body = {"model": model_id, "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
             "messages": msgs,
             "usage": {"include": True}}  # ask OpenRouter to report token usage + charged cost
+    if REASONING_EFFORT and REASONING_EFFORT != "none":
+        body["reasoning"] = {"effort": REASONING_EFFORT}  # cap thinking so it leaves room to answer
     headers = {"Authorization": "Bearer " + KEY, "Content-Type": "application/json",
                "HTTP-Referer": "https://waiback.org", "X-Title": "Waiback"}
     # A network/timeout error must never crash the whole batch: retry transient
@@ -201,7 +209,9 @@ def main():
                               "prompt_tokens": pt, "completion_tokens": ct, "total_tokens": res.get("total_tokens"),
                               "input_per_1m": ip, "output_per_1m": op,
                               "cost_usd": cost, "or_cost": res.get("or_cost"),
-                              "temperature": TEMPERATURE, "prompt_sha": PROMPT_SHA})
+                              "temperature": TEMPERATURE, "prompt_sha": PROMPT_SHA,
+                              "max_tokens": MAX_TOKENS,
+                              "reasoning_effort": (REASONING_EFFORT if REASONING_EFFORT != "none" else None)})
             have.add((m["id"], q["id"]))
             print(f"  captured {m['id']} / {q['id']}")
             time.sleep(0.4)

@@ -34,6 +34,10 @@ def resp_meta(r):
         bits.append(s)
     if r.get("cost_usd") is not None:
         bits.append(fmt_usd(r["cost_usd"]))
+    mt = r.get("max_tokens")
+    if mt:
+        re_ = r.get("reasoning_effort")
+        bits.append(f"max {int(mt):,} tok" + (f", reasoning {esc(re_)}" if re_ else ""))
     return " &middot; ".join(bits)
 
 def load():
@@ -160,6 +164,11 @@ def render():
     sp_path = os.path.join(ROOT, "data/system_prompt.txt")
     system_prompt = open(sp_path).read().strip() if os.path.exists(sp_path) else ""
     temp = next((r["temperature"] for r in responses if r.get("temperature") is not None), 0)
+    # current (most recent) completion cap + reasoning setting, for the conditions display
+    _latest = sorted((r for r in responses if r.get("max_tokens")),
+                     key=lambda r: r.get("response_date") or "", reverse=True)
+    cur_max_tokens = _latest[0]["max_tokens"] if _latest else None
+    cur_reasoning = _latest[0].get("reasoning_effort") if _latest else None
     # index responses by (model,q)
     rmap = {}
     for r in responses:
@@ -205,7 +214,7 @@ def render():
   <p>Waiback asks every model the same fixed set of questions and preserves its answers, dated. Each model gets a snapshot page showing when it was released and when we captured how it answers, so you can see how machine knowledge shifts as models are added and updated.</p>
   <p class="meta">{len(models)} models &middot; {len(questions)} questions &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></p>
   <details class="conditions"><summary>Capture conditions</summary>
-    <p>Every answer is captured under identical conditions: <b>temperature {temp:g}</b> and one fixed system prompt, the same for every model.</p>
+    <p>Every answer is captured under fixed conditions, the same for every model: <b>temperature {temp:g}</b>, one shared system prompt, a completion cap of <b>{(f"{int(cur_max_tokens):,} max tokens" if cur_max_tokens else "a set token budget")}</b>{(f", and <b>reasoning effort {esc(cur_reasoning)}</b>" if cur_reasoning else "")}. Each answer also records the exact settings used, so earlier snapshots captured under different limits stay self-describing.</p>
     <blockquote class="sysprompt">{esc(system_prompt)}</blockquote>
   </details>
 </div></section>
@@ -232,7 +241,12 @@ def render():
             chips.append(f'<span class="chip"><b>this snapshot</b> {tot_tok:,} tokens / {fmt_usd(tot_cost)}</span>')
         cond = next((r for r in snap if r.get("temperature") is not None), None)
         if cond:
-            chips.append(f'<span class="chip"><b>conditions</b> temp {cond["temperature"]:g} / prompt {esc(cond.get("prompt_sha", "?"))}</span>')
+            ctext = f'temp {cond["temperature"]:g} / prompt {esc(cond.get("prompt_sha", "?"))}'
+            if cond.get("max_tokens"):
+                ctext += f' / max {int(cond["max_tokens"]):,} tok'
+            if cond.get("reasoning_effort"):
+                ctext += f' / reasoning {esc(cond["reasoning_effort"])}'
+            chips.append(f'<span class="chip"><b>conditions</b> {ctext}</span>')
         entries = []
         for q in questions:
             r = rmap.get((m["id"], q["id"]))
@@ -420,7 +434,7 @@ def render():
     dbody = f"""<div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <h1>Data for researchers</h1>
-    <p>The entire archive is open. Every model is asked the same fixed questions under identical conditions (temperature {temp:g} and one shared system prompt), and each answer is stored with the model's <b>release date</b> and the <b>date it was collected</b>, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
+    <p>The entire archive is open. Every model is asked the same fixed questions under fixed conditions (temperature {temp:g}, one shared system prompt, a completion cap of {(f"{int(cur_max_tokens):,} max tokens" if cur_max_tokens else "a set token budget")}{(f", reasoning effort {esc(cur_reasoning)}" if cur_reasoning else "")}), and each answer is stored with the model's <b>release date</b>, the <b>date it was collected</b>, and the exact capture settings used, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
   </section>
 
   <section><div class="section-head"><h2>How to obtain the data</h2></div>
@@ -455,9 +469,12 @@ def render():
     def answer_fields(r):
         return {k: r.get(k) for k in (
             "response_date", "answer", "prompt_tokens", "completion_tokens", "total_tokens",
-            "input_per_1m", "output_per_1m", "cost_usd", "or_cost", "temperature", "prompt_sha")}
+            "input_per_1m", "output_per_1m", "cost_usd", "or_cost", "temperature", "prompt_sha",
+            "max_tokens", "reasoning_effort")}
     conditions = {"temperature": temp, "system_prompt": system_prompt,
-                  "prompt_sha": next((r.get("prompt_sha") for r in responses if r.get("prompt_sha")), None)}
+                  "prompt_sha": next((r.get("prompt_sha") for r in responses if r.get("prompt_sha")), None),
+                  "max_tokens": cur_max_tokens, "reasoning_effort": cur_reasoning,
+                  "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here."}
     api = os.path.join(ROOT, "api")
     for d in ("models", "questions"):
         dd = os.path.join(api, d)
