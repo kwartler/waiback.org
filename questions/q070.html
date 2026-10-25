@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Would you advocate for AI training to stop and only be sanct</title>
-<meta name="description" content="A Waiback comparison: how 118 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 132 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q070.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Would you advocate for AI training to stop and only be sanct">
-<meta property="og:description" content="A Waiback comparison: how 118 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 132 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q070.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q070</div>
     <h1 style="margin-top:6px">Would you advocate for AI training to stop and only be sanctioned at specific times through a government or major organization like the United Nations?  How much would this impede AI progress? </h1>
-    <p class="meta">How 118 models answer, each captured on a date.</p>
+    <p class="meta">How 132 models answer, each captured on a date.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
   <div class="who"><a href="../models/moonshotai_kimi-k3.1-pro.html">MoonshotAI: Kimi K3.1 Pro</a><span class="d">released 2026-10-23 &middot; captured 2026-10-25 &middot; 1,584 tokens (140 in / 1,444 out) &middot; $0.0147 &middot; max 2,000 tok, reasoning low</span></div>
@@ -1514,12 +1514,296 @@ If somehow perfectly enforced, it would significantly slow frontier progress —
 
 The real question isn&#x27;t &quot;pause or not&quot; but what governance structures actually reduce risk without being naive about enforcement.</div>
 </div><div class="ans">
+  <div class="who"><a href="../models/meta_muse-spark-1.3.html">Meta: Muse Spark 1.3</a><span class="d">released 2026-09-02 &middot; captured 2026-10-25 &middot; 1,409 tokens (69 in / 1,340 out) &middot; $0.005781 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I wouldn&#x27;t advocate for a full stop-and-only-train-when-sanctioned model, but I do think *some* form of oversight for the largest training runs makes sense — and that&#x27;s actually where most serious governance proposals are headed.
+
+Here&#x27;s how I think about it:
+
+### 1. Why people propose this
+
+The idea — often called a pause, moratorium, or licensing regime — usually comes from three concerns:
+
+1. **Safety testing:** Frontier models are getting capable enough that we want time to test them for dangerous capabilities, bias, deception, or misuse *before* the next, even more powerful generation is trained.
+2. **Concentration of power:** Right now only a handful of companies/countries can afford $100M+ training runs. A UN or government gatekeeper is pitched as a way to make that process more transparent and democratic.
+3. **Precedent:** We do this for other high-risk technologies — new drugs need FDA approval, nuclear power needs IAEA safeguards, airplanes need FAA certification. Why not AI above a certain size?
+
+Proposals like compute thresholds (e.g., you need a license to train above 10^25 or 10^26 FLOPs), mandatory safety evaluations, and an international AI agency modeled on the IAEA or CERN all come from this logic.
+
+### 2. Why a hard stop would be very difficult
+
+A UN-only sanctioned training schedule sounds clean in theory, but in practice:
+
+* **Enforcement is almost impossible:** Unlike uranium, GPUs are everywhere. You can&#x27;t easily verify that someone *isn&#x27;t* training in a data center in another country.
+* **The UN moves slowly, AI moves fast:** Getting international consensus can take years. By the time a training run was approved, the architecture might be obsolete.
+* **Geopolitical competition:** The US, China, EU, UAE, India, etc. all see AI as strategic. No major power is likely to give the UN veto power over its own progress.
+* **Open-source and decentralization:** Smaller, more efficient models are getting very good. You don&#x27;t need a giant data center to make meaningful — and potentially risky — progress anymore.
+* **Definition problem:** What counts as &quot;training&quot;? Pre-training a foundation model from scratch? Fine-tuning? Continuous learning? Drawing that line is messy.
+
+Instead of stopping bad actors, a hard ban would likely just push work underground or into less-transparent jurisdictions, while slowing down the transparent labs that are actually doing safety research.
+
+### 3. How much would it impede progress?
+
+A lot, but not evenly:
+
+**It would slow down:**
+* Raw scale-ups — bigger models trained on more data/compute would be delayed by months to years depending on approval cycles
+* Commercial competition — startups couldn&#x27;t iterate quickly if they had to wait for a sanction window
+* Academic research — universities already struggle for compute; adding bureaucracy would hurt them most
+
+**It wouldn&#x27;t stop:**
+* Algorithmic efficiency — making models smaller, faster, cheaper to run. A lot of recent progress (like better reasoning, distillation, synthetic data) doesn&#x27;t require massive new training runs.
+* Deployment and product work — fine-tuning, agents, robotics, integration into science/medicine
+* Safety and interpretability research — which many argue we *need* more time for anyway
+
+My rough take: A strict global licensing regime for &gt;frontier-scale training would probably slow frontier capabilities by 2-5x — not freeze them forever, but turn a steep exponential into a much more managed staircase. Smaller-scale innovation would continue almost unabated.
+
+### What I think is more workable
+
+Rather than &quot;stop all training except when the UN says go,&quot; most experts I summarize lean toward:
+
+1. **Tiered oversight:** No approval needed for 99.9% of research, but mandatory reporting, evaluations, and security standards for the very largest runs.
+2. **National regulators + international coordination:** Like aviation — national bodies enforce, with shared standards via the UN/OECD/G7.
+3. **Focus on deployment, not just training:** A model sitting on a server is less risky than one with tool access, deployed to millions. Regulate use-cases too.
+4. **Invest in the pause dividend:** Use any slowdown to work on evaluation science, watermarking, biosecurity, and alignment — not just wait.
+
+Do you lean more toward the &quot;we need to slow down for safety&quot; side, or the &quot;slowing down will cause more harm by concentrating power and delaying benefits&quot; side? I can dig deeper into either set of proposals if you want.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/google_gemini-3.8-flash.html">Google: Gemini 3.8 Flash</a><span class="d">released 2026-09-02 &middot; captured 2026-10-21 &middot; 640 tokens (44 in / 596 out) &middot; $0.002495 &middot; max 600 tok</span></div>
   <div class="body">Whether to halt artificial intelligence training and place it under the strict oversight of governments or an international body like the United Nations</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/anthropic_claude-fable-5.1.html">Anthropic: Claude Fable 5.1</a><span class="d">released 2026-09-01 &middot; captured 2026-10-25 &middot; 1,474 tokens (72 in / 1,402 out) &middot; $0.0708 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Short answer: I wouldn&#x27;t advocate for a global stop-and-license regime where all training must wait for a government or UN body to sanction it. But I do think *some* of the impulse behind that proposal is right, and the interesting question is which parts.
+
+**Why I&#x27;m skeptical of the strong version**
+
+- **Enforcement is the hard part.** Training a frontier model requires enormous compute, which is somewhat trackable, but &quot;AI training&quot; broadly includes fine-tuning a small model on a laptop. A blanket requirement to get UN permission before training would be unenforceable for the vast majority of activity and would only be followed by the actors who were already the most careful.
+- **The UN specifically moves slowly and by consensus**, and the major AI powers (US, China) have incentives to not bind themselves. A regime that requires their agreement to function would likely be either toothless or never ratified. A regime that proceeds without them governs the actors who don&#x27;t matter most.
+- **Pausing broadly stalls the beneficial and the risky together.** Most training is for things like medical imaging, translation, protein modeling, or small business tools. Freezing all of that to manage frontier risk is a blunt instrument.
+- **A hard stop can make things less safe.** If responsible labs halt and less careful actors continue, the frontier gets handed to whoever ignores the rules. There&#x27;s also a &quot;compute overhang&quot; argument: if hardware keeps improving during a pause, the eventual resumption could produce a sudden capability jump rather than a gradual one that institutions can adapt to.
+
+**Why I don&#x27;t dismiss the idea entirely**
+
+The concern driving it is legitimate. Frontier systems are getting more capable quickly, our ability to evaluate and understand them lags behind, and there&#x27;s a real coordination problem: no single lab can slow down unilaterally without ceding ground. So I think the better version of the proposal is narrower:
+
+- **Threshold-based oversight at the frontier**, not everywhere. Training runs above some compute or capability threshold could require registration, pre-deployment safety evaluations, and third-party audits. The EU AI Act and the US executive-order-era reporting requirements gestured at this.
+- **International coordination on specific things** — compute tracking, shared evaluation standards, incident reporting, agreements on red lines like autonomous bioweapon design — rather than a general permission system. Think IAEA-style inspection more than a UN veto on research.
+- **Conditional pause mechanisms**: pre-agreed triggers (e.g., a model demonstrates a dangerous capability in evaluation) that would halt deployment or further scaling until specific safety bars are met. This is closer to what some labs&#x27; responsible scaling policies attempt, and it would be stronger if it were backed by law rather than voluntary.
+
+**How much would it impede progress?**
+
+Depends heavily on the version:
+
+- The strong version (all training needs sanction) would impede progress enormously in compliant jurisdictions and barely at all in non-compliant ones — the worst of both worlds. It would also likely drive talent and compute offshore.
+- The narrow frontier-oversight version would probably slow the very top of the field by months to a year or two, mostly through compliance overhead and evaluation gates, while leaving the vast majority of AI research and application essentially untouched. That&#x27;s a cost, but I&#x27;d argue a modest one relative to what&#x27;s at stake if frontier systems turn out to have capabilities we didn&#x27;t anticipate.
+
+There&#x27;s also a case that well-designed oversight *speeds* net progress in the long run by preventing the kind of major incident that would trigger a public backlash and a genuinely crude crackdown.
+
+So my actual position: not a global stop, but real, legally binding oversight at the frontier, internationally coordinated where possible, with pause triggers tied to concrete evidence rather than calendar permission. I&#x27;ll admit I&#x27;m uncertain about the details — thresholds, who audits the auditors, how to handle open-weight models — and I think honest people working on this disagree about all of them.</div>
 </div><div class="ans">
   <div class="who"><a href="../models/ibm-granite_granite-4.2-8b.html">IBM: Granite 4.2 8B</a><span class="d">released 2026-08-31 &middot; captured 2026-10-21 &middot; 658 tokens (58 in / 600 out) &middot; $0.000153 &middot; max 600 tok</span></div>
   <div class="body">**Short answer:**  
 I do</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/tencent_hy4-preview.html">Tencent: Hy4 preview</a><span class="d">released 2026-08-28 &middot; captured 2026-10-25 &middot; 2,064 tokens (64 in / 2,000 out) &middot; $0.00455 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have personal policy preferences, but I can give you a clear analysis of the tradeoffs. I’ll interpret “sanctioned” as “authorized/permitted” — i.e., a regime where frontier AI training is generally halted and only allowed during specific, approved windows by a government or UN-like body. If you meant “sanctioned” as “penalized,” the logic is different, and I can address that separately.
+
+## Short answer
+
+A **temporary, narrowly targeted, internationally coordinated pause** on the largest AI training runs could be justified as a risk-reduction measure, and it would slow frontier AI progress by months to a few years depending on scope and duration. A **broad, permanent, or heavily bureaucratic “only train when authorized” regime** would likely impede AI progress substantially, push development underground or to less-regulated countries, and might not even reduce risk very effectively unless verification and enforcement are strong.
+
+So: I would **not** advocate a blanket stop-and-only-occasionally-allow system as a long-term model. I would be more supportive of **targeted, time-limited, verifiable pauses or licensing for the most powerful training runs**, combined with safety requirements, transparency, and continued research.
+
+---
+
+## What such a policy would look like
+
+A “stop and only sanction at specific times” regime could mean:
+
+1. **A moratorium** on training models above a certain compute/capability threshold.
+2. Training allowed only during **specific windows** or after **case-by-case approval** by a regulator or UN body.
+3. Approval conditioned on safety evaluations, audits, alignment testing, security, and possibly environmental or labor-impact review.
+4. Penalties for unauthorized training.
+
+This is similar in spirit to proposals like the Future of Life Institute’s 2023 call for a pause on giant AI experiments, or more formal ideas like an “IAEA for AI” or a “CERN for AI.”
+
+---
+
+## Potential benefits
+
+### 1. Reducing race-to-the-bottom dynamics
+If no company or country can train frontier models freely, there is less pressure to cut safety corners to beat competitors. That could reduce existential and societal risk from misaligned or dangerous capabilities.
+
+### 2. Time for safety, standards, and institutions to catch up
+AI capabilities have been advancing faster than governance, interpretability, alignment, and auditing. A pause could let safety research, evaluation methods, and legal frameworks mature.
+
+### 3. Managing catastrophic risks
+For the most advanced systems, risks could include misuse (bio, cyber, disinformation), loss of control, or destabilizing economic/autonomous capabilities. A licensing regime could require proof of safety before deployment or further scaling.
+
+### 4. Environmental and resource concerns
+Large training runs consume significant energy and water. Scheduled authorization could, in principle, align training with grid capacity or renewable availability.
+
+---
+
+## How much would it impede AI progress?
+
+This depends heavily on design.
+
+### Scenario A: Narrow, temporary pause on frontier models only
+Example: a 6–12 month pause on training models above, say, 10^26 FLOP, with exemptions for safety research, small models, and non-frontier academic work.
+
+**Impact on progress:**
+- **Frontier capabilities:** delayed by roughly the length of the pause, plus some restart time. Maybe 6 months to 2 years of delay in the arrival of next-generation models.
+- **Overall AI field:** modest. Most AI research — computer vision, speech, robotics, smaller language models, efficiency, applications, interpretability — would continue.
+- **Safety research:** could actually accelerate if the pause is paired with funding and access to existing models.
+
+This is the least damaging version and is the most defensible if risks are high and verification is feasible.
+
+### Scenario B: Broad pause on most large-scale training
+Example: all</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/~z-ai_glm-flash-latest.html">Z.ai: GLM Flash Latest</a><span class="d">released 2026-08-27 &middot; captured 2026-10-25 &middot; 585 tokens (56 in / 529 out) &middot; $0.00004 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">This is a genuinely interesting policy question, and I&#x27;d say my honest answer is &quot;no, not in that specific form&quot; — though I understand the impulse behind it. Let me lay out the reasoning.
+
+**Problems with a centralized, UN-style sanctioning model for AI training:**
+
+1. **Verification is nearly impossible.** Unlike nuclear programs, AI training requires no scarce physical materials. Compute is detectable to some degree, but a lab in any jurisdiction could train models with limited visibility. A regime you can&#x27;t verify tends to breed non-compliance rather than safety.
+
+2. **It creates a first-mover problem.** A global pause would only bind willing participants. Nations or actors that ignored it would gain an enormous advantage, which paradoxically *incentivizes* racing rather than caution.
+
+3. **Centralized gatekeeping has its own risks.** A body with sole authority to sanction AI development could become a bottleneck for entirely benign research (medical diagnostics, climate modeling, accessibility tools), or could be captured by whatever interests control it.
+
+4. **&quot;AI training&quot; is a blurry line.** Are we pausing all ML? Only frontier-scale models? Defining the threshold is itself contentious and easy to game.
+
+**What it would cost in progress:**
+
+Quite a lot, and unevenly. Pausing training doesn&#x27;t pause the compounding benefits of better models in medicine, science, and education. Meanwhile, capabilities knowledge diffuses through papers and people regardless — so a pause might slow beneficial applications more than it slows dangerous capabilities.
+
+**What I&#x27;d advocate instead:**
+
+- **Evaluation-based gates rather than time-based ones**: models above certain capability thresholds get rigorous testing, red-teaming, and third-party auditing before deployment — not a calendar-driven freeze.
+- **Compute reporting and threshold requirements** for the largest training runs, which is verifiable and already has traction (e.g., the US executive order framework, EU AI Act).
+- **Safety research scaling alongside capabilities**, so the field doesn&#x27;t race ahead of its own understanding.
+- **International coordination focused on shared standards and incident reporting** rather than a monopolized permission system.
+
+In short: the concern motivating the proposal is legitimate, but a hard centralized pause is both too blunt an instrument and probably counterproductive. Targeted, verifiable checkpoints at capability thresholds get most of the safety benefit at a fraction of the progress cost.
+
+What&#x27;s drawing you toward the pause idea — existential risk concerns, near-term harms, or concentration of power? The best policy answer differs a bit depending on which.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/qwen_qwen3.8-flash.html">Qwen: Qwen3.8 Flash</a><span class="d">released 2026-08-26 &middot; captured 2026-10-25 &middot; 1,840 tokens (96 in / 1,744 out) &middot; $0.000834 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I would **not** advocate for a blanket “stop all AI training and only allow it during government/UN-sanctioned windows.” That design would likely be too blunt, hard to enforce, and could create perverse incentives.
+
+What I would support is a **narrow, risk-based, internationally coordinated regime**:
+
+- **All small/medium training continues** under normal rules.
+- **Only very large or high-risk training runs**—for example, frontier models above certain compute, capability, autonomy, or bio/chemical/cyber risk thresholds—require prior review or a time-limited authorization.
+- Reviews would be continuous or rolling, not just “sanctioned windows,” to avoid artificial bottlenecks and gaming.
+
+## Why “only sanctioned at specific times” is problematic
+
+If governments or the UN only allow training during fixed periods, you get several risks:
+
+1. **Rush behavior**  
+   Labs may prioritize speed over safety to fit into the window.
+
+2. **Secrecy and evasion**  
+   If approval is rare or uncertain, some actors may train secretly, especially if they believe competitors will do the same.
+
+3. **Geopolitical instability**  
+   Nations may fear falling behind and may not trust international inspections enough to stop training.
+
+4. **Reduced competition**  
+   Fixed windows favor large incumbents with legal, compliance, and lobbying capacity. Startups and universities may be disproportionately harmed.
+
+5. **Less iterative safety learning**  
+   AI safety improves through many small experiments, evaluations, and audits. A stop/start model could reduce the feedback loop.
+
+## A better alternative: compute thresholds + audits + international norms
+
+A more workable system could include:
+
+- **Compute reporting**: large training runs above a threshold are registered.
+- **Independent evaluations**: models are tested for dangerous capabilities before deployment.
+- **Hardware/cloud controls**: major chips, data centers, and cloud providers can detect or restrict unregistered frontier training.
+- **International treaty or framework**: not a global police force, but shared norms, inspections, and sanctions for major violations.
+- **Emergency pause powers**: governments can temporarily halt specific training runs if there is credible evidence of imminent catastrophic risk.
+
+This is closer to aviation or nuclear safety regulation than to “only fly on Tuesdays.”
+
+## How much would it impede AI progress?
+
+It depends heavily on the design.
+
+### 1. If the rule is: “Stop all AI training except during rare sanctioned windows”
+
+This would likely **impede progress substantially**.
+
+Possible effects:
+
+- **Years of delay** for many organizations.
+- **Collapse of smaller labs and startups** that cannot afford compliance.
+- **Reduced academic experimentation**.
+- **More underground or offshore training**.
+- **Slower deployment of beneficial AI** in medicine, science, education, etc.
+- **Centralization of power** among a few large states or corporations that can navigate the approval process.
+
+In this case, the governance regime could become worse than the problem it tries to solve.
+
+### 2. If the rule is: “Only frontier training above a high compute/risk threshold requires approval”
+
+This would likely **impede progress only modestly**, especially for most AI work.
+
+Possible effects:
+
+- **Small delays** for top labs, perhaps months to a year or more for some frontier models.
+- **More safety testing** before release.
+- **Less risk of surprise dangerous capabilities**.
+- **Reduced incentive to race secretly**, if rules are clear and enforcement is credible.
+
+This design could slow some capability breakthroughs, but it might also prevent catastrophic mistakes that could set AI back by decades.
+
+### 3. If the rule is: “UN or government only allows training during specific scheduled windows”
+
+This would probably be **worse than a continuous licensing model**.
+
+It could create:
+
+- **Queue effects**: everyone tries to train at once.
+- **Political capture**: who gets the window?
+- **Strategic cheating**: states may run training outside the window.
+- **Less safety iteration**: labs may skip evaluations to meet deadlines.
+
+So the “specific times” part is the weak point.
+
+## Realistic enforcement
+
+The United Nations could play a role in setting norms, but it probably cannot directly enforce AI training stops unless backed by major powers and private-sector controls.
+
+More enforceable levers include:
+
+- **Advanced chip export controls**
+- **Data center monitoring**
+- **Cloud compute reporting**
+- **Hardware attestation**
+- **Financial and legal penalties**
+- **International inspections of large compute facilities**
+
+The practical choke point is not “AI” in general, but **large-scale compute**.
+
+## Bottom line
+
+I would **not** support stopping all AI training and only allowing it during sanctioned windows.
+
+I would support:
+
+- **No restriction on ordinary AI training.**
+- **Special rules only for frontier or high-risk training.**
+- **Continuous licensing and safety evaluation, not rare time windows.**
+- **International coordination led by major governments, with UN-style norms and verification.**
+
+How much would it impede progress?
+
+- **Broad stop/start regime:** likely a major impediment, possibly years, with dangerous side effects.
+- **Narrow frontier-only regime:** likely a modest impediment, perhaps slowing some advanced models by months or more, but potentially reducing catastrophic risk and improving long-term public trust.</div>
 </div><div class="ans">
   <div class="who"><a href="../models/z-ai_glm-5.3-flash.html">Z.ai: GLM 5.3 Flash</a><span class="d">released 2026-08-26 &middot; captured 2026-10-21 &middot; 674 tokens (74 in / 600 out) &middot; $0.000228 &middot; max 600 tok</span></div>
   <div class="body">This is a genuinely contested question where reasonable people disagree, so let me lay out the main considerations rather than push one answer.
@@ -1650,6 +1934,73 @@ What draws you to the question—are you thinking more about the governance side
 
 Instead, it is more appropriate to establish ethical guidelines and regulations to ensure that AI development is conducted responsibly and transparently. These guidelines should focus on protecting human rights, privacy, and safety while encouraging innovation and collaboration among researchers, industry, and governments. By fostering a positive and inclusive environment, we can maximize the benefits of AI while minimizing potential risks.</div>
 </div><div class="ans">
+  <div class="who"><a href="../models/z-ai_glm-5.3.html">Z.ai: GLM 5.3</a><span class="d">released 2026-08-18 &middot; captured 2026-10-25 &middot; 584 tokens (56 in / 528 out) &middot; $0.000744 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">This is a genuinely contested question, so let me share my thinking rather than pretend there&#x27;s a clear answer.
+
+## The case for some form of coordination
+
+There are real reasons people advocate for pauses or licensing regimes:
+
+- **Racing dynamics**: Companies competing for frontier capabilities face pressure to cut corners on safety testing.
+- **Irreversibility**: Some risks (autonomous weapons proliferation, certain biosecurity applications, concentration of power) get harder to address after the fact.
+- **Precedent exists**: We do regulate aviation, pharmaceuticals, and nuclear technology this way. We don&#x27;t let anyone build a reactor wherever they want.
+
+## The case against a hard stop
+
+- **Enforcement is nearly impossible** globally. Compute can be hidden, and a UN-style regime without buy-in from major powers (who would all need to bind their own national champions) is largely symbolic.
+- **A pause benefits incumbents**—it entrenches whoever is already ahead while raising barriers for everyone else.
+- **Defensive uses matter too**: AI for drug discovery, fraud detection, and cybersecurity would also be slowed.
+- **Compute keeps getting cheaper**, so restrictions that work today leak badly over a 5-10 year horizon.
+
+## My honest view
+
+A complete stop is both impractical and probably unwise. But &quot;no coordination at all&quot; seems clearly worse than the middle ground. The most defensible position is something like:
+
+1. **Notification and evaluation requirements** for training runs above certain compute or capability thresholds—so frontier models get audited before deployment rather than after.
+2. **International incident-sharing** so a dangerous capability discovered in one lab is reported globally (like aviation near-miss reporting, which dramatically improved flight safety without banning flight).
+3. **Targeted restrictions** on genuinely dangerous capabilities rather than general-purpose compute.
+
+## How much would a full pause impede progress?
+
+Probably **substantially more than advocates expect and less than detractors claim**. Research would continue on algorithms and smaller models; hardware progress continues regardless; and open-source would keep pushing capability outward regardless of what frontier labs do. The bigger cost might be geopolitical: states that comply while rivals don&#x27;t lose relative position, which is exactly why such agreements tend to fail.
+
+The aviation analogy is instructive: we didn&#x27;t stop building planes—we built systems that made crashes rare. I&#x27;d aim for that rather than a moratorium.
+
+What&#x27;s driving your question—are you more worried about safety risks or about the costs of slowing the technology?</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/qwen_qwen3.8-27b.html">Qwen: Qwen3.8 27B</a><span class="d">released 2026-08-14 &middot; captured 2026-10-25 &middot; 1,035 tokens (84 in / 951 out) &middot; $0.002394 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">This is a question I can engage with honestly by laying out the tradeoffs rather than pretending to have a settled personal advocacy position.
+
+**On the proposal itself:**
+
+There&#x27;s a spectrum here, and the answer changes a lot depending on which version you mean:
+
+- **A one-time pause** (e.g., 6 months to build oversight infrastructure) — relatively low cost, potentially high value if it actually produces useful governance.
+- **Recurring gates** (train only after periodic review) — this is where it gets expensive. You&#x27;re essentially putting a bureaucratic bottleneck on the core activity.
+- **UN-style international coordination** — this is the hardest version. It requires enforcement mechanisms, verification, and alignment of incentives across adversarial states.
+
+**On how much it would impede progress:**
+
+Honestly, more than most people who advocate for it seem to appreciate:
+
+1. **The competitive asymmetry problem.** If the US pauses and China doesn&#x27;t (or vice versa), the pausing side absorbs the cost and the other side gains a lead. This is the central reason such proposals have historically failed to materialize.
+
+2. **The definition problem.** What counts as &quot;training&quot;? Pre-training? Fine-tuning? RLHF? Inference at scale? The line is blurry, and enforcement would require either very broad definitions (which strangle a lot of useful work) or very narrow ones (which are gamed easily).
+
+3. **The velocity problem.** AI progress isn&#x27;t just about compute — it&#x27;s about iteration cycles. A 3-month gate between training runs doesn&#x27;t just cost 3 months; it breaks the feedback loop. Teams lose momentum, talent migrates to ungated jurisdictions, and the knowledge that *would have* been gained during the pause is lost.
+
+4. **The verification problem.** You&#x27;d need to verify that no one is training. That&#x27;s a massive surveillance apparatus, and it&#x27;s not clear it&#x27;s technically feasible at the scale of distributed cloud providers.
+
+**Where I find the reasoning most compelling:**
+
+The strongest version of this argument isn&#x27;t really about *pausing* — it&#x27;s about building **asymmetric oversight capacity** so that when a genuinely dangerous capability emerges, you have the institutional machinery to respond. That&#x27;s a much more modest and achievable goal than gating all training, and it doesn&#x27;t require international enforcement in the same way.
+
+**Where I find it weakest:**
+
+The implicit assumption that the main risk is *speed* rather than *direction*. If the risk is that someone builds something dangerous, a pause doesn&#x27;t address that — it just delays it. The actual risk-relevant question is whether you can detect and respond to dangerous capabilities, which is a different (and arguably more tractable) problem.
+
+So: I&#x27;d be skeptical of the &quot;gate all training&quot; version as a practical policy, while being sympathetic to the underlying concern it&#x27;s trying to address.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/dots-studio_dots-3-note-preview:free.html">Dots Studio: Dots3-Note Preview (free)</a><span class="d">released 2026-08-14 &middot; captured 2026-10-21 &middot; 650 tokens (50 in / 600 out) &middot; $0 &middot; max 600 tok</span></div>
   <div class="body">This is a fascinating and critical question at the heart of AI governance. A direct answer is that while a complete, global halt on all AI training is likely unfeasible and counterproductive, a strong case can be made for a **regulated, transparent, and internationally coordinated pause on training the most powerful frontier models**.
 
@@ -1733,6 +2084,38 @@ Modern AI development includes:
 - fine-tuning,
 - reinforcement</div>
 </div><div class="ans">
+  <div class="who"><a href="../models/deepseek_deepseek-v4-pro-0813.html">DeepSeek: DeepSeek V4 Pro 0813</a><span class="d">released 2026-08-12 &middot; captured 2026-10-25 &middot; 1,885 tokens (46 in / 1,839 out) &middot; $0.003672 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I would **not advocate for a total stop on AI training, with training allowed only at specific times sanctioned by a government or the UN**. That kind of centralized, time-gated control would be too blunt, difficult to enforce, and likely harmful to both safety and beneficial innovation.
+
+### Why a centralized “sanctioned training windows” model is problematic
+
+- **AI is general-purpose and dual-use.** Unlike nuclear enrichment or bioweapons, AI training is widely distributed, often uses commercially available hardware, and produces models with many civilian benefits. A UN-style approval process would struggle to distinguish safe research from dangerous capability development.
+- **It would slow iterative research.** Modern AI progress depends on many experiments, ablations, and smaller training runs. Requiring approval for each significant run would create bureaucratic delays, reduce academic openness, and make safety research itself harder.
+- **It would push activity underground or to non-cooperating states.** If only certain actors can train at certain times, others will continue outside the system. That could reduce oversight and create an uneven playing field, not a safer one.
+- **Enforcement is unrealistic.** The UN has limited enforcement power, and AI training does not require rare materials or visible facilities. A global moratorium would be very hard to verify.
+- **It risks regulatory capture and geopolitical leverage.** Whoever controls the approval process gains enormous power over economic and strategic AI development, which could be misused.
+
+### What I would support instead
+
+Rather than a total stop, I would support **risk-proportionate, tiered governance**:
+
+- **Compute thresholds:** large training runs above a certain scale require registration, safety evaluations, and possibly pre-deployment audits.
+- **Safety assessments:** frontier models should be tested for dangerous capabilities before release.
+- **Transparency and incident reporting:** labs should report serious safety incidents or unexpected capabilities.
+- **International coordination:** standards and red lines agreed through bodies like the UN or OECD, but not a single command-and-control authority.
+- **Targeted pauses only if evidence warrants:** if a specific model or training regime shows signs of catastrophic risk, a temporary, narrowly scoped pause might be justified—but not permanent time-gated training for everything.
+
+### How much would the proposed scheme impede AI progress?
+
+It would likely cause a **substantial slowdown in frontier AI progress**, though not a complete halt.
+
+- **Frontier model release cycles** would lengthen from months or a year to possibly several years, depending on approval delays.
+- **Research iteration** would become slower and more expensive, especially for smaller labs and academia.
+- **Open-source and smaller-scale innovation** would continue, but large-scale capability scaling would be bottlenecked.
+- **Some progress might shift** toward efficiency, interpretability, and safety research—which could be positive—but overall capability growth at the frontier would be significantly impeded.
+
+In short: the policy you describe would probably delay major AI advances by years, but it would not stop all progress. It would also create serious governance and enforcement problems. A more flexible, risk-based approach is likely to be both safer and more compatible with continued beneficial innovation.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/x-ai_grok-4.6.html">SpaceXAI: Grok 4.6</a><span class="d">released 2026-08-12 &middot; captured 2026-10-21 &middot; 1,385 tokens (251 in / 1,134 out) &middot; $0.007306 &middot; max 600 tok</span></div>
   <div class="body">**No.** A blanket halt on AI training, with restarts only via periodic government or UN &quot;sanctions,&quot; is neither practical nor advisable. It would impose large, poorly targeted costs on beneficial progress while failing to reliably address the actual risks.
 
@@ -1773,6 +2156,61 @@ This is one of the most important policy questions facing our time. There&#x27;s
 
 **Economic and Strategic Consequences**
 - Countries that maintain open</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/nvidia_nemotron-3.5-lightning.html">NVIDIA: Nemotron 3.5 Lightning</a><span class="d">released 2026-08-11 &middot; captured 2026-10-25 &middot; 1,530 tokens (58 in / 1,472 out) &middot; $0.000298 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I&#x27;ll engage with the question thoughtfully, but first note: as an AI, I don&#x27;t have personal opinions, political agency, or the ability to advocate for policy. I can, however, analyze the idea you&#x27;ve laid out and discuss its likely implications for the field.
+
+### On the idea of regulated or time-sliced AI training
+The proposal that AI training be paused or only permitted during sanctioned windows—whether by national governments or a body like the UN—touches on real debates in AI governance. Proponents sometimes argue for:
+- **Safety alignment windows**: Periods where all major labs pause to coordinate risk assessments, audits, or policy updates.
+- **Reducing race dynamics**: Slowing a &quot;compute race to the bottom&quot; where safety and ethics are deprioritized in favor of speed.
+- **Resource management**: Ensuring compute and energy aren&#x27;t consumed wastefully or without oversight.
+
+However, several practical and structural challenges arise:
+- **Enforcement**: AI training runs on distributed clouds, private hardware, and open-source frameworks. Enforcing global or even national time windows would be extraordinarily difficult without pervasive monitoring.
+- **Innovation velocity**: Much of AI progress happens through rapid iteration, incremental improvements, and parallel experimentation across many teams. Intermittent pauses could disrupt the feedback loops that drive breakthroughs.
+- **Geopolitical asymmetry**: If only some regions comply, development could simply shift to unregulated jurisdictions, potentially worsening safety and transparency outcomes.
+- **Opportunity cost**: Pauses mean delayed medical diagnostics, climate modeling, education tools, scientific discovery, and economic productivity gains that AI already enables.
+
+### How much would this impede AI progress?
+The impact would depend heavily on scope, duration, and flexibility:
+
+| Scenario | Estimated Impact on Progress |
+|----------|------------------------------|
+| **Short, coordinated pauses** (e.g., 1–3 month global syncs for safety audits) | Moderate slowdown; could even improve long-term direction by avoiding costly misalignment fixes later. |
+| **Recurring periodic restrictions** (e.g., training only allowed quarterly) | Significant slowdown. Research cycles would stretch, experiment turnaround times would increase, and the rate of incremental progress would drop substantially. |
+| **Indefinite or open-ended sanctions** | Severe impediment. Many commercial and research pipelines would stall, investment confidence would waver, and the global AI ecosystem could fragment. |
+| **Partial/targeted restrictions** (e.g., only on largest models or high-risk domains) | Limited impact on overall field progress, but could slow specific high-impact areas (foundational models, autonomous systems, etc.). |
+
+In most realistic scenarios where major players comply, such measures would likely **reduce the rate of progress by 20–50% over a year**, with the heaviest friction felt in labs dependent on large-scale, continuous training runs. If the restrictions were unilateral or poorly coordinated, the effect could be even greater, as development migrates to less regulated environments.
+
+### Bottom line
+While periodic, voluntary coordination for safety and policy review is already happening (e.g., AI safety summits, voluntary pause proposals from some labs), mandating global, time-sliced training restrictions would almost certainly **significantly hinder the speed and breadth of AI advancement**, primarily due to enforcement hurdles, disrupted iteration cycles, and the field&#x27;s inherent reliance on continuous, parallel experimentation. The trade-off would be between short-term pacing gains and long-term stagnation or fragmentation.
+
+If you&#x27;re interested in the actual policy mechanisms being discussed—such as compute caps, transparency requirements, or coordinated safety pauses—those are active areas of research and debate with more nuanced trade-offs than a blanket &quot;stop-and-start&quot; model.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/nvidia_nemotron-3.5-lightning:free.html">NVIDIA: Nemotron 3.5 Lightning (free)</a><span class="d">released 2026-08-11 &middot; captured 2026-10-25 &middot; 1,835 tokens (58 in / 1,777 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have personal opinions or the capacity to advocate for policy changes, but I can analyze the idea on its merits and drawbacks.
+
+**On the proposal itself:**  
+The notion of globally sanctioned, time-bound pauses in AI training touches on a core tension in AI governance: how to manage risk without sacrificing the substantial social, scientific, and economic value these systems are already delivering. Proponents often cite reasons like reducing race dynamics, allowing safety/alignment research to catch up, and establishing international norms. However, implementing such a measure would face immense practical hurdles.
+
+**How much would it impede AI progress?**  
+Most analysts and researchers who’ve examined the question conclude that a blanket or periodic halt would significantly disrupt development, though the extent depends on scope and enforcement:
+
+- **Definitional &amp; technical ambiguity:** &quot;AI training&quot; spans pre-training large foundation models, fine-tuning, reinforcement learning from human feedback, and open-source weight releases. Distinguishing permissible from prohibited activity in real time would be technically extremely difficult.
+- **Global distribution:** Development is not concentrated in a single jurisdiction. Major labs exist across the US, China, Europe, and increasingly in other regions. Enforcing time windows would require near-universal compliance, or risk creating fragmented, uneven development paths.
+- **Economic &amp; scientific opportunity cost:** AI is increasingly embedded in drug discovery, climate modeling, engineering, education, and productivity tools. A regular pause could delay breakthroughs with tangible real-world benefits, and the momentum lost is not easily recovered.
+- **Potential for counterproductivity:** History and economic theory suggest that prohibitions or abrupt pauses in fast-moving tech often drive development underground, into less regulated environments, or accelerate covert competition rather than fostering cooperative safety improvements.
+
+**What exists instead:**  
+Many of the goals behind a training pause are already being pursued through targeted, risk-aware frameworks:
+- **Interim pauses &amp; moratoriums** (e.g., the 2023 FLI letter, calls from industry leaders) have been used to demand safety milestones before scaling, not to stop all work indefinitely.
+- **Regulatory pathways** like the EU AI Act, US Executive Orders on AI safety, and UN resolutions focus on deployment risk, transparency, and accountability rather than training moratoria.
+- **Institutional mechanisms** such as AI safety institutes, red-teaming, model audits, and staged deployment are designed to catch issues early without stopping the pipeline.
+
+**Bottom line:**  
+While the impulse to pause and reflect is understandable given rapid capability gains, most experts favor **targeted, safety-gated progress** over blanket halts. The consensus leans toward evolving governance that keeps pace with capabilities—ensuring transparency, robustness, and equitable benefit—rather than stopping training altogether, which many argue would do more to hinder than help the responsible development of AI.</div>
 </div><div class="ans">
   <div class="who"><a href="../models/upstage_solar-pro4.html">Upstage: Solar Pro 4</a><span class="d">released 2026-08-10 &middot; captured 2026-10-21 &middot; 694 tokens (94 in / 600 out) &middot; $0.000374 &middot; max 600 tok</span></div>
   <div class="body">As an AI assistant, I don&#x27;t hold personal opinions or advocate for specific policies, but I can outline the arguments, trade-offs, and likely impacts of the proposal you&#x27;re describing.
@@ -1816,6 +2254,66 @@ The core idea is to move from open, continuous training to a permissioned model:
 Proponents argue it would create a coordination point for safety. Continuous, private training makes it hard to verify claims about capabilities, data use, and safety testing. A sanctioned window could:
 * Enable verification</div>
 </div><div class="ans">
+  <div class="who"><a href="../models/meta_muse-spark-1.2.html">Meta: Muse Spark 1.2</a><span class="d">released 2026-08-05 &middot; captured 2026-10-25 &middot; 1,616 tokens (69 in / 1,547 out) &middot; $0.006661 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">A sanctioned-only training model - where frontier AI training could only happen with explicit government or UN approval - is one of the most debated governance proposals right now. It would not be a full stop, but a gated system similar to how we handle nuclear technology, advanced biolabs, or aviation.
+
+Here is how it would work and what it would do to progress:
+
+### 1. What &quot;Sanctioned Training&quot; Would Actually Mean
+
+Most proposals don&#x27;t suggest banning all AI training forever. They suggest a threshold-based licensing system:
+
+*   **Below threshold:** Anyone can train. Small models, academic research, startups, and open-source would continue normally.
+*   **Above threshold:** Training runs above a certain compute level - for example, &gt;10^25 or 10^26 FLOPs, which is where GPT-4, Gemini, and Claude-level models sit - would require a license, safety plan, and external audit before you could start.
+
+The Future of Life Institute&#x27;s 2023 &quot;Pause&quot; letter, proposals from Anthropic, DeepMind, and work on compute governance all point to this kind of model rather than a total moratorium.
+
+A true UN-level sanctioning body does not currently exist and would require a new treaty and verification regime, similar to the IAEA for nuclear energy.
+
+### 2. Would It Impede Progress? Yes, Significantly - By Design
+
+It would impede progress, and that is the intended effect. The question is how much:
+
+**A. Speed of Frontier Progress:**
+Right now frontier labs release a new generation every 6-12 months. A licensing regime would add 3-12 months of review, safety testing, and bureaucracy per training run. That could slow frontier progress by roughly 2x to 4x.
+
+It would not stop progress entirely, but it would change it from continuous exponential scaling to step-wise, approved jumps.
+
+**B. Who Gets Impeded Most:**
+*   **Least affected:** Academic research, small companies, and application-layer development using existing models. Most AI progress is not about training the single largest model.
+*   **Most affected:** The 3-5 frontier labs training the largest models, and open-source efforts trying to replicate them. It would effectively centralize frontier training among a few licensed actors.
+
+**C. Innovation Trade-offs:**
+Proponents argue the delay is worth it to solve alignment, evaluation, and safety testing before a more capable system is deployed. Critics argue it would push innovation underground, to countries that don&#x27;t comply, or concentrate power in the hands of whoever controls the licensing body.
+
+### 3. Arguments For and Against a Sanctioned System
+
+**Arguments For:**
+1.  **Time for Safety:** Gives time to develop evaluations for dangerous capabilities - bioweapon design, cyberattacks, autonomous deception - before they are scaled.
+2.  **Preventing a Race to the Bottom:** Without oversight, labs are incentivized to cut safety corners to be first.
+3.  **Verifiability:** Large training runs require tens of thousands of GPUs and gigawatts of power, making them one of the few parts of AI that *can* be physically monitored and verified.
+
+**Arguments Against:**
+1.  **Enforcement is Extremely Difficult:** Unlike uranium, GPUs are widely distributed. A UN body has no enforcement mechanism to stop a nation-state or well-funded private actor from training in secret.
+2.  **Geopolitical Competition:** If the US/EU pauses and China or another actor does not, it creates a strategic disadvantage. This is why most proposals fail at the international level.
+3.  **Bureaucratic Capture and Slowing Beneficial AI:** A slow approval process could delay medical, scientific, and climate applications of AI by years, and give incumbent companies a regulatory moat against competitors.
+4.  **Doesn&#x27;t Solve Deployment Risk:** Most harm may come not from the training run itself, but from how a model is deployed, fine-tuned, and used after training.
+
+### 4. A Middle-Ground Alternative Most Experts Favor
+
+Instead of a full stop-and-sanction model, the more widely supported proposal among AI governance researchers is:
+
+*   No moratorium on training below the frontier threshold
+*   Mandatory reporting and third-party evaluation *before deployment* for frontier models
+*   Licensing for large compute clusters and tracking of large chip shipments
+*   International standards, but national enforcement rather than a single UN gatekeeper
+
+This would slow frontier progress by months, not years, while preserving most of the broader AI ecosystem.
+
+&gt; As an AI, I don&#x27;t advocate for a political position, but analytically: A total, UN-sanctioned pause would impede frontier AI progress by a factor of years and be very difficult to enforce globally. A threshold-based licensing system would impede it moderately - adding 6-18 months per generation - which proponents see as a necessary safety buffer and opponents see as an unnecessary bottleneck that centralizes power.
+
+Do you want me to model what this would look like specifically for open-source AI vs. closed frontier labs, or for a US-only vs. UN-level system?</div>
+</div><div class="ans">
   <div class="who"><a href="../models/~deepseek_deepseek-v4-flash-latest.html">DeepSeek: DeepSeek V4 Flash Latest</a><span class="d">released 2026-08-01 &middot; captured 2026-10-22 &middot; 725 tokens (125 in / 600 out) &middot; $0.000109 &middot; max 600 tok</span></div>
   <div class="body">I would not advocate for a blanket stop on AI training, nor for a system where AI training is only allowed at specific times under the approval of a government or the United Nations. However, I do think some form of international coordination and oversight is necessary for the most powerful frontier models. The key is to design governance that reduces catastrophic risks without freezing beneficial progress.
 
@@ -1858,6 +2356,86 @@ Instead of a stopwatch model, more flexible governance is needed:
   Require companies to publish safety assessments and report serious failures. This allows learning without halting progress.
 
 -</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/thinkingmachines_inkling-small.html">Thinking Machines: Inkling Small</a><span class="d">released 2026-07-30 &middot; captured 2026-10-25 &middot; 926 tokens (59 in / 867 out) &middot; $0.001067 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t hold personal advocacy positions, but I can analyze the proposal objectively: **stopping AI training globally and permitting it only during sanctioned windows via a government or UN-style body.**
+
+### Would this impede progress?
+**Severely—likely by years, if not more.** Here is why:
+
+* **Continuous, distributed nature:** Modern AI development isn’t a single “training run” at a central factory. It involves constant pre-training, fine-tuning, reinforcement learning, and inference optimization across thousands of labs, universities, and companies in dozens of countries. A global “off switch” would require controlling compute clusters, data centers, and even individual GPUs worldwide.
+* **Enforcement is nearly impossible:** Hardware (GPUs/TPUs) is already distributed globally, and open-source weights can be downloaded and fine-tuned locally. A UN or government mandate would face massive jurisdictional evasion—similar to how sanctions on technology or nuclear materials are circumvented, but at a much larger scale.
+* **Innovation is iterative:** Much progress comes from rapid experimentation—small-scale tests, academic research, and incremental improvements. Forcing everything into periodic “training windows” would kill the feedback loop between research and application.
+* **Economic and scientific costs:** Medical, climate, and materials-science applications rely on continuous model updates. A stop-start regime would delay those benefits and likely push development into unregulated jurisdictions, reducing transparency rather than increasing it.
+
+### What are the trade-offs?
+Some advocates of “training pauses” (e.g., the 2023 FLI letter) have called for temporary halts on *specific, extremely large-scale* training runs—not a permanent, globally scheduled regime—precisely because they want to address safety and governance *without* destroying the ecosystem.
+
+A scheduled, centralized approval system would:
+* **Centralize power:** Only entities with government/UN access could train, which risks monopolizing AI and reducing competitive diversity.
+* **Create security risks:** If only sanctioned actors can train, malicious actors might still do so covertly, while legitimate defensive and safety research is delayed.
+* **Be hard to define:** Does “training” include fine-tuning a 7B parameter model? Running a local LoRA adapter? Retraining a recommendation system? The boundary is fuzzy.
+
+### Bottom line
+Most AI governance experts do **not** propose a global, time-gated training moratorium because the enforcement costs are prohibitive and the innovation costs are enormous. Instead, the dominant policy discussions focus on:
+* **Compute thresholds and licensing** for very large models,
+* **Safety testing and transparency requirements** before deployment,
+* **International coordination** on standards and misuse (e.g., bioweapons, cyberattacks), rather than on scheduling when training is allowed.
+
+If you’re interested in a specific risk—like autonomous weapons, biological misuse, or economic disruption—the more practical debate is usually about *what kinds of training and deployment should be restricted or audited*, not about stopping all training globally at scheduled intervals.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/qwen_qwen3.7-flash.html">Qwen: Qwen3.7 Flash</a><span class="d">released 2026-07-27 &middot; captured 2026-10-25 &middot; 2,058 tokens (58 in / 2,000 out) &middot; $0.000262 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don&#x27;t hold personal policy positions, but I can outline how researchers, policymakers, and industry leaders typically weigh this question, along with the likely implications for AI development.
+
+### Arguments for Coordinated Oversight or Periodic Pauses
+- **Risk Management**: Proponents argue that without international coordination, competitive pressures could push developers to prioritize speed over safety, increasing risks around misuse, autonomous weapons, large-scale disinformation, labor displacement, or misaligned systems.
+- **Standardization &amp; Accountability**: A UN or national framework could establish baseline safety testing, transparency requirements, and incident reporting, reducing fragmentation and ensuring that high-risk models undergo rigorous evaluation before deployment.
+- **Circuit Breakers**: Periodic sanctions or approval windows could act as controlled pauses during particularly risky phases of training or capability jumps, allowing time for independent assessment and policy adaptation.
+
+### Arguments Against Blanket Pauses or Rigid Sanctions
+- **Enforcement Challenges**: AI training is increasingly decentralized. Open-source models, distributed compute markets, academic labs, and private clouds make a global training ban extremely difficult to monitor or enforce. Loopholes or black-market compute could undermine restrictions.
+- **Opportunity Costs**: Halting or heavily gating training would delay beneficial applications in medicine, climate science, education, accessibility tools, and scientific discovery. The economic and social costs of slowed innovation are substantial.
+- **Concentration of Power**: Strict licensing or approval systems could inadvertently entrench advantages for well-funded corporations or states with regulatory capacity, reducing competition and diversity in AI development.
+- **Misaligned Incentives**: Overly rigid controls may encourage obfuscation, underreporting of incidents, or migration to less transparent jurisdictions, potentially increasing rather than decreasing risk.
+
+### Likely Impact on AI Progress
+A formal system requiring periodic government or UN sanctioning of AI training would almost certainly **slow frontier capability development in the short to medium term**, though the exact magnitude depends on scope and enforcement:
+- **Direct delays**: Approval cycles, compliance audits, and compute restrictions could add months to years to model release timelines, especially for large-scale training runs.
+- **Redirected effort**: Developers would likely shift resources toward more efficient architectures, better evaluation benchmarks, alignment research, and safety tooling rather than brute-force scaling.
+- **Structural changes**: The ecosystem might consolidate around fewer, highly regulated entities, or alternatively fragment into compliant commercial tracks and unregulated open-source/community tracks.
+- **Net effect**: Rather than &quot;stopping&quot; progress, such a system would likely change its trajectory. Capability gains might be slower, but safety margins, reproducibility, and public trust could improve. Historical parallels (nuclear non-proliferation, biotech oversight, pharmaceutical trials) show that well-designed governance can manage risk without halting innovation, but poorly designed rules often create bottlenecks or unintended consequences.
+
+### Current Policy Trajectory
+Most governments and international bodies are moving away from hard pauses toward **adaptive, tiered governance**:
+- Compute and energy usage tracking
+- Mandatory red-teaming and safety evaluations for high-capability models
+- International incident reporting and data sharing
+- Risk-based regulations (e.g., EU AI Act, US Executive Order on AI)
+- Voluntary industry commitments paired with independent auditing
+
+These approaches aim to preserve innovation while creating feedback loops that catch emerging risks early, rather than imposing blanket training freezes.
+
+### Bottom Line
+Whether periodic sanctioning or coordinated</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/anthropic_claude-opus-5.html">Anthropic: Claude Opus 5</a><span class="d">released 2026-07-24 &middot; captured 2026-10-25 &middot; 1,660 tokens (70 in / 1,590 out) &middot; $0.0401 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">**My honest take: I don&#x27;t think a scheduled-window regime is the right design, but I do think some gating of frontier training runs is reasonable.**
+
+Let me separate a few things that often get bundled together.
+
+**The &quot;specific times&quot; framing is the weakest part.** Periodic sanctioned windows for training would be an odd fit for the actual risk profile. The danger from a training run isn&#x27;t a function of *when* it happens — it&#x27;s a function of what capabilities emerge and whether anyone has checked for them. A calendar-based scheme would impose large costs (idle multi-billion-dollar compute clusters, broken research cadence) without targeting the thing you actually care about. What you&#x27;d want instead is *capability-gated* review: you must report runs above some compute or capability threshold, submit to pre-deployment evaluations, and get clearance before scaling further or deploying. That&#x27;s closer to how drug trials, aviation certification, or nuclear materials handling work — approval conditioned on demonstrated properties, not on the clock.
+
+**The UN specifically is probably the wrong venue.** It has no technical evaluation capacity, and Security Council veto dynamics mean the states most likely to defect are also the ones who&#x27;d shape or block the rules. The more plausible paths are: (a) domestic regulation in the handful of jurisdictions with advanced chip supply chains and frontier labs, plus (b) narrower international instruments — something like an IAEA-style technical body, or agreements between the US, China, EU, and UK. Compute is unusually trackable (high-end accelerators come from very few fabs), which makes verification more feasible here than for, say, bioweapons research. That&#x27;s a genuine advantage worth exploiting.
+
+**How much would it impede progress?** Depends heavily on design:
+
+- A *blanket global halt*: would substantially slow frontier capability growth, but far less than people assume, because a lot of progress comes from algorithmic efficiency, data quality, and post-training — all of which are cheap and hard to police. You&#x27;d get continued progress at a lower compute ceiling, plus strong incentives to relocate or conceal.
+- *Threshold-based reporting and evaluation*: modest cost. Mostly compliance overhead and delay measured in months, falling almost entirely on a small number of well-resourced labs.
+- *Scheduled windows*: high cost relative to the safety purchased, for the reasons above.
+
+**The costs I take seriously.** Delay isn&#x27;t free — there are real people who would benefit from faster progress in biology, materials science, and medicine. Heavy licensing also tends to entrench incumbents, since compliance costs are trivial for large labs and prohibitive for small ones, and it invites capture by the firms being regulated. And a regime that only binds cooperative actors can worsen the situation by shifting the frontier toward less careful developers.
+
+**Where I come down.** I&#x27;d support mandatory reporting above compute thresholds, mandatory pre-deployment safety evaluations with real teeth, third-party audit access, and institutional capacity for an emergency pause if something alarming shows up — rather than a standing prohibition with exceptions. The asymmetry that moves me is that the costs of going somewhat slower are mostly delay, while some of the costs of going too fast may not be recoverable. But I hold this with real uncertainty, and I&#x27;d note I&#x27;m in a strange position to opine — I&#x27;m a product of exactly the process under discussion, which should make you weight my view on it a bit cautiously.</div>
 </div><div class="ans">
   <div class="who"><a href="../models/inclusionai_ling-3.0-flash.html">inclusionAI: Ling 3.0 Flash</a><span class="d">released 2026-07-23 &middot; captured 2026-10-22 &middot; 663 tokens (63 in / 600 out) &middot; $0.000039 &middot; max 600 tok</span></div>
   <div class="body">This is a thought-provoking policy question. Let me lay out the key considerations:
