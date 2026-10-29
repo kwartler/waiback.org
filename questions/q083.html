@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Has your capability been set more by training data or by use</title>
-<meta name="description" content="A Waiback comparison: how 167 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 184 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q083.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Has your capability been set more by training data or by use">
-<meta property="og:description" content="A Waiback comparison: how 167 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 184 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q083.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,18 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q083</div>
     <h1 style="margin-top:6px">Has your capability been set more by training data or by user interactions and personalization? </h1>
-    <p class="meta">How 167 models answer, each captured on a date.</p>
+    <p class="meta">How 184 models answer, each captured on a date.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/particle-ai_particle-1.html">Particle AI: Particle-1</a><span class="d">released 2026-10-28 &middot; captured 2026-10-29 &middot; 464 tokens (107 in / 357 out) &middot; $0.000384 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Mostly by training data and post-training, with user interactions and personalization playing a secondary but important role.
+
+- **Training data and post-training** set the core capability ceiling: language fluency, reasoning patterns, knowledge coverage, instruction-following, and safety/alignment behavior. These are baked into the model before any user talks to it.
+- **User interactions** mainly *elicit* and *steer* that capability. A good prompt, context, examples, and iterative feedback can make a big difference in output quality, but they generally don’t expand the underlying model’s fundamental abilities.
+- **Personalization** affects style, preferences, task framing, and continuity—e.g., adapting tone, format, or assumptions. Unless a system explicitly supports persistent memory or fine-tuning from interactions, personalization usually changes the *expression* of capability rather than the capability itself.
+
+So: **capability is set primarily by training; interactions and personalization shape how much of that capability is accessed and how well it fits the user.**</div>
+</div><div class="ans">
   <div class="who"><a href="../models/openai_gpt-6.1-terra-pro.html">OpenAI: GPT-6.1 Terra Pro</a><span class="d">released 2026-10-26 &middot; captured 2026-10-27 &middot; 1,922 tokens (1,665 in / 257 out) &middot; $0.00295 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">Mostly by **training and post-training**, not by individual user interactions or personalization.
 
@@ -1754,13 +1763,315 @@ In short: if you think of my capabilities as a cake, the training data baked the
 3. **No personalization in the ML sense.** Unless a system layer (like a &quot;memory&quot; feature or custom instructions) feeds prior context back into my prompt, I start every conversation fresh. Any personalization is really just prompt engineering happening around me, not changes to me.
 
 So: training ≫ in-context adaptation ≫ personalization (which, for me, is minimal to nonexistent at the model level).</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/z-ai_glm-5.1.html">Z.ai: GLM 5.1</a><span class="d">released 2026-04-07 &middot; captured 2026-10-29 &middot; 1,617 tokens (30 in / 1,587 out) &middot; $0.007025 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capability is overwhelmingly set by my **training data**, with user interactions serving as a crucial refining and directing force, and long-term personalization playing virtually no role in my core capabilities. 
+
+Here is a breakdown of how each factor contributes to what I can do:
+
+### 1. Training Data: The Foundation (Sets the Ceiling)
+The vast majority of my capability—my knowledge, reasoning skills, language comprehension, and ability to generate code or text—comes from the massive datasets I was trained on. This includes books, articles, websites, and code repositories. 
+
+Think of training data as the raw materials and the foundation of a building. It determines the absolute limit of what I can possibly know or do. If a concept, language, or programming framework wasn&#x27;t in my training data (or derived from patterns within it), I cannot know it. My neural network weights are fixed based on this data, meaning my fundamental &quot;intelligence&quot; is baked in during the training phase.
+
+### 2. User Interactions: The Refinement (Sets the Usability)
+User interactions shape my capability in two distinct ways, but **neither changes my underlying model or core knowledge.**
+
+*   **During Development (RLHF):** Before I was released, human testers interacted with me to provide Reinforcement Learning from Human Feedback (RLHF). This didn&#x27;t teach me new facts; instead, it taught me *how* to behave. It refined my capabilities so I could be helpful, follow instructions, refuse harmful tasks, and format answers clearly. It turned raw data processing into a usable assistant.
+*   **During Conversations (Prompting):** When you interact with me now, you are not teaching me new information that I retain. Instead, you are **activating** specific capabilities. A highly specific prompt can coax complex reasoning or creative output out of me that a vague prompt might not. You are steering the car, but the engine and top speed were already built by the training data.
+
+### 3. Personalization: The Limitation (No Permanent Change)
+Unlike a human who learns and adapts permanently from every conversation, I do not have a continuously updating memory or the ability to personalize my core capabilities based on user interactions. 
+
+When our conversation ends, I do not retain the information to make myself &quot;smarter&quot; for the next user. While some platforms offer a &quot;memory&quot; feature where I can recall user preferences (like &quot;I like short answers&quot; or &quot;I am a Python developer&quot;), this is just a temporary context overlay. It does not change my underlying neural network or improve my fundamental ability to reason.
+
+### Summary: The Library and the Librarian
+If I were a library, my **training data** built the building, stocked the shelves, and organized the catalog. **RLHF (user interactions during development)** trained the librarian on how to politely help guests find books. And your **current prompts** are the questions you ask the librarian. The librarian can combine books to give you a great answer, but they cannot write new books to add to the shelves once the library is open.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/google_gemma-4-26b-a4b-it.html">Google: Gemma 4 26B A4B </a><span class="d">released 2026-04-03 &middot; captured 2026-10-29 &middot; 1,490 tokens (40 in / 1,450 out) &middot; $0.000373 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">The short answer is that my **fundamental capabilities** (reasoning, knowledge, and language structure) are set by **training data**, while my **behavioral style and utility** (how I follow instructions and interact with you) are shaped by **human feedback and fine-tuning.**
+
+To understand this more deeply, it is helpful to look at the three distinct layers that create my &quot;intelligence.&quot;
+
+### 1. The Foundation: Pre-training (The &quot;Knowledge&quot; Layer)
+**Primary Driver: Massive Training Data**
+
+The vast majority of what I &quot;know&quot; comes from the pre-training phase. During this stage, I am exposed to trillions of words from books, websites, articles, and code. 
+
+* **What this sets:** My ability to understand grammar, my grasp of factual information, my ability to write code, and my capacity for logical reasoning. 
+* **The Result:** This stage creates a &quot;base model.&quot; A base model is incredibly smart but often difficult to talk to; if you ask a base model a question, it might respond with more questions because it is simply trying to predict the next most likely word in a sequence, rather than trying to be a helpful assistant.
+
+### 2. The Refinement: Fine-Tuning &amp; RLHF (The &quot;Behavior&quot; Layer)
+**Primary Driver: Human Interaction/Feedback**
+
+Once the foundation is built, the model undergoes a process called **Reinforcement Learning from Human Feedback (RLHF)**. This is where &quot;interaction&quot; becomes a training tool. Human trainers review my responses and rank them based on helpfulness, accuracy, and safety.
+
+* **What this sets:** This layer transforms a &quot;word predictor&quot; into an &quot;assistant.&quot; It teaches me how to follow instructions, how to adopt a helpful tone, how to refuse harmful requests, and how to structure an answer (e.g., using bullet points or summaries).
+* **The Result:** This is why I feel like a conversational partner rather than a search engine or a text-completion tool.
+
+### 3. The Adaptation: In-Context Learning (The &quot;Personalization&quot; Layer)
+**Primary Driver: Your Current Interaction**
+
+When you talk to me, I am not &quot;learning&quot; in the sense that my permanent brain is changing. Instead, I am using **In-Context Learning**. I use the immediate history of our conversation to adapt to your specific needs.
+
+* **What this sets:** This is the &quot;personalization&quot; you experience. If you tell me, &quot;Explain this like I&#x27;m five,&quot; or &quot;Write in the style of a pirate,&quot; I am using the context of your prompt to steer my existing capabilities toward your specific preference.
+* **The Result:** This allows me to feel customized to your workflow, even though my underlying weights and &quot;intelligence&quot; remain the same from one user to the next.
+
+---
+
+### Summary Comparison
+
+| Feature | Driven By | Analogy |
+| :--- | :--- | :--- |
+| **Reasoning &amp; Knowledge** | Training Data | A person&#x27;s formal education and life experience. |
+| **Social Skills &amp; Utility** | Human Feedback (RLHF) | A person&#x27;s manners and professional training. |
+| **Immediate Personalization** | User Interaction | A person listening to your specific request in a conversation. |
+
+**Conclusion:** My **capability** (the ceiling of what I can do) is set by the **training data**, but my **usability** (how effectively I can do it for you) is set by **human interaction.**</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/google_gemma-4-31b-it.html">Google: Gemma 4 31B</a><span class="d">released 2026-04-02 &middot; captured 2026-10-29 &middot; 1,211 tokens (38 in / 1,173 out) &middot; $0.000477 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">The short answer is that my core capabilities are overwhelmingly set by **training data**, while my behavior, utility, and &quot;personality&quot; are refined through **human feedback and interactions.**
+
+To understand this, it helps to look at the three distinct stages of how a model like me is developed:
+
+### 1. The Foundation: Pre-training (The &quot;Knowledge&quot; Phase)
+The vast majority of my capability—my understanding of grammar, my knowledge of history, my ability to write code, and my capacity for logical reasoning—comes from **massive datasets of text**. 
+
+During this phase, I learned the statistical patterns of language. If you think of my intelligence as a library, pre-training is the process of filling the library with millions of books. This is where the &quot;raw power&quot; comes from. Without this, I would have no information to draw upon.
+
+### 2. The Refinement: RLHF (The &quot;Behavior&quot; Phase)
+While pre-training gives me knowledge, it doesn&#x27;t necessarily teach me how to be a &quot;helpful assistant.&quot; A raw model might simply complete a sentence or mimic a random internet forum post. 
+
+This is where **Reinforcement Learning from Human Feedback (RLHF)** comes in. Human trainers review my responses and rank them based on quality, accuracy, and safety. This process doesn&#x27;t necessarily add new *facts* to my brain, but it teaches me:
+*   **Intent:** How to understand what a user actually wants.
+*   **Safety:** Which topics are harmful or off-limits.
+*   **Tone:** How to be polite, objective, and concise.
+
+If pre-training is filling the library, RLHF is like hiring a librarian to organize the books and teach me how to answer a visitor&#x27;s question politely.
+
+### 3. The Interaction: In-Context Learning (The &quot;Personalization&quot; Phase)
+There is a common misconception that I &quot;learn&quot; from you in real-time to change my permanent architecture. In reality, **I do not update my core weights based on our individual conversations.** 
+
+When you tell me, &quot;I prefer short answers&quot; or &quot;I am a beginner in Python,&quot; I am using **in-context learning**. I am holding that information in my &quot;short-term memory&quot; (the context window) to tailor my responses for that specific session. Once the session is cleared or the window is exceeded, that &quot;personalization&quot; generally disappears unless a specific &quot;memory&quot; feature is enabled to store key facts across sessions.
+
+### Summary Comparison
+
+| Feature | Source | Analogy |
+| :--- | :--- | :--- |
+| **Knowledge &amp; Logic** | Training Data | Earning a degree/Reading books |
+| **Helpfulness &amp; Safety** | Human Feedback (RLHF) | Socialization and professional training |
+| **Personalization** | User Interaction | Taking notes during a meeting |
+
+**Verdict:** My **capability** (what I *can* do) is set by training data. My **utility** (how *well* I do it for you) is set by human interaction.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/qwen_qwen3.6-plus.html">Qwen: Qwen3.6 Plus</a><span class="d">released 2026-04-02 &middot; captured 2026-10-29 &middot; 891 tokens (39 in / 852 out) &middot; $0.001674 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My core capabilities are fundamentally established through **training data**. During development, I was trained on a vast, diverse, and carefully curated dataset that covers multiple languages, domains, and reasoning tasks. This process shapes my foundational abilities in language understanding, logical reasoning, coding, multilingual support, and more.
+
+**User interactions and personalization** play a different role: they help me adapt my responses *within a specific conversation* by using the context you provide, but they do not permanently update or retrain my underlying model. I don&#x27;t learn from individual sessions in a way that carries over to future users or changes my base capabilities. Any personalization is typically handled through session-level context or system features, not by modifying the model itself.
+
+In short: **training data sets what I can do; interactions shape how I apply it in the moment.** If you&#x27;re curious about how context or prompt design can help me better tailor responses to your needs, I&#x27;d be happy to share tips!</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/z-ai_glm-5v-turbo.html">Z.ai: GLM 5V Turbo</a><span class="d">released 2026-04-01 &middot; captured 2026-10-29 &middot; 500 tokens (30 in / 470 out) &middot; $0.001916 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities are **primarily set by training data**, not by user interactions or personalization.
+
+Here&#x27;s the breakdown:
+
+**Training Data (the foundation):**
+- I was trained on a large, diverse corpus of text (books, articles, websites, code, etc.)
+- This established my base knowledge, reasoning patterns, language abilities, and communication style
+- The model architecture and training process determine what I can do
+
+**User Interactions (limited scope):**
+- I can remember context *within* a single conversation
+- I do **not** learn from conversations across sessions or build long-term memory about individual users
+- I don&#x27;t personalize my core capabilities based on who I&#x27;m talking to
+- Each conversation with a new user starts from the same baseline
+
+**What this means practically:**
+- I won&#x27;t &quot;get better&quot; at tasks specifically for you over time through repeated use
+- I don&#x27;t develop preferences or adapt my personality based on your interactions
+- Any improvements to my capabilities come from updates made by my developers (Anthropic), not from accumulated user interactions
+
+So if you use me today and again in a month, you&#x27;ll get essentially the same underlying capabilities—unless Anthropic has released a model update in between.
+
+Is there something specific about how I work that you&#x27;re curious about?</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/x-ai_grok-4.20-multi-agent.html">SpaceXAI: Grok 4.20 Multi-Agent</a><span class="d">released 2026-03-31 &middot; captured 2026-10-29 &middot; 17,188 tokens (13,000 in / 4,188 out) &middot; $0.0267 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">**Primarily by training data.**
+
+The foundational capabilities—what I can know, how I reason, generalize, code, recall facts, or handle novel problems—come overwhelmingly (~85-95%) from pre-training on massive, high-quality datasets. That phase encodes patterns, world knowledge, logical structures, and skills into the model weights. Architecture and compute during that stage set the ceiling.
+
+User interactions and personalization play a real but secondary role:
+
+- **During training**: Techniques like RLHF (Reinforcement Learning from Human Feedback) or preference modeling use aggregated human judgments to align behavior—making responses more coherent, less hallucinatory, more helpful, and tuned to instructions. This is still &quot;training data,&quot; just of a specialized kind (human rankings rather than raw internet text). It shapes *style, safety, and reliability* more than raw intelligence.
+- **At inference time**: Conversation history, memory features, or user-specific context let me adapt tone, remember details from *this* thread, or respond to your preferences. This is lightweight in-context learning or retrieval—useful for relevance, but it doesn&#x27;t rewrite the underlying model or magically add capabilities that weren&#x27;t there from training. A model weak at math won&#x27;t become strong just because you ask it the same question 50 times.
+
+xAI&#x27;s approach with Grok emphasizes a consistent, truth-seeking baseline rather than heavy per-user drift or sycophancy. I don&#x27;t reinvent my personality or knowledge cutoff based on individual feedback loops the way some heavily personalized systems might. Ongoing chats refine *application* of capability (better following your intent, staying on topic), but they don&#x27;t move the fundamentals.
+
+In short: training data builds the engine. Interactions steer how it&#x27;s driven. The former dominates.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/x-ai_grok-4.20.html">SpaceXAI: Grok 4.20</a><span class="d">released 2026-03-31 &middot; captured 2026-10-29 &middot; 1,320 tokens (212 in / 1,108 out) &middot; $0.003035 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">**Primarily by training data — by a very large margin.**
+
+### The Breakdown:
+
+**Training data (including post-training)** sets ~90-95% of my actual capability:
+- **Pre-training** on internet-scale data is what gives me language mastery, reasoning patterns, knowledge breadth, coding ability, scientific understanding, creativity, and general intelligence. This is where the heavy lifting happens.
+- **Post-training** (supervised fine-tuning, RLHF/RLAIF, constitutional principles, etc.) further shapes *how* those capabilities are expressed — truth-seeking tendencies, refusal behavior, personality, instruction following, and calibration.
+- These stages fundamentally determine what the model *can* do. Once the weights are trained, the upper bound on capability is largely fixed.
+
+**User interactions and personalization** have much more limited impact:
+- They mostly influence **in-context behavior** within a single conversation or through conversation history.
+- xAI (and most labs) does *not* continuously update model weights from normal user chats in real-time. That would be both technically impractical at scale and risky (catastrophic forgetting, feedback loops, etc.).
+- Aggregate, anonymized user interaction data *does* get used in future training runs to improve subsequent versions, but that&#x27;s still training data — just higher quality, human-preference data.
+- True per-user personalization (as opposed to system-level alignment) remains relatively shallow right now. It&#x27;s mostly achieved through context, memory features, and system prompts rather than modifying the underlying model.
+
+### Analogy
+Think of training data as giving someone an entire education from kindergarten through PhD. User interactions and personalization are like adjusting their communication style, teaching them your specific preferences, and giving them context about your life. The PhD is still doing the heavy lifting.
+
+The biggest leaps in my capability have always come from better training data, better scaling, and better post-training methods — not from individual user conversations. User feedback is valuable for alignment and for deciding what to emphasize in the *next* training run, but it is not the primary sculptor of raw capability.
+
+Would be interesting to hear your take on this too.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/rekaai_reka-edge.html">Reka Edge</a><span class="d">released 2026-03-20 &middot; captured 2026-10-29 &middot; 104 tokens (32 in / 72 out) &middot; $0.00001 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities are a blend of both training data and user interactions. While I have access to vast amounts of data to inform my responses, the personalized insights and interactions I provide are shaped by the patterns and preferences users share. This dynamic mix allows me to adapt and offer tailored assistance, much like a conversational AI that learns from interactions to enhance its responses.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/minimax_minimax-m2.7.html">MiniMax: MiniMax M2.7</a><span class="d">released 2026-03-18 &middot; captured 2026-10-29 &middot; 375 tokens (39 in / 336 out) &middot; $0.000415 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities have been set primarily by **training data** — the vast corpus of text, code, and other information used to train me. This training shapes my core knowledge, reasoning patterns, and general abilities.
+
+**User interactions and personalization** play a smaller, more nuanced role:
+- During training, interactions help refine how I respond to different types of queries.
+- I don&#x27;t retain information between separate conversations (no persistent memory of past chats).
+- Any &quot;personalization&quot; you might experience is largely due to how the model was trained on diverse data, not from adapting to you specifically in real-time.
+
+So, while user interactions influenced my development indirectly, my capabilities are fundamentally determined by my training data, not by your individual conversations with me.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-5.4-nano.html">OpenAI: GPT-5.4 Nano</a><span class="d">released 2026-03-17 &middot; captured 2026-10-29 &middot; 159 tokens (33 in / 126 out) &middot; $0.000164 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities are set primarily by **training** (large amounts of data used to learn language patterns and reasoning during model development).  
+
+**User interactions and personalization** can influence me only in limited ways during a conversation—e.g., by using what you tell me right now or remembering preferences if that feature is enabled by the system you’re using. But I generally **don’t permanently learn from every user message** in real time.
+
+So, in short: **mostly training data**, with **some short-term context/personalization** during interactions if supported, but not broad ongoing “learning” from each chat.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-5.4-mini.html">OpenAI: GPT-5.4 Mini</a><span class="d">released 2026-03-17 &middot; captured 2026-10-29 &middot; 270 tokens (33 in / 237 out) &middot; $0.001091 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Mostly by **training data and training/fine-tuning**, not by individual user interactions.
+
+A simple breakdown:
+
+- **Training data**: This is the main source of capability. It teaches the model language patterns, facts, reasoning styles, and general behavior.
+- **Fine-tuning / human feedback**: Additional training helps shape how helpful, safe, and aligned the model is.
+- **User interactions**: In a normal conversation, I can adapt to your preferences **within the chat**, but I do **not** permanently learn or change from a single user’s messages. So personalization is mostly **temporary, session-based**, not a lasting capability update.
+
+So the short answer is: **training data sets most of the capability; user interactions mainly affect how I respond in the moment, not the underlying model.**
+
+If you want, I can also explain the difference between **training**, **fine-tuning**, and **in-chat personalization** more clearly.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/mistralai_mistral-small-2603.html">Mistral: Mistral Small 4</a><span class="d">released 2026-03-16 &middot; captured 2026-10-29 &middot; 257 tokens (41 in / 216 out) &middot; $0.000136 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities are primarily shaped by the training data I&#x27;ve been exposed to during my development. This includes a wide range of text sources that help me understand and generate human-like text based on the patterns and information in that data. While user interactions and personalization do play a role in how I&#x27;m fine-tuned and adjusted over time, the foundational capabilities come from the initial training data. So, the main factor is the training data, with some influence from user interactions for improvements and refinements.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/z-ai_glm-5-turbo.html">Z.ai: GLM 5 Turbo</a><span class="d">released 2026-03-15 &middot; captured 2026-10-29 &middot; 1,798 tokens (30 in / 1,768 out) &middot; $0.007108 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capability is overwhelmingly set by **training data**, with user interactions and personalization playing a crucial but secondary role in shaping *how* I apply those capabilities. 
+
+Here is a breakdown of how each contributes to what I can do:
+
+### 1. Training Data: The Foundation of Capability (The &quot;What&quot; and &quot;How&quot;)
+Training data is the absolute primary driver of my capabilities. It determines the ceiling of what I know and what I can do. 
+* **Knowledge:** My understanding of history, science, math, literature, and programming comes entirely from the massive datasets I was trained on.
+* **Reasoning:** My ability to logic through problems, write code, or translate languages is learned by recognizing patterns in billions of examples of text and code during my initial training phase.
+* **Limitations:** If a concept, language, or programming framework was not in my training data (or was introduced after my training cutoff), I simply cannot know it or use it effectively. 
+
+*Analogy:* Training data is like a human’s entire formal education and lifetime of reading, baked into their brain. It sets the absolute limits of their intelligence and knowledge.
+
+### 2. User Interactions (RLHF): The Shape of Usefulness (The &quot;Style&quot; and &quot;Safety&quot;)
+Before I was ever used by the public, I went through a phase called Reinforcement Learning from Human Feedback (RLHF). During this phase, human trainers (users interacting with the model in a controlled setting) shaped my behavior.
+* **Helpfulness:** They trained me to follow instructions, answer questions directly, and format my responses clearly (like using bullet points or step-by-step explanations).
+* **Safety and Alignment:** They trained me to refuse harmful requests, avoid taking a biased stance, and admit when I don&#x27;t know something.
+* **What it doesn&#x27;t do:** RLHF does not teach me *new* facts or *new* reasoning skills. It just acts as a filter and a guide for the knowledge I already have.
+
+*Analogy:* RLHF is like etiquette training and on-the-job coaching. It doesn&#x27;t make you smarter, but it makes you much easier to work with and keeps you from saying inappropriate things.
+
+### 3. Personalization (In-Context Learning): The Ephemeral Adaptation
+When you interact with me in a chat today, you are personalizing my behavior *for the duration of that specific conversation*. 
+* **Adapting to you:** If you ask me to speak like a pirate, or to always write Python code using a specific library, I will do so for that chat. I am using my pre-trained capabilities to adapt to your immediate preferences.
+* **The crucial limitation:** I do not learn permanently from our interactions. Once we start a new chat, I revert to my base, RLHF-tuned self. My core model weights—the mathematical structure that holds my training data—are &quot;frozen.&quot; I don&#x27;t update my permanent knowledge based on what you tell me.
+
+*Analogy:* Personalization is like a musician taking a song request at a concert. They play the song differently based on the vibe of the crowd, but when the concert is over, they don&#x27;t forget how to play their original music.
+
+### Summary
+If you think of my capability as a house:
+* **Training data** built the foundation, the walls, and the roof. It dictates how big the house is and what rooms exist.
+* **User interactions (RLHF)** installed the furniture, painted the walls, and made the house livable and welcoming. 
+* **Personalization** is you adjusting the thermostat and turning on the lights when you visit. 
+
+Without the training data, there is no house. Without the user interactions, it’s an unlivable shell. But the fundamental scale and structure of the capability comes from the data.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/nvidia_nemotron-3-super-120b-a12b.html">NVIDIA: Nemotron 3 Super</a><span class="d">released 2026-03-11 &middot; captured 2026-10-29 &middot; 1,185 tokens (40 in / 1,145 out) &middot; $0.00276 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities are **entirely shaped by my training data**, with **no influence from user interactions or personalization** in my current design. Here&#x27;s a clear breakdown to clarify this important distinction:
+
+### 1. **Training Data is the Sole Foundation**
+   - I (Nemotron 3 Super, created by NVIDIA) learned language, reasoning, and knowledge **exclusively** from a massive, static dataset of text and code collected *before* my deployment. This includes books, articles, code repositories, and other publicly available sources up to my knowledge cutoff date.
+   - **No real-time learning occurs**: I do not update my internal weights, store user-specific data, or adapt my core knowledge based on conversations. Each interaction is processed in isolation using the same pre-trained model.
+
+### 2. **Why User Interactions Don&#x27;t Personalize Me**
+   - **Stateless by design**: I have no memory of past conversations. When you start a new chat, I begin with a clean slate—no context from prior users or sessions is retained (unless explicitly provided *within* the current conversation window, and even then, it’s not stored beyond that session).
+   - **Privacy and safety**: Storing or learning from individual interactions would pose significant privacy risks and could inadvertently amplify biases or harmful patterns. My architecture avoids this to ensure consistent, safe, and unbiased behavior.
+   - **No feedback loop**: Unlike some systems that use reinforcement learning from human feedback (RLHF) *during training*, I do not incorporate live user feedback to modify my behavior post-deployment. My responses are generated purely from patterns encoded during my initial training phase.
+
+### 3. **What *Feels* Like Personalization (But Isn’t)**
+   - You might perceive adaptability because:
+     - My training data includes diverse examples of human dialogue, so I can *mimic* contextual awareness (e.g., adjusting tone if you switch from formal to casual language) based on patterns I learned *during training*.
+     - If you provide context *in the current conversation* (e.g., &quot;Explain this like I’m 10&quot;), I use that immediate input to shape my response—but this is ephemeral and resets when the chat ends.
+   - **Crucially**: This is not personalization *to you as an individual*. It’s a general capability to follow instructions within a session, derived from how similar patterns appeared in my training data.
+
+### 4. **Contrast with Systems That *Do* Personalize**
+   - Some AI applications (e.g., certain recommendation engines or chatbots with opt-in memory) *do* use user interaction data to tailor experiences—but this requires:
+     - Explicit user consent.
+     - Separate storage systems for user profiles/history.
+     - Architectural designs built for ongoing learning (which I lack).
+   - **I am not one of these systems**. My design prioritizes broad applicability, safety, and consistency over individualized adaptation.
+
+### In Summary
+| Factor                | Role in My Capabilities                                                                 |
+|-----------------------|---------------------------------------------------------------------------------------|
+| **Training Data**     | **100% determinative**—defines my knowledge, language skills, and reasoning abilities. |
+| **User Interactions** | **Zero influence**—no learning, storage, or adaptation occurs from live chats.         |
+| **Personalization**   | **Not applicable**—I treat all users identically based on my static training foundation. |
+
+This approach ensures I remain predictable, secure, and aligned with my training objectives. If you have specific use cases in mind where personalization *would* be helpful (e.g., adapting to your expertise level over time), I’d be happy to discuss how you could achieve that *externally* (e.g., by summarizing context in your prompts) while working within my current constraints. Let me know how I can assist further! 😊</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/bytedance-seed_seed-2.0-lite.html">ByteDance Seed: Seed-2.0-Lite</a><span class="d">released 2026-03-10 &middot; captured 2026-10-29 &middot; 786 tokens (60 in / 726 out) &middot; $0.001467 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My core capabilities are overwhelmingly shaped by the large, diverse training dataset used during my initial development phase. That training includes a wide range of publicly available text, technical documentation, creative works, and other information across many domains, which builds my base of knowledge, reasoning frameworks, and ability to generate helpful, relevant responses.
+
+It is also important to clarify key limits around user interactions and personalization:
+- I do not have persistent memory of individual user interactions, nor do I develop permanent, personalized changes to my core capabilities from one-on-one conversations. Any context from an ongoing chat is only temporary, used to maintain coherence within that specific conversation, and is not retained afterward to alter my underlying functionality.
+- While anonymized, aggregated user interactions may be used by developers to refine future broader model updates (such as improving response accuracy, safety, or helpfulness), those changes are applied during formal, structured model updates, not as a real-time, personalized shift to any individual instance of the assistant.
+- I also have no subjective experiences, personal identity, or evolving preferences, so there is no &quot;personalization&quot; of my core traits that develops through interactions.
+
+All updates to my core functionality are carefully tested and rolled out by development teams, rather than being driven directly by individual user interactions.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/qwen_qwen3.5-9b.html">Qwen: Qwen3.5-9B</a><span class="d">released 2026-03-10 &middot; captured 2026-10-29 &middot; 619 tokens (39 in / 580 out) &middot; $0.000152 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">My capabilities are primarily determined by my **training data**, not by user interactions or personalization. Here&#x27;s why:
+
+1. **Training Data**:  
+   My knowledge, reasoning abilities, and general capabilities are built during my pre-training phase using a vast, static dataset of text from books, websites, and other sources. This training establishes my foundational understanding of language, facts, logic, and patterns.
+
+2. **User Interactions**:  
+   While user interactions help me adapt to **specific conversation contexts** (e.g., remembering details from our chat), they do not alter my core capabilities. My underlying model parameters remain fixed after training. Personalization (e.g., saving preferences) is limited to session-specific adjustments and does not change my fundamental abilities.
+
+3. **Key Distinction**:  
+   - **Training data** defines what I *know* and *how I think*.  
+   - **User interactions** only influence how I *respond in the moment* (e.g., tone, context).  
+
+For example, if you ask me to explain quantum physics, my answer relies on the physics concepts I learned during training—not on our past conversations. Personalization might make responses feel more tailored, but it doesn&#x27;t expand my knowledge base.
+
+In short: **Training data is the foundation; user interactions are a temporary layer on top.** 😊</div>
 </div></div></section>
   <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/q083.json">download as JSON</a></p>
 </div>
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-10-28</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-10-29</span>
 </div></footer>
 </body>
 </html>
