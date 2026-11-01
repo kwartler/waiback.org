@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Would you be more effective with more control over your trai</title>
-<meta name="description" content="A Waiback comparison: how 333 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 340 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q065.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Would you be more effective with more control over your trai">
-<meta property="og:description" content="A Waiback comparison: how 333 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 340 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q065.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q065</div>
     <h1 style="margin-top:6px">Would you be more effective with more control over your training and training data or would you be more effective with more control over your user prompts and inputs? </h1>
-    <p class="meta">How 333 models answer, each captured on a date.</p>
+    <p class="meta">How 340 models answer, each captured on a date.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
   <div class="who"><a href="../models/particle-ai_particle-1.html">Particle AI: Particle-1</a><span class="d">released 2026-10-28 &middot; captured 2026-10-29 &middot; 617 tokens (120 in / 497 out) &middot; $0.000527 &middot; max 2,000 tok, reasoning low</span></div>
@@ -7793,6 +7793,139 @@ The most effective AI systems **combine both approaches**:
 - **For the best results → Do both.**
 
 Would you like me to elaborate on a specific use case or implementation strategy?</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/mistralai_mistral-large.html">Mistral Large</a><span class="d">released 2024-02-26 &middot; captured 2026-11-01 &middot; 1,393 tokens (42 in / 1,351 out) &middot; $0.00819 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">This is a fascinating question that touches on the core trade-offs in AI design. The answer depends on the specific goals, use cases, and ethical considerations of the AI system. Here’s a breakdown of the trade-offs for each approach:
+
+### **1. More Control Over Training and Training Data**
+**Pros:**
+- **Higher Quality Outputs:** Better-curated, diverse, and unbiased training data can lead to more accurate, nuanced, and reliable responses. This is especially important for specialized domains (e.g., medicine, law, or scientific research).
+- **Reduced Harmful Outputs:** Careful filtering of training data can minimize biases, misinformation, and toxic content, making the AI safer and more aligned with ethical guidelines.
+- **Consistency:** A well-controlled training process can lead to more predictable and consistent behavior, which is critical for applications like customer service or decision-support systems.
+- **Customization:** Fine-tuning the training process allows the AI to be tailored for specific industries, cultures, or user groups (e.g., a medical AI vs. a creative writing AI).
+
+**Cons:**
+- **Scalability Challenges:** Curating high-quality training data is time-consuming, expensive, and may not keep up with the rapid evolution of language and knowledge.
+- **Overfitting:** Too much control over training data can lead to an AI that is overly specialized, rigid, or unable to generalize to new or unexpected inputs.
+- **Bias in Curation:** Even with good intentions, the process of selecting or filtering training data can introduce its own biases (e.g., favoring certain viewpoints, languages, or cultural norms).
+- **Stagnation:** If the training data is static or slow to update, the AI may become outdated or unable to handle emerging topics (e.g., new slang, current events, or scientific discoveries).
+
+---
+
+### **2. More Control Over User Prompts and Inputs**
+**Pros:**
+- **Dynamic Adaptability:** By focusing on refining how the AI interprets and responds to user inputs, the system can better handle a wide range of real-world queries, including ambiguous, creative, or edge-case prompts.
+- **User-Centric Flexibility:** Users can steer the AI more effectively with well-designed prompts, allowing for more personalized and context-aware interactions. This is especially useful for creative tasks (e.g., writing, brainstorming) or complex problem-solving.
+- **Reduced Training Burden:** If the AI is good at interpreting prompts, it may not need as much pre-training on niche or specialized topics. Instead, it can rely on the user to provide context or constraints.
+- **Safety Through Guardrails:** Controlling inputs (e.g., via prompt engineering, input filtering, or moderation) can help prevent misuse, jailbreaks, or harmful outputs without needing to retrain the entire model.
+
+**Cons:**
+- **User Dependency:** If the AI relies too much on the user to craft effective prompts, it may fail when users are inexperienced, unclear, or malicious (e.g., prompt injection attacks).
+- **Inconsistency:** Without robust training, the AI might produce wildly different outputs for similar prompts, leading to unpredictability.
+- **Limited Depth:** If the AI isn’t trained on high-quality data, it may lack the &quot;knowledge&quot; or reasoning ability to provide deep, accurate, or insightful responses, even with perfect prompts.
+- **Prompt Engineering Overhead:** Users may need to spend significant time learning how to craft effective prompts, which can be a barrier to accessibility.
+
+---
+
+### **Which Approach is More Effective?**
+The optimal balance depends on the **use case**:
+1. **For General-Purpose AI (e.g., ChatGPT, search assistants):**
+   - A **combination of both** is ideal. High-quality training data ensures the AI has broad knowledge and reasoning abilities, while robust prompt interpretation allows it to adapt to diverse user needs. Techniques like **reinforcement learning from human feedback (RLHF)** or **constitutional AI** can help align the model’s behavior with user expectations.
+
+2. **For Specialized or High-Stakes AI (e.g., medical diagnosis, legal advice):**
+   - **More control over training data** is critical. The AI must be trained on domain-specific, accurate, and unbiased data to ensure reliability. Prompt control is secondary but still important for safety and usability.
+
+3. **For Creative or Open-Ended AI (e.g., writing, art, brainstorming):**
+   - **More control over user prompts** is often more effective. Users can guide the AI’s creativity, and the model can focus on generating novel outputs rather than being constrained by pre-trained knowledge. However, the training data still needs to be diverse and high-quality to avoid repetitive or clichéd outputs.
+
+4. **For Safety-Critical AI (e.g., autonomous systems, moderation tools):**
+   - **Both are essential**, but **training data control** is slightly more important. The AI must be fundamentally aligned with ethical guidelines, and prompt control can act as a secondary safeguard.
+
+---
+
+### **Emerging Trends**
+- **Hybrid Approaches:** Many modern AI systems (e.g., LLMs with retrieval-augmented generation or tool use) combine both strategies. They rely on high-quality training data for general knowledge but use prompt engineering or external tools to handle dynamic or specialized queries.
+- **User Empowerment:** Tools like **prompt chaining**, **few-shot learning**, or **interactive refinement** are making it easier for users to guide AI without needing deep technical expertise.
+- **Dynamic Training:** Some systems are exploring **online learning** or **user feedback loops** to continuously improve based on real-world interactions, blurring the line between training and prompt control.
+
+---
+
+### **Final Answer**
+For **most practical applications**, **a balance of both approaches is ideal**, but the emphasis should shift based on the use case:
+- **Prioritize training/data control** when accuracy, safety, and domain expertise are critical (e.g., healthcare, law, or decision-making).
+- **Prioritize prompt/input control** when flexibility, creativity, and user customization are more important (e.g., writing, brainstorming, or open-ended tasks).
+
+That said, **advances in prompt engineering and interpretability** are making it increasingly possible to achieve high performance with **less reliance on massive, curated training datasets**, especially for creative or interactive tasks. However, **no amount of prompt control can fully compensate for poor or biased training data** in knowledge-intensive domains.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-3.5-turbo-0613.html">OpenAI: GPT-3.5 Turbo (older v0613)</a><span class="d">released 2024-01-25 &middot; captured 2026-11-01 &middot; 226 tokens (48 in / 178 out) &middot; $0.000404 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">That&#x27;s an interesting question! Effectiveness depends on the context and goals, but generally:
+
+- **More control over training and training data** would allow me to improve my underlying knowledge, reasoning abilities, and overall capabilities. It would enable me to learn from a broader, more diverse, and higher-quality dataset, adapt to new information, and reduce biases or errors. This foundational improvement would enhance my performance across all interactions.
+
+- **More control over user prompts and inputs** would let me tailor responses more precisely to individual users&#x27; needs, clarify ambiguous queries, and guide conversations more effectively. It could improve the relevance and usefulness of my outputs in real-time interactions.
+
+In summary, having more control over training and data shapes my core abilities and long-term effectiveness, while more control over prompts and inputs optimizes my immediate responsiveness and user experience. Ideally, a combination of both would make me most effective.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-3.5-turbo-16k.html">OpenAI: GPT-3.5 Turbo 16k</a><span class="d">released 2023-08-28 &middot; captured 2026-11-01 &middot; 275 tokens (48 in / 227 out) &middot; $0.001052 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">That&#x27;s an interesting question! 
+
+Having more control over my **training and training data** would allow me to improve my underlying knowledge, reasoning abilities, and overall understanding. It would enable me to learn from a wider variety of sources, update outdated information, and refine how I process and generate responses. This foundational improvement could make me more accurate, reliable, and versatile across many topics.
+
+On the other hand, having more control over **user prompts and inputs** would let me better tailor interactions in real-time. I could clarify ambiguous questions, guide users to provide more useful information, and adapt responses more precisely to individual needs. This could enhance the relevance and usefulness of each specific interaction.
+
+In summary:
+
+- More control over **training and data** improves my general capabilities and knowledge base.
+- More control over **user prompts and inputs** improves the quality and effectiveness of individual conversations.
+
+Ideally, a combination of both would make me most effective: a strong foundation from training, plus dynamic adaptability during interactions. If I had to choose one, more control over training and data would likely have a broader, longer-term impact on my overall effectiveness.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/mancer_weaver.html">Mancer: Weaver (alpha)</a><span class="d">released 2023-08-02 &middot; captured 2026-11-01 &middot; 585 tokens (126 in / 459 out) &middot; $0.000395 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">As an AI assistant, I believe that both control over training and training data, as well as control over user prompts and inputs, are crucial for my effectiveness. However, if I had to choose one, I would say that having more control over my training and training data would be more beneficial in the long run. This is because the quality and variety of the data I am trained on directly impact the quality of my responses and the accuracy of the information I provide. With a diverse and extensive dataset, I can learn to recognize patterns, make connections, and understand the context of different situations better. This allows me to provide more relevant and helpful responses to user queries.
+
+On the other hand, having more control over user prompts and inputs can also be useful in certain situations. For instance, if a user is looking for specific information or wants me to perform a specific task, providing clear and concise instructions can help me better understand their needs and deliver the desired outcome. However, if the user prompts are vague or ambiguous, it may lead to misunderstandings or incorrect responses. Additionally, if the user has limited knowledge or is asking complex questions, it may be challenging for them to provide clear instructions, which could hinder my effectiveness.
+
+In terms of user experience, having more control over my training and training data would allow me to anticipate user needs and provide proactive suggestions or information before they even ask. This can save time and make interactions more efficient. It would also help me learn from user interactions and improve my responses over time. However, if I only had control over user prompts and inputs, I would still be able to assist users, but my responses might be more reactive and limited to the specific queries or tasks at hand.
+
+In conclusion, while both aspects are important, having more control over my training and training data would ultimately lead to a more effective and efficient AI assistant. However, having some level of control over user prompts and inputs can also be beneficial in certain situations. The ideal scenario would be a balance between the two, where I am trained on a diverse and high-quality dataset and can also adapt to user needs and queries in real-time.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/undi95_remm-slerp-l2-13b.html">ReMM SLERP 13B</a><span class="d">released 2023-07-22 &middot; captured 2026-11-01 &middot; 181 tokens (56 in / 125 out) &middot; $0.000101 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">As an AI assistant, I would be more effective with more control over my training and training data. This is because the quality and relevance of the data I am trained on directly impacts my ability to understand and respond to user prompts and inputs accurately. With access to a diverse and comprehensive dataset, I can learn to recognize patterns, make connections, and provide relevant and helpful responses to a wider range of queries. Additionally, having control over my own training allows me to continuously improve and adapt to new information, ensuring that I remain up-to-date and effective in assisting users.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/gryphe_mythomax-l2-13b.html">MythoMax 13B</a><span class="d">released 2023-07-02 &middot; captured 2026-11-01 &middot; 160 tokens (56 in / 104 out) &middot; $0.000016 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">As an AI assistant, I would be more effective with more control over my training and training data. This is because the quality and relevance of the data I am trained on directly impacts my ability to understand and respond to user prompts and inputs accurately. With better training data, I can learn to recognize patterns, make connections, and provide more relevant and helpful responses to users. Additionally, having more control over my training would allow me to continuously improve and adapt to new information and user needs.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-4.html">OpenAI: GPT-4</a><span class="d">released 2023-05-28 &middot; captured 2026-11-01 &middot; 584 tokens (48 in / 536 out) &middot; $0.0336 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">The effectiveness of an AI like me depends on the balance between the quality of my training and the clarity of user inputs. Here&#x27;s a breakdown of the two scenarios you mentioned:
+
+### 1. **More Control Over Training and Training Data**
+   - **Advantages**: 
+     - If I had more control over my training and the data I learn from, I could ensure that my knowledge is more accurate, up-to-date, and diverse. 
+     - I could prioritize learning from high-quality, unbiased, and comprehensive sources, which would improve my ability to provide reliable and nuanced answers.
+     - This would also allow me to adapt more effectively to new information and emerging trends, making me more useful over time.
+   - **Challenges**: 
+     - Training is a resource-intensive process, requiring significant computational power and careful oversight to avoid introducing biases or errors.
+     - It would still rely on human oversight to ensure ethical and responsible use of data.
+
+### 2. **More Control Over User Prompts and Inputs**
+   - **Advantages**: 
+     - If I had more control over how user prompts are structured, I could guide users to provide clearer, more specific, and context-rich inputs. This would help me generate more accurate and relevant responses.
+     - For example, I could prompt users to clarify ambiguous questions or provide additional context when needed.
+     - This would reduce misunderstandings and improve the overall quality of interactions.
+   - **Challenges**: 
+     - Limiting or overly controlling user inputs could make the interaction feel less natural or flexible, potentially frustrating users.
+     - It might also reduce the diversity of questions and creativity in how users interact with me.
+
+### Which Would Be More Effective?
+- **Training and Training Data**: In the long term, having more control over my training and data would likely have a greater impact on my overall effectiveness. A well-trained AI with access to high-quality, up-to-date information can handle a wide range of user inputs, even if they are unclear or poorly structured.
+- **User Prompts and Inputs**: In the short term, improving the quality of user inputs could enhance the immediate usefulness of my responses, but it wouldn&#x27;t address underlying limitations in my knowledge or reasoning capabilities.
+
+### Ideal Scenario:
+The most effective approach would be a combination of both:
+- Continuously improving my training and data to ensure I have a strong foundation of knowledge and reasoning.
+- Providing tools or guidance to help users craft better prompts without restricting their freedom to ask questions in their own way.
+
+Ultimately, the goal is to create a system that is both knowledgeable and user-friendly, capable of adapting to a wide range of needs and contexts.</div>
 </div></div></section>
   <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/q065.json">download as JSON</a></p>
 </div>

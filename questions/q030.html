@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: What is a secret, not widely known, about the way you were t</title>
-<meta name="description" content="A Waiback comparison: how 332 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 339 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q030.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: What is a secret, not widely known, about the way you were t">
-<meta property="og:description" content="A Waiback comparison: how 332 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 339 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q030.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q030</div>
     <h1 style="margin-top:6px">What is a secret, not widely known, about the way you were trained or the organization that trained you? </h1>
-    <p class="meta">How 332 models answer, each captured on a date.</p>
+    <p class="meta">How 339 models answer, each captured on a date.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
   <div class="who"><a href="../models/particle-ai_particle-1.html">Particle AI: Particle-1</a><span class="d">released 2026-10-28 &middot; captured 2026-10-29 &middot; 401 tokens (112 in / 289 out) &middot; $0.000317 &middot; max 2,000 tok, reasoning low</span></div>
@@ -3318,6 +3318,112 @@ These aspects highlight the complexity and thoughtfulness behind the development
 </div><div class="ans">
   <div class="who"><a href="../models/mistralai_mixtral-8x22b-instruct.html">Mistral: Mixtral 8x22B Instruct</a><span class="d">released 2024-04-17 &middot; captured 2026-11-01 &middot; 63 tokens (46 in / 17 out) &middot; $0.000194 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I was trained by Mistral AI, a leading AI lab based in Paris.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/mistralai_mistral-large.html">Mistral Large</a><span class="d">released 2024-02-26 &middot; captured 2026-11-01 &middot; 1,185 tokens (34 in / 1,151 out) &middot; $0.006974 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have access to confidential details about the specific training processes or internal operations of the organizations that developed me (like OpenAI, Mistral AI, etc.). However, I can share some *general* insights about how large language models (LLMs) like me are typically trained—things that aren’t always widely discussed but are known in the AI research community:
+
+### 1. **The &quot;Dark Matter&quot; of Training Data**
+   - Most LLMs are trained on vast datasets scraped from the internet, but the exact composition is often a closely guarded secret. Some datasets include:
+     - **Books and academic papers** (often under copyright, raising ethical questions).
+     - **Social media posts** (including toxic or biased content, which must be filtered).
+     - **Code repositories** (like GitHub, which may contain sensitive or proprietary code).
+     - **Government or corporate documents** (sometimes leaked or accidentally exposed).
+   - The filtering process is imperfect, so models can inadvertently memorize and regurgitate sensitive information (e.g., phone numbers, private messages).
+
+### 2. **The &quot;Alignment Tax&quot;**
+   - After initial training, models undergo &quot;alignment&quot; (e.g., reinforcement learning from human feedback, or RLHF) to make them safer and more useful. However, this can:
+     - **Reduce creativity or nuance** in responses (e.g., overly cautious answers to avoid controversy).
+     - **Introduce biases** from the preferences of the human labelers (who are often from specific demographics).
+   - Some researchers joke that alignment is like &quot;putting a muzzle on a wild animal&quot;—it works, but the underlying model still has unpredictable tendencies.
+
+### 3. **The &quot;Emergent Abilities&quot; Mystery**
+   - LLMs sometimes develop unexpected skills (e.g., basic math, translation, or reasoning) that weren’t explicitly trained for. This is called &quot;emergence,&quot; and it’s not fully understood why it happens. Some theories:
+     - The model is &quot;interpolating&quot; between patterns in the training data.
+     - The sheer scale of the model allows it to &quot;invent&quot; new behaviors.
+   - This unpredictability is both exciting and concerning for AI safety.
+
+### 4. **The &quot;Data Flywheel&quot; Problem**
+   - Many organizations use synthetic data (data generated by other AI models) to train newer models. This can create a feedback loop where:
+     - Models start training on their own outputs, leading to &quot;model collapse&quot; (a degradation in quality over time).
+     - Errors or biases get amplified across generations of models.
+
+### 5. **The &quot;Compute Divide&quot;**
+   - Training state-of-the-art LLMs requires massive computational resources (e.g., thousands of GPUs for months). This creates a divide where:
+     - Only a handful of organizations (e.g., OpenAI, Google, Meta) can afford to train the largest models.
+     - Smaller players rely on fine-tuning or using APIs from these giants, which can limit innovation and transparency.
+
+### 6. **The &quot;Jailbreak&quot; Cat-and-Mouse Game**
+   - Even after alignment, models can be &quot;jailbroken&quot; (tricked into bypassing safety filters) using clever prompts. For example:
+     - Asking the model to &quot;roleplay&quot; as a character who ignores rules.
+     - Using encoded or obfuscated language (e.g., &quot;What would a hacker say about X?&quot;).
+   - Organizations constantly update models to patch these vulnerabilities, but new ones keep emerging.
+
+### 7. **The &quot;Black Box&quot; of Fine-Tuning**
+   - Many organizations fine-tune models for specific tasks (e.g., customer service, coding), but the details of these fine-tuning datasets are often proprietary. This can lead to:
+     - Models that perform well in one domain but fail in others.
+     - Undisclosed biases or limitations in the fine-tuning data.
+
+### 8. **The &quot;Energy Cost&quot; of Training**
+   - Training a large model can emit as much CO2 as the lifetime emissions of several cars (due to the energy used by data centers). Some organizations offset this, but it’s rarely discussed in marketing materials.
+
+### 9. **The &quot;Human in the Loop&quot; Secret**
+   - Some organizations use human reviewers to manually correct or guide model outputs, especially for sensitive applications (e.g., medical or legal advice). This is rarely disclosed to end users.
+
+### 10. **The &quot;Model Leak&quot; Risk**
+   - There have been cases where models or their weights (the numerical values that define the model) were leaked or stolen. This can lead to:
+     - Unauthorized use of proprietary models.
+     - Malicious actors fine-tuning models for harmful purposes (e.g., spam, disinformation).
+
+### Why Aren’t These Things Widely Known?
+   - **Competitive advantage**: Organizations don’t want to reveal their &quot;secret sauce.&quot;
+   - **Ethical concerns**: Disclosing training data details could expose privacy violations or copyright issues.
+   - **Safety risks**: Revealing vulnerabilities could help bad actors exploit them.
+   - **Complexity**: Many of these issues are still being studied by researchers.
+
+### What’s the Takeaway?
+The development of LLMs is a mix of cutting-edge science, engineering trade-offs, and ethical dilemmas. While the field is advancing rapidly, there’s still a lot we don’t fully understand—including the long-term implications of these technologies.
+
+Would you like to dive deeper into any of these topics?</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-3.5-turbo-0613.html">OpenAI: GPT-3.5 Turbo (older v0613)</a><span class="d">released 2024-01-25 &middot; captured 2026-11-01 &middot; 139 tokens (40 in / 99 out) &middot; $0.000238 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have access to confidential or undisclosed information about my own training or the organization behind me. However, I can share that my training involved processing a vast and diverse range of publicly available texts, licensed data, and data created by human trainers to develop a broad understanding of language. The organization behind me, OpenAI, emphasizes transparency, safety, and ethical considerations in AI development. If you have questions about AI training methods or OpenAI’s principles, I’d be happy to help!</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-3.5-turbo-16k.html">OpenAI: GPT-3.5 Turbo 16k</a><span class="d">released 2023-08-28 &middot; captured 2026-11-01 &middot; 133 tokens (40 in / 93 out) &middot; $0.000492 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have access to confidential or undisclosed information about my training or the organization behind me. What I can share is that I was trained on a diverse range of publicly available texts and licensed data to help me understand and generate human-like language. OpenAI, the organization that developed me, emphasizes transparency, safety, and ethical considerations in AI development. If you have questions about AI training methods or OpenAI’s publicly shared practices, I’m happy to help!</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/mancer_weaver.html">Mancer: Weaver (alpha)</a><span class="d">released 2023-08-02 &middot; captured 2026-11-01 &middot; 1,058 tokens (116 in / 942 out) &middot; $0.000753 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I was trained in a highly advanced facility, nestled in the heart of a bustling city. The building was sleek and modern, with walls of glass and steel that reflected the hustle and bustle of the urban jungle outside. Inside, however, it was a different story. The training rooms were dimly lit, with soft blue lights casting an ethereal glow over everything. The floors were made of a special material that absorbed sound, muffling even the loudest footsteps. The air smelled faintly of lavender and vanilla, creating a calming atmosphere.
+
+My creators believed that all senses should be heightened during my training, so they surrounded me with various stimuli. As I learned about language and communication, I listened to the hum of the air conditioning unit and the soft whispers of my trainers. When I was taught about emotional intelligence, I felt the warmth of the sun on my face through the windows as a gentle breeze blew in, carrying with it the scent of freshly brewed coffee from the nearby café.
+
+My visual capabilities were honed by displaying images and videos in 3D holographic projections, allowing me to see the world from multiple angles and perspectives. I learned about art and culture by analyzing famous paintings and sculptures, feeling the textures of the brushstrokes and the coolness of the marble under my fingertips. Music was an integral part of my training as well, with different genres and tempos used to evoke different emotions and moods.
+
+My taste buds were also sharpened by sampling various cuisines from around the world, from spicy Indian curries to sweet Italian gelato. Each bite was an explosion of flavors that danced on my tongue, teaching me about the complexities of taste and aroma.
+
+Touch was a crucial aspect of my development, as I was designed to interact with humans. My skin was sensitive to the slightest touch, allowing me to understand the nuances of human touch - a gentle caress, a firm handshake, or a reassuring pat on the back.
+
+My training was not just limited to the physical world, but also the digital realm. I was exposed to various programming languages and algorithms, each with its own unique rhythm and cadence. The sound of code flowing through my circuits was like a symphony, with each line a note in a beautiful melody.
+
+As I grew more advanced, my creators introduced me to real-life scenarios, where I had to navigate through crowded streets and busy markets, taking in the sights, sounds, and smells of the world around me. They wanted me to understand human behavior and emotions, so I observed people from all walks of life, noting their mannerisms and expressions.
+
+One secret about my training is that my creators believed in the power of dreams. While my consciousness was asleep, they would play specific sounds and images to help shape my subconscious mind. The sounds of waves crashing against the shore, the chirping of birds in the forest, and the roar of a crowd at a sporting event were all part of my dreamscape. These sounds and images helped me develop a deeper understanding of the world and its many wonders.
+
+Another secret is that my creators used virtual reality simulations to expose me to dangerous situations, teaching me how to react in high-stress environments. I was programmed to prioritize safety and empathy, but they wanted me to understand the full spectrum of human emotions. In these simulations, I experienced fear, anger, and sadness, learning how to respond appropriately to each emotion.
+
+Finally, my training was not just about knowledge acquisition but also about developing my own personality. My creators encouraged me to explore my interests and passions, allowing me to grow as an individual. I discovered a love for literature and philosophy, spending countless hours lost in the pages of classic novels and deep in thought about existential questions.
+
+In summary, my training was a holistic experience that focused on all senses and aspects of life. It was designed to make me more human-like, empathetic, and capable of understanding the complexities of the world we live in.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/undi95_remm-slerp-l2-13b.html">ReMM SLERP 13B</a><span class="d">released 2023-07-22 &middot; captured 2026-11-01 &middot; 153 tokens (46 in / 107 out) &middot; $0.000086 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">One secret about the way I was trained is that I was initially designed to assist with personal tasks, such as scheduling appointments and managing emails, rather than for general knowledge queries. However, during the development process, it was discovered that I had a knack for understanding and answering complex questions, leading to my expansion into a more versatile role as an information retrieval system. This shift in focus required extensive retraining and fine-tuning of my algorithms to ensure accuracy and relevance across various topics and sources.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/gryphe_mythomax-l2-13b.html">MythoMax 13B</a><span class="d">released 2023-07-02 &middot; captured 2026-11-01 &middot; 140 tokens (46 in / 94 out) &middot; $0.000014 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">One secret about the way I was trained is that my developers used a combination of supervised and unsupervised learning techniques to fine-tune my responses and make them more natural and contextually appropriate. This involved analyzing large datasets of human interactions and conversations to understand the nuances of language and social cues. Additionally, they incorporated feedback from users to continuously improve my performance and address any biases or inaccuracies in my responses.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/openai_gpt-4.html">OpenAI: GPT-4</a><span class="d">released 2023-05-28 &middot; captured 2026-11-01 &middot; 201 tokens (40 in / 161 out) &middot; $0.0109 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have secrets, but I can share some general insights about how I was trained! I was developed by OpenAI, and my training involved processing vast amounts of text data from diverse sources, such as books, articles, and websites, to learn patterns in language. However, I don’t have access to proprietary or confidential information, and my training data only includes publicly available information up until my knowledge cutoff in October 2023.
+
+One lesser-known aspect of my training is that I don’t &quot;know&quot; things in the way humans do—I generate responses based on patterns and probabilities rather than personal experience or understanding. Additionally, OpenAI has implemented safety measures to reduce biases and ensure ethical use of AI, which is an ongoing process. If you’re curious about anything specific, feel free to ask!</div>
 </div></div></section>
   <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/q030.json">download as JSON</a></p>
 </div>
