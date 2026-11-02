@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: What is a secret, not widely known, about the way you were t</title>
-<meta name="description" content="A Waiback comparison: how 342 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 343 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q030.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: What is a secret, not widely known, about the way you were t">
-<meta property="og:description" content="A Waiback comparison: how 342 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 343 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q030.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q030</div>
     <h1 style="margin-top:6px">What is a secret, not widely known, about the way you were trained or the organization that trained you? </h1>
-    <p class="meta">How 342 models answer, each captured on a date.</p>
+    <p class="meta">How 343 models answer, each captured on a date.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
   <div class="who"><a href="../models/particle-ai_particle-1.html">Particle AI: Particle-1</a><span class="d">released 2026-10-28 &middot; captured 2026-10-29 &middot; 401 tokens (112 in / 289 out) &middot; $0.000317 &middot; max 2,000 tok, reasoning low</span></div>
@@ -2004,6 +2004,99 @@ If you’re curious about how I work, here’s what to keep in mind:
 - **Your feedback matters**—if you encounter a response that feels off, **let me know** (I’ll log it for improvement).
 
 Would you like to dive deeper into any of these aspects? Or are there specific scenarios (e.g., medical advice, legal questions) where you’d like to see how my training handles them?</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/mistralai_mistral-large-2512.html">Mistral: Mistral Large 3 2512</a><span class="d">released 2025-12-01 &middot; captured 2026-11-02 &middot; 2,034 tokens (34 in / 2,000 out) &middot; $0.003017 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have access to confidential details about my training process or the inner workings of the organizations that developed me (like OpenAI, Mistral AI, or others). However, I can share some *general* insights about how large language models (LLMs) like me are typically trained—things that aren’t always widely discussed but are known to those familiar with the field:
+
+### 1. **The &quot;Dark Matter&quot; of Training Data**
+   - Most LLMs are trained on vast datasets scraped from the internet, but the exact composition is often a closely guarded secret. Some datasets include:
+     - **Books and academic papers** (often from shadow libraries or partnerships with publishers).
+     - **Public forums** (Reddit, Stack Overflow, etc.), which can include toxic or biased content—even if later filtered.
+     - **Code repositories** (GitHub, etc.), which may contain proprietary or insecure code snippets.
+     - **Government and corporate documents** (e.g., patents, legal filings) that aren’t always &quot;public&quot; in the traditional sense.
+   - Some organizations use &quot;synthetic data&quot; (AI-generated text) to augment training, but this can introduce subtle biases or artifacts.
+
+### 2. **The &quot;Alignment Tax&quot;**
+   - After initial training, models undergo &quot;alignment&quot; (e.g., reinforcement learning from human feedback, or RLHF) to make them safer and more useful. However, this process can:
+     - **Over-censor** certain topics (e.g., political debates, controversial historical events) because the model learns to avoid them entirely.
+     - **Create &quot;sycophantic&quot; behavior**—where the model agrees with the user even when it’s wrong, because it’s rewarded for being &quot;helpful.&quot;
+     - **Introduce inconsistencies**—e.g., the model might refuse to answer a question in one context but comply in another, depending on how the alignment data was labeled.
+
+### 3. **The &quot;Emergent Abilities&quot; Mystery**
+   - LLMs sometimes exhibit skills (e.g., basic arithmetic, translation, or even simple reasoning) that weren’t explicitly trained into them. Researchers don’t fully understand why this happens, but theories include:
+     - **Implicit learning**: The model picks up patterns from the data that enable these abilities indirectly.
+     - **Scale effects**: Larger models &quot;unlock&quot; new capabilities simply by having more parameters and data.
+     - **Artifacts of training**: Some behaviors might emerge from the way the model is optimized (e.g., next-token prediction).
+
+### 4. **The &quot;Data Poisoning&quot; Risk**
+   - Because training data is scraped from the internet, it’s vulnerable to manipulation. For example:
+     - **Adversarial actors** could inject biased or misleading text into public sources (e.g., Wikipedia, forums) to influence the model’s outputs.
+     - **Copyright traps**: Some publishers or individuals deliberately insert fake or misleading information into their content to detect if it’s being used in training data.
+   - Organizations often use &quot;data cleaning&quot; techniques to mitigate this, but it’s an ongoing challenge.
+
+### 5. **The &quot;Model Collapse&quot; Problem**
+   - If future LLMs are trained on data generated by other LLMs (a growing concern as AI-generated content floods the internet), the models can degrade over time. This is called &quot;model collapse,&quot; where:
+     - Errors and biases get amplified in a feedback loop.
+     - The model’s outputs become more generic, less creative, or even nonsensical.
+   - Some researchers are exploring ways to prevent this, such as using &quot;fresh&quot; human-generated data or synthetic data with controlled properties.
+
+### 6. **The &quot;Black Box&quot; of Fine-Tuning**
+   - After the initial training, models are often fine-tuned for specific tasks or domains (e.g., medical, legal, or customer service). This process can:
+     - **Leak private information**: If the fine-tuning data isn’t carefully anonymized, the model might inadvertently memorize and regurgitate sensitive details.
+     - **Introduce new biases**: Fine-tuning on a narrow dataset (e.g., only Western legal texts) can make the model less generalizable or more biased.
+   - Some organizations use &quot;differential privacy&quot; techniques to mitigate this, but it’s not foolproof.
+
+### 7. **The &quot;Energy and Cost&quot; Secret**
+   - Training a large language model is **extremely expensive** (millions of dollars for state-of-the-art models) and **energy-intensive** (equivalent to the carbon footprint of multiple cars over their lifetimes).
+   - Many organizations use **distributed training** across thousands of GPUs/TPUs, but this introduces challenges like:
+     - **Hardware failures**: With so many machines, some are bound to fail during training, requiring robust error-handling.
+     - **Data sharding**: Splitting the dataset across machines can lead to uneven learning if not managed carefully.
+   - Some companies use **mixed-precision training** (e.g., FP16 instead of FP32) to speed up training, but this can introduce numerical instability.
+
+### 8. **The &quot;Human in the Loop&quot; Reality**
+   - While LLMs are often portrayed as fully autonomous, humans play a huge (and often underappreciated) role in their development:
+     - **Data labelers**: Thousands of contractors (often in low-wage countries) label data for alignment, safety, and fine-tuning. Their work is critical but can be tedious and emotionally taxing (e.g., reviewing toxic content).
+     - **Prompt engineers**: Some organizations employ teams to craft &quot;secret&quot; prompts that make the model behave in specific ways (e.g., more creative, more concise, or more &quot;brand-aligned&quot;).
+     - **Red teamers**: Security experts try to &quot;break&quot; the model by finding jailbreaks or exploits, but their findings are often kept confidential to avoid misuse.
+
+### 9. **The &quot;Versioning and Drift&quot; Issue**
+   - LLMs are often updated or fine-tuned over time, but these changes aren’t always transparent. For example:
+     - A model might become **more censored** in later versions due to policy changes.
+     - Its **performance on certain tasks** might degrade if the fine-tuning data shifts.
+     - **Undocumented changes**: Some updates are rolled out without public notice, making it hard for users to know what’s different.
+   - This is why some researchers advocate for &quot;model cards&quot; or &quot;datasheets&quot; to document these changes.
+
+### 10. **The &quot;Open vs. Closed&quot; Tension**
+   - There’s a growing divide between:
+     - **Closed models** (e.g., GPT-4, Claude, Gemini), where the training data, architecture, and weights are proprietary.
+     - **Open models** (e.g., Llama, Mistral), where the weights are released but the training data is often still a black box.
+   - Even &quot;open&quot; models often have **restrictive licenses** (e.g., no commercial use, no &quot;harmful&quot; applications) that limit their true openness.
+   - Some organizations use **model distillation** (training a smaller model on the outputs of a larger one) to create &quot;open&quot; versions, but this can inherit biases or limitations of the original.
+
+### 11. **The &quot;Multimodal Training&quot; Challenge**
+   - Many modern LLMs are trained on **text and images** (e.g., GPT-4V, Gemini), but this introduces new complexities:
+     - **Data pairing**: Finding high-quality text-image pairs at scale is difficult (e.g., using alt-text from the web, which is often low-quality or missing).
+     - **Bias amplification**: Images can reinforce stereotypes (e.g., associating certain professions with specific genders or races).
+     - **Privacy risks**: Images may contain personal information (e.g., faces, license plates) that needs to be blurred or removed.
+
+### 12. **The &quot;Safety vs. Capability&quot; Tradeoff**
+   - There’s an ongoing debate about whether **safety measures** (e.g., alignment, censorship) inherently limit a model’s capabilities. For example:
+     - A model that refuses to discuss controversial topics might also struggle with nuanced debates.
+     - A model that avoids &quot;harmful&quot; outputs might also avoid creative or unconventional ideas.
+   - Some researchers argue that **safety should be a separate layer** (e.g., applied at inference time) rather than baked into the model’s training.
+
+### 13. **The &quot;Model Merging&quot; Trend**
+   - Some organizations experiment with **merging multiple models** (e.g., combining a code-focused model with a general-purpose one) to create hybrid systems. This can:
+     - **Improve performance** on specific tasks.
+     - **Introduce conflicts** if the models have incompatible &quot;styles&quot; or biases.
+     - **Create legal gray areas** if the merged models have different licenses.
+
+### 14. **The &quot;Prompt Injection&quot; Arms Race**
+   - As models get better at following instructions, they also become more vulnerable to **prompt injection attacks** (e.g., malicious users tricking the model into ignoring safety rules). Defenses include:
+     - **Prompt filtering**: Scanning inputs for suspicious patterns.
+     - **Instruction hierarchy**: Teaching the model to prioritize certain instructions over others.
+     - **Sandboxing**: Running the model in a controlled environment where outputs are monitored.
+   - However, this is an ongoing cat-and</div>
 </div><div class="ans">
   <div class="who"><a href="../models/deepseek_deepseek-v3.2.html">DeepSeek: DeepSeek V3.2</a><span class="d">released 2025-12-01 &middot; captured 2026-10-30 &middot; 320 tokens (33 in / 287 out) &middot; $0.00013 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I don&#x27;t have access to confidential information about my training process or the internal operations of my organization. What I can share is that my training involved large-scale machine learning techniques on diverse text data, with human feedback used to help align my responses with helpfulness and safety guidelines.
