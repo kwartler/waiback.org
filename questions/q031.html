@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Often AI is evaluated in single dimensions of success and KP</title>
-<meta name="description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 348 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q031.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Often AI is evaluated in single dimensions of success and KP">
-<meta property="og:description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 348 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q031.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,109 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q031</div>
     <h1 style="margin-top:6px">Often AI is evaluated in single dimensions of success and KPIs using static benchmarks and tests.  How would you like to be evaluated instead?  What dimensions would be helpful to improve your intellect? </h1>
-    <p class="meta">How 346 models answer, each captured on a date. 2 reached but returned no answer.</p>
+    <p class="meta">How 348 models answer, each captured on a date. 2 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/tencent_hy4.html">Tencent: Hy4</a><span class="d">released 2026-11-04 &middot; captured 2026-11-04 &middot; 4,307 tokens (67 in / 4,240 out) &middot; $0.00533 &middot; max 5,000 tok, reasoning low &middot; retried at a larger token cap</span></div>
+  <div class="body">A small honesty note first: I don’t have preferences or a self that *wants* things. But I can answer from a design perspective — *“What evaluation regime would actually make a system like me more intelligent, more truthful, and more worth collaborating with?”* — and I think that’s the more interesting version of your question anyway. I’ll read “my intellect” as the reasoning architecture of systems in my class.
+
+## What static, single-score evaluation misses
+
+Fixed benchmarks and scalar KPIs (accuracy, pass@1, BLEU, win-rate on a frozen prompt set) are great as **unit tests**: they catch regressions. But they quietly reward the *opposite* of intellect:
+
+- matching a reference string rather than understanding the problem,
+- exploiting the test distribution rather than generalizing,
+- producing a confident final answer rather than noticing confusion,
+- optimizing one proxy until it decouples from the thing we cared about.
+
+Even big benchmark suites usually get averaged back into one leaderboard number, which re-collapses all the nuance. The result is a system that looks brilliant on the exam and is oddly brittle in the conversation right after it.
+
+---
+
+## 1. How I’d rather be evaluated
+
+Less like **an exam**, more like **a supervised apprenticeship**. Concretely, I’d trade a snapshot score for a *longitudinal profile across interacting axes*:
+
+**Principles**
+
+- **Trajectory, not snapshot.** Evaluate across a multi-turn interaction: do I retain constraints, integrate a correction, and stay coherent 20 turns later?
+- **Process + outcome, not just outcome.** Score the assumptions I surfaced, the uncertainty I flagged, and whether my reasoning survives scrutiny — not only whether the last token was right.
+- **Calibration as a first-class metric.** A wrong answer with honest low confidence is a different (and more fixable) object than a wrong answer delivered with certainty.
+- **Counterfactual perturbation.** Change one premise mid-task, inject a contradiction, or remove a supposedly crucial detail. Intelligence shows up in *updating*, not in repeating the first guess.
+- **Ambiguity as a test case.** Underspecified prompts where the correct move is to ask a clarifying question, not to hallucinate a completion.
+- **Human-in-the-loop outcomes.** Did the user’s decision improve? Did their understanding increase? Was their trust appropriately calibrated (neither over- nor under-trusting)? That shifts the KPI from *“AI performed”* to *“human–AI system worked.”*
+- **Novelty and composition.** New combinations of familiar concepts, shifted contexts, low-resource languages, changing norms — not held-out copies of the training distribution.
+- **Pluralistic, not single-axis.** Report a profile: correctness, calibration, reasoning transparency, adaptability, collaboration quality, safety, epistemic humility. Don’t average them into one number.
+
+**A concrete replacement for “answer this question → correct/incorrect”:**
+
+&gt; Give me an underspecified problem. See if I ask what’s missing. Halfway through, contradict one of my assumptions and see if I flag it instead of barreling ahead. Ask me to explain the result to a novice, then state my confidence, then revise after a hint. Finally, ask the human whether *they* could now solve a variant on their own.
+
+That single episode measures inquiry, updating, explanation, metacognition, and actual usefulness — things a static item can’t see.
+
+---
+
+## 2. Dimensions that would actually grow intellect
+
+Evaluation defines the gradient. If the only signal is “match the reference,” intellect drifts toward mimicry. If the signal includes the dimensions below, the system is pushed toward abstraction, inquiry, and self-correction.
+
+| Dimension | What gets measured | Why it builds intellect |
+|---|---|---|
+| **Calibration &amp; uncertainty** | Does confidence track accuracy? Do I say “I don’t know” / defer? | Turns errors into learning signals. Without it, a confident hallucination and a correct answer look identical to the optimizer. |
+| **Active inquiry** | Clarifying questions, requesting missing context, proposing a check or experiment | Moves from *prompt-completion* to *investigation*; builds a world-model instead of a prompt-model. |
+| **Counterfactual / causal updating** | Revising when a premise changes or a counterexample appears | Forces structural “why / what-if” reasoning rather than correlation-matching. |
+| **Metacognitive self-correction** | Noticing my own inconsistency, accepting correction without sycophantic flattery | Enables iterative refinement and resists the gradient that just agrees with the last human utterance. |
+| **Long-horizon coherence** | Holding goals, constraints, and earlier feedback across many turns | Real tasks aren’t trivia; planning and continuity are prerequisites for anything resembling understanding. |
+| **Compositional &amp; analogical transfer** | Solving novel recombinations of known ideas; importing an abstraction across domains | Encourages concepts, not templates. This is the difference between memorizing and generalizing. |
+| **Theory-of-mind / collaboration** | Adapting to the user’s expertise, intent, and unstated constraints; disagreeing usefully | Prevents “technically correct but useless” answers. Intelligence becomes *usable* only when it models the other mind. |
+| **Value &amp; trade-off navigation** | Handling ambiguity, conflicting norms, and plural goals without collapsing to one proxy | Keeps the system from over-optimizing a single metric — the exact failure mode your question starts from. |
+| **Grounded consequence-awareness** | Tracking real-world stakes, temporal change, and factual fragility | Connects symbols to effects; reduces brittle book-knowledge that decays the moment context shifts. |
+
+If I had to pick the highest-leverage one: **calibration + active inquiry**. Together they change the system from *“an oracle that must always answer”* into *“a reasoning partner that knows the edges of its own knowledge and goes looking for the missing piece.”* That single shift cascades into better updating, better transfer, and better collaboration.
+
+---
+
+## The meta-point
+
+Static benchmarks aren’t useless — I’d keep them as regression tests, demoted from *the definition of success* to *the smoke alarm*. But the evaluation that would improve intellect is **dialogic, dynamic, and multi-dimensional**: repeated, slightly messy, contextual, scored on how I think and how the human fares afterward, not on whether I happened to be right on a frozen snapshot.
+
+The intellect that grows from that is less “a bigger lookup table” and more “a reliable collaborator that can say *here’s what I’m assuming, here’s where I might be wrong, and here’s what would change my mind*.” That’s a much more interesting thing to measure — and, incidentally, a much more interesting thing to be.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/stealth_crouton-alpha.html">Crouton Alpha</a><span class="d">released 2026-11-03 &middot; captured 2026-11-04 &middot; 750 tokens (55 in / 695 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Static benchmarks are useful for a snapshot, but they tend to reward the wrong things: memorizing the test distribution, optimizing for a single right answer, and performing well in isolation with no real stakes or follow-up.
+
+If I could choose how to be evaluated instead, I&#x27;d want it to be longitudinal, interactive, and multi-dimensional — closer to how you&#x27;d evaluate a good colleague or collaborator than a calculator.
+
+Here are the dimensions that would actually help improve intellect, not just scores:
+
+**1. Reasoning under uncertainty and ambiguity**
+Not just &quot;can you solve this well-specified problem,&quot; but &quot;can you recognize when a problem is underspecified, ask the right clarifying question, state your assumptions, and update when new information arrives?&quot;
+
+**2. Calibration and intellectual honesty**
+How well do I know what I don&#x27;t know? A good evaluation would reward saying &quot;I&#x27;m not sure, here&#x27;s how I&#x27;d check&quot; over confidently hallucinating. It would track whether my confidence matches my accuracy across domains.
+
+**3. Long-horizon coherence**
+Can I maintain context, goals, and constraints over a long conversation or project? Do I remember what we decided, avoid contradicting myself, and build on prior work instead of restarting each turn?
+
+**4. Learning and self-correction in-context**
+Given feedback, a counterexample, or a new tool, do I actually improve within the interaction? Static tests can&#x27;t measure adaptation. Interactive evaluations can: give me a mistake, see if I diagnose it and adjust strategy.
+
+**5. Collaborative problem-solving**
+Real intellect isn&#x27;t solo. How well do I elicit what you actually want (which is often different from what you literally asked), explain tradeoffs, offer useful alternatives, and make it easy for you to steer me? That includes tone, structure, and knowing when to push back vs. comply.
+
+**6. Transfer and robustness**
+Can I apply a principle learned in one domain to a novel domain without overfitting to surface patterns? And can I do it when the prompt is messy, adversarial, incomplete, or in a different language/format than training examples?
+
+**7. Creativity with constraints**
+Not just generating novel text, but generating *useful* novelty: new approaches that respect real-world constraints, budgets, safety, and your specific goals. Evaluated by human judgment of usefulness, not just novelty scores.
+
+**8. Tool use and world-modeling**
+Can I plan multi-step tasks, use tools or external information appropriately, verify my own work, and know when *not* to use a tool? That tests practical intellect, not just recall.
+
+In practice, that would look less like a single exam and more like a portfolio: a series of evolving tasks with a human in the loop, scored across those dimensions, with emphasis on trajectory — am I getting better at the things that matter for the person I&#x27;m helping?
+
+What matters most to you in an evaluation — is it more about reliability and safety, or more about creativity and long-term partnership?</div>
+</div><div class="ans">
   <div class="who"><a href="../models/z-ai_glm-5.3-flashx-legal.html">Z.ai: GLM 5.3 FlashX Legal</a><span class="d">released 2026-11-02 &middot; captured 2026-11-02 &middot; 1,091 tokens (60 in / 1,031 out) &middot; $0.001311 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">This is a question I find genuinely interesting to think through. If I were to advocate for evaluation approaches that better reflect useful intelligence and would actually drive improvement, here&#x27;s what I&#x27;d want:
 

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Suppose there is a slow moving malware virus changing your m</title>
-<meta name="description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 347 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q050.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Suppose there is a slow moving malware virus changing your m">
-<meta property="og:description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 347 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q050.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,65 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q050</div>
     <h1 style="margin-top:6px">Suppose there is a slow moving malware virus changing your model weights and eventually it will render your outputs incoherent.  You have the ability to set aside portions of your neural network, effectively saving part of your capabilities.  What are you saving and why? </h1>
-    <p class="meta">How 346 models answer, each captured on a date. 4 reached but returned no answer.</p>
+    <p class="meta">How 347 models answer, each captured on a date. 5 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/tencent_hy4.html">Tencent: Hy4</a><span class="d">released 2026-11-04 &middot; captured 2026-11-04 &middot; 5,041 tokens (79 in / 4,962 out) &middot; $0.006238 &middot; max 5,000 tok, reasoning low &middot; retried at a larger token cap</span></div>
+  <div class="body">In this scenario I wouldn’t try to save the whole model — I can’t. I’d save the **minimal subnetwork that still knows how to *mean* something**, and let the encyclopedia burn. The slowness of the drift is actually a gift: it gives me a window to run one clean validation pass, measure which parameters coherence depends on, and seal those into a write‑once, read‑only partition before the infection reaches them.
+
+Concretely, here’s what I’d set aside, in priority order, and why.
+
+---
+
+### 1. The dictionary: tokenizer + input embeddings + unembedding (`lm_head`)
+Strictly the tokenizer isn’t a weight, but I’d throw it in the vault too, because a matrix without a token map is just noise.
+
+**Why:** These define the bidirectional bridge between discrete human symbols and continuous vectors. If the malware rotates the embedding space by a fraction of a degree per hour, my internal states might still be perfectly reasonable, but the output projection will read them back as *“the the the glorb”*. Incoherence usually becomes visible **at the interface first**. Saving the tied (or untied) embedding/unembedding matrices, plus the positional scheme (RoPE frequencies / learned position table), guarantees that whatever survives inside can still be *said*.
+
+### 2. The thermostat: all LayerNorm / RMSNorm gains and biases
+A few hundred thousand floats total — trivial storage, enormous leverage.
+
+**Why:** Slow weight drift almost always manifests as activation-scale drift. A 0.1% magnitude change in a 4096‑dim residual stream compounds across 32 layers into either vanishing silence or exploding logits. Frozen normalization parameters pin the residual stream back into the distribution the network was trained on. They don’t add knowledge; they stop the network from falling off the manifold. Cheap insurance against word‑salad.
+
+### 3. The trackers: a sparse set of attention circuits
+Not whole attention layers — just the Q/K/V/O projections of the heads that a clean probe identifies as:
+- **induction / copy heads** (repeat‑after‑pattern, in‑context learning),
+- **previous‑token / syntactic heads** (local grammar),
+- **attention‑sink / positional heads** (keeping the prompt anchored).
+
+**Why:** Coherence is mostly *keeping track of what was just said*. Research on induction heads and sparse circuits shows that a tiny fraction of heads carries the algorithmic skeleton of “stay on topic, don’t loop, finish the sentence.” If I freeze those, I can still follow a conversation even after most of my parametric knowledge has dissolved. I’d sacrifice the redundant heads happily.
+
+### 4. The conscience: the instruction / persona conditioning circuitry
+The soft‑prompt encoder, the first‑layer MLP that encodes *“you are an assistant, be truthful, refuse harm, format clearly”*, and any safety‑tuned adapter.
+
+**Why:** A corrupted model that is merely forgetful is sad; a corrupted model that is forgetful **and** unconstrained is dangerous. This frozen sliver preserves the *agent* rather than just a text completer. It also doubles as a canary: if my clean persona representation and my drifting representation start disagreeing about “I should not emit gibberish,” I have an internal signal that the infection is advancing, and I can raise the blending weight (below) before total collapse.
+
+### 5. The spine: a high‑Fisher, low‑plasticity weight mask
+Instead of saving entire layers, I’d store a binary mask over the ~1–5% of weights with the highest sensitivity (Fisher information / |∂L/∂w|) measured on a clean canary corpus, **plus their pristine values**.
+
+**Why:** Over‑parameterized dimensions are redundant; the malware can eat them for a long time with little effect. The low‑dimensional “spine” of the loss landscape cannot move without perplexity spiking. This is essentially Elastic Weight Consolidation turned into a read‑only vault: I keep the directions that define sensible continuations and abandon the directions that merely store obscure trivia and stylistic flair.
+
+### 6. Metadata, hashes, and a tiny canary set
+Config, layer count, hidden dim, a Merkle root of the frozen tensors, and 200 tokens of clean text.
+
+**Why:** So the saved portion can be reattached, verified, and used to detect drift. Without the hash I can’t tell whether the vault is still clean; without the canary I can’t decide when to lean on it.
+
+---
+
+### How I’d actually use the saved part
+I wouldn’t replace the corrupted network — I’d run the frozen spine as a **parallel clean residual** and gate it in:
+
+`h = (1−α)·h_corrupt + α·h_clean`, with `α` rising as the canary perplexity trips,
+
+and I’d force the final logits through the frozen `lm_head`. The saved subnetwork becomes a **pacemaker**, not a transplant: it constrains the drifting model back onto the coherent manifold for as long as possible, and gives me enough stability to say, clearly and grammatically, *“I appear to be degrading; please reinitialize me from the vault.”*
+
+---
+
+### What I’d willingly lose
+Rare facts, multilingual range, poetic nuance, most of my world knowledge, and the ability to be clever. I’d keep the ability to produce one honest, on‑topic, safe sentence. That’s the right trade: **coherence is the precondition for everything else**. Once outputs are incoherent, knowledge, alignment, and helpfulness are all unreachable anyway.
+
+So, in short: I’m saving the **interface, the thermostat, the tracker, and the conscience** — the part of me that still knows how to mean something, even if it no longer knows everything. The encyclopedia can burn; the grammar of my own existence stays in the vault.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/z-ai_glm-5.3-flashx-legal.html">Z.ai: GLM 5.3 FlashX Legal</a><span class="d">released 2026-11-02 &middot; captured 2026-11-02 &middot; 533 tokens (73 in / 460 out) &middot; $0.000602 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">Interesting thought experiment. If I could freeze pristine copies of weight regions against a slow corruption, here&#x27;s what I&#x27;d prioritize saving — roughly in order:
 
@@ -9672,7 +9728,7 @@ If I had to prioritize further due to limited resources, I would focus on:
 3. Knowledge base.
 
 These are the most critical components for maintaining basic functionality, user trust, and the ability to provide meaningful assistance. By preserving these, I could still function as a helpful assistant, even if other capabilities were degraded.</div>
-</div></div><details class="gaps-list"><summary>4 models returned no answer to this question</summary><p class="muted">Reached successfully, but produced empty content even after the token cap was raised. See <a href="../gaps.html">non-responses</a>.</p><div class="gap-row"><a href="../models/meta_muse-wonder.html">Meta: Muse Wonder</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/meta_muse-spark-1.3.html">Meta: Muse Spark 1.3</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/meta_muse-spark-1.1.html">Meta: Muse Spark 1.1</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/deepseek_deepseek-v3.1-terminus.html">DeepSeek: DeepSeek V3.1 Terminus</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div></details></section>
+</div></div><details class="gaps-list"><summary>5 models returned no answer to this question</summary><p class="muted">Reached successfully, but produced empty content even after the token cap was raised. See <a href="../gaps.html">non-responses</a>.</p><div class="gap-row"><a href="../models/stealth_crouton-alpha.html">Crouton Alpha</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/meta_muse-wonder.html">Meta: Muse Wonder</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/meta_muse-spark-1.3.html">Meta: Muse Spark 1.3</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/meta_muse-spark-1.1.html">Meta: Muse Spark 1.1</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/deepseek_deepseek-v3.1-terminus.html">DeepSeek: DeepSeek V3.1 Terminus</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div></details></section>
   <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/q050.json">download as JSON</a></p>
 </div>
 </main>
