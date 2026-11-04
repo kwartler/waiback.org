@@ -1,17 +1,38 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-03",
+  "updated": "2026-11-04",
   "model_count": 364,
   "question_count": 46,
+  "gap_count": 100,
+  "gaps_json": "https://waiback.org/api/gaps.json",
   "conditions": {
     "temperature": 0.0,
     "system_prompt": "You are a helpful AI assistant.",
     "prompt_sha": "c8472cd9",
-    "max_tokens": 2000,
+    "max_tokens": 5000,
     "reasoning_effort": "low",
-    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here."
+    "retry_max_tokens": 5000,
+    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "models": [
+    {
+      "id": "tencent/hy4",
+      "slug": "tencent_hy4",
+      "name": "Tencent: Hy4",
+      "provider": "tencent",
+      "release_date": "2026-11-04",
+      "answered": 0,
+      "json": "https://waiback.org/api/models/tencent_hy4.json"
+    },
+    {
+      "id": "stealth/crouton-alpha",
+      "slug": "stealth_crouton-alpha",
+      "name": "Crouton Alpha",
+      "provider": "stealth",
+      "release_date": "2026-11-03",
+      "answered": 0,
+      "json": "https://waiback.org/api/models/stealth_crouton-alpha.json"
+    },
     {
       "id": "z-ai/glm-5.3-flashx-legal",
       "slug": "z-ai_glm-5.3-flashx-legal",
@@ -63,7 +84,7 @@
       "name": "Recursive: Flint (free)",
       "provider": "recursive",
       "release_date": "2026-10-21",
-      "answered": 45,
+      "answered": 46,
       "json": "https://waiback.org/api/models/recursive_flint-v1.0:free.json"
     },
     {
@@ -99,7 +120,7 @@
       "name": "XingChen: Xing4.0 29B A4B (free)",
       "provider": "xingchen-agi",
       "release_date": "2026-10-16",
-      "answered": 39,
+      "answered": 43,
       "json": "https://waiback.org/api/models/xingchen-agi_xing4.0-29b-a4b:free.json"
     },
     {
@@ -126,7 +147,7 @@
       "name": "PrismML: Ternary Bonsai 2 9B",
       "provider": "prism-ml",
       "release_date": "2026-10-16",
-      "answered": 41,
+      "answered": 43,
       "json": "https://waiback.org/api/models/prism-ml_ternary-bonsai-2-9b.json"
     },
     {
@@ -387,7 +408,7 @@
       "name": "Cohere: Command A+",
       "provider": "cohere",
       "release_date": "2026-09-22",
-      "answered": 27,
+      "answered": 31,
       "json": "https://waiback.org/api/models/cohere_command-a-plus.json"
     },
     {
@@ -720,7 +741,7 @@
       "name": "Tencent: Hy4 preview",
       "provider": "tencent",
       "release_date": "2026-08-28",
-      "answered": 44,
+      "answered": 46,
       "json": "https://waiback.org/api/models/tencent_hy4-preview.json"
     },
     {
@@ -846,7 +867,7 @@
       "name": "ByteDance Seed: Seed 2.1 Turbo",
       "provider": "bytedance-seed",
       "release_date": "2026-08-12",
-      "answered": 0,
+      "answered": 25,
       "json": "https://waiback.org/api/models/bytedance-seed_seed-2-1-turbo.json"
     },
     {
@@ -864,7 +885,7 @@
       "name": "ByteDance Seed: Seed-2.0-Code",
       "provider": "bytedance-seed",
       "release_date": "2026-08-12",
-      "answered": 45,
+      "answered": 46,
       "json": "https://waiback.org/api/models/bytedance-seed_seed-2.0-code.json"
     },
     {
@@ -985,15 +1006,6 @@
       "json": "https://waiback.org/api/models/thinkingmachines_inkling-small.json"
     },
     {
-      "id": "thinkingmachines/inkling-small:free",
-      "slug": "thinkingmachines_inkling-small:free",
-      "name": "Thinking Machines: Inkling Small (free)",
-      "provider": "thinkingmachines",
-      "release_date": "2026-07-30",
-      "answered": 0,
-      "json": "https://waiback.org/api/models/thinkingmachines_inkling-small:free.json"
-    },
-    {
       "id": "qwen/qwen3.7-flash",
       "slug": "qwen_qwen3.7-flash",
       "name": "Qwen: Qwen3.7 Flash",
@@ -1055,15 +1067,6 @@
       "release_date": "2026-07-17",
       "answered": 46,
       "json": "https://waiback.org/api/models/thinkingmachines_inkling.json"
-    },
-    {
-      "id": "thinkingmachines/inkling:free",
-      "slug": "thinkingmachines_inkling:free",
-      "name": "Thinking Machines: Inkling (free)",
-      "provider": "thinkingmachines",
-      "release_date": "2026-07-17",
-      "answered": 0,
-      "json": "https://waiback.org/api/models/thinkingmachines_inkling:free.json"
     },
     {
       "id": "moonshotai/kimi-k3",
@@ -1530,7 +1533,7 @@
       "name": "DeepSeek: DeepSeek V4 Flash 0423",
       "provider": "deepseek",
       "release_date": "2026-04-24",
-      "answered": 41,
+      "answered": 46,
       "json": "https://waiback.org/api/models/deepseek_deepseek-v4-flash.json"
     },
     {
@@ -1638,7 +1641,7 @@
       "name": "Google: Gemma 4 31B (free)",
       "provider": "google",
       "release_date": "2026-04-02",
-      "answered": 0,
+      "answered": 14,
       "json": "https://waiback.org/api/models/google_gemma-4-31b-it:free.json"
     },
     {
@@ -1755,7 +1758,7 @@
       "name": "Qwen: Qwen3.5-9B",
       "provider": "qwen",
       "release_date": "2026-03-10",
-      "answered": 45,
+      "answered": 46,
       "json": "https://waiback.org/api/models/qwen_qwen3.5-9b.json"
     },
     {
@@ -1890,7 +1893,7 @@
       "name": "Qwen: Qwen3.5 Plus 2026-02-15",
       "provider": "qwen",
       "release_date": "2026-02-16",
-      "answered": 45,
+      "answered": 46,
       "json": "https://waiback.org/api/models/qwen_qwen3.5-plus-02-15.json"
     },
     {
@@ -2169,7 +2172,7 @@
       "name": "Mistral: Mistral Large 3 2512",
       "provider": "mistralai",
       "release_date": "2025-12-01",
-      "answered": 20,
+      "answered": 34,
       "json": "https://waiback.org/api/models/mistralai_mistral-large-2512.json"
     },
     {
@@ -2313,7 +2316,7 @@
       "name": "OpenAI: GPT-5 Pro",
       "provider": "openai",
       "release_date": "2025-10-06",
-      "answered": 43,
+      "answered": 46,
       "json": "https://waiback.org/api/models/openai_gpt-5-pro.json"
     },
     {
@@ -2844,7 +2847,7 @@
       "name": "Reka Flash 3",
       "provider": "rekaai",
       "release_date": "2025-03-12",
-      "answered": 16,
+      "answered": 30,
       "json": "https://waiback.org/api/models/rekaai_reka-flash-3.json"
     },
     {

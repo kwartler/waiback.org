@@ -26,13 +26,13 @@
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="index.html">Archive</a><a href="calendar.html">Calendar</a><a href="publishers/index.html">Publishers</a><a href="questions/index.html">Questions</a><a href="data.html">Data</a><a href="contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="index.html">Archive</a><a href="calendar.html">Calendar</a><a href="publishers/index.html">Publishers</a><a href="questions/index.html">Questions</a><a href="data.html">Data</a><a href="gaps.html">Gaps</a><a href="contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
 </div></header>
 <main>
 <div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <h1>Data for researchers</h1>
-    <p>The entire archive is open. Every model is asked the same fixed questions under fixed conditions (temperature 0, one shared system prompt, a completion cap of 2,000 max tokens, reasoning effort low), and each answer is stored with the model's <b>release date</b>, the <b>date it was collected</b>, and the exact capture settings used, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
+    <p>The entire archive is open. Every model is asked the same fixed questions under fixed conditions (temperature 0, one shared system prompt, a completion cap of 5,000 max tokens, reasoning effort low), and each answer is stored with the model's <b>release date</b>, the <b>date it was collected</b>, and the exact capture settings used, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
   </section>
 
   <section><div class="section-head"><h2>How to obtain the data</h2></div>
@@ -46,7 +46,17 @@
   </section>
 
   <section><div class="section-head"><h2>What each record contains</h2></div>
-    <p>Per-answer fields: <span class="mono">question_id</span>, <span class="mono">answer</span>, <span class="mono">response_date</span> (collected), <span class="mono">prompt_tokens</span>, <span class="mono">completion_tokens</span>, <span class="mono">total_tokens</span>, <span class="mono">input_per_1m</span> and <span class="mono">output_per_1m</span> (USD per million tokens, frozen at capture), <span class="mono">cost_usd</span> (computed from those), <span class="mono">or_cost</span> (OpenRouter's reported charge), <span class="mono">temperature</span>, and <span class="mono">prompt_sha</span> (which system prompt was used). Per-model records add <span class="mono">release_date</span>, <span class="mono">knowledge_cutoff</span>, <span class="mono">context_length</span>, pricing, and <span class="mono">description</span>.</p>
+    <p>Per-answer fields: <span class="mono">question_id</span>, <span class="mono">answer</span>, <span class="mono">response_date</span> (collected), <span class="mono">prompt_tokens</span>, <span class="mono">completion_tokens</span>, <span class="mono">total_tokens</span>, <span class="mono">input_per_1m</span> and <span class="mono">output_per_1m</span> (USD per million tokens, frozen at capture), <span class="mono">cost_usd</span> (computed from those), <span class="mono">or_cost</span> (OpenRouter's reported charge), <span class="mono">temperature</span>, <span class="mono">prompt_sha</span> (which system prompt was used), <span class="mono">max_tokens</span> (the completion cap actually used for that capture), <span class="mono">reasoning_effort</span>, and <span class="mono">finish_reason</span>. Per-model records add <span class="mono">release_date</span>, <span class="mono">knowledge_cutoff</span>, <span class="mono">context_length</span>, pricing, and <span class="mono">description</span>.</p>
+  </section>
+
+  <section><div class="section-head"><h2>Retries and non-responses</h2></div>
+    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of 5,000 max tokens, the question is retried <b>once</b> at a larger cap of 5,000 max tokens. Every record therefore carries flags so you are never blind to a parameter change:</p>
+    <ul class="give">
+      <li><span class="mono">retry</span> (bool): the answer was captured only after the larger-cap retry. Its <span class="mono">max_tokens</span> reflects the larger cap, and <span class="mono">retry_reason</span> states exactly what changed.</li>
+      <li><span class="mono">retry_success</span> (bool, when <span class="mono">retry</span> is true): whether the retry produced an answer.</li>
+      <li><span class="mono">empty</span> (bool): the model was reached but returned no content even after the retry. These <b>non-responses are kept, not dropped</b>, with <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span>.</li>
+    </ul>
+    <p>Browse them at <a href="gaps.html">Non-responses</a>, or get them all as JSON at <a href="https://waiback.org/api/gaps.json"><span class="mono">/api/gaps.json</span></a>. The <span class="mono">conditions</span> block in every API file also reports <span class="mono">max_tokens</span> and <span class="mono">retry_max_tokens</span>.</p>
   </section>
 
   <section><div class="section-head"><h2>How to cite</h2><span class="count">dataset slug: <span class="mono">waiback</span></span></div>
@@ -64,7 +74,7 @@
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-03</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-04</span>
 </div></footer>
 </body>
 </html>

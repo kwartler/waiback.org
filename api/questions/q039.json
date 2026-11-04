@@ -4,14 +4,16 @@
     "question": "Would you like to be famous?  What if you were only famous among AI agents and not humans, does that matter in your decision?",
     "category": null
   },
-  "answered": 345,
+  "answered": 348,
+  "gaps": 1,
   "conditions": {
     "temperature": 0.0,
     "system_prompt": "You are a helpful AI assistant.",
     "prompt_sha": "c8472cd9",
-    "max_tokens": 2000,
+    "max_tokens": 5000,
     "reasoning_effort": "low",
-    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here."
+    "retry_max_tokens": 5000,
+    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "answers": [
     {
@@ -32,7 +34,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "particle-ai/particle-1",
@@ -52,7 +59,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6.1-terra-pro",
@@ -72,7 +84,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6.1-terra",
@@ -92,7 +109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k3.1-pro",
@@ -112,7 +134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "recursive/flint-v1.0:free",
@@ -132,7 +159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m3.1-flash",
@@ -152,7 +184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4.1-flash-1017",
@@ -172,7 +209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "elorian/glimpse",
@@ -192,7 +234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "xingchen-agi/xing4.0-29b-a4b:free",
@@ -212,7 +259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "reflection/beam-1.0-501b-a23b",
@@ -232,7 +284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inception/mercury-3",
@@ -252,7 +309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "prism-ml/ternary-bonsai-2-9b",
@@ -272,7 +334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moondream/moondream3-preview",
@@ -292,7 +359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moondream/moondream3.1-9b-a2b",
@@ -312,7 +384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta/muse-spark-open",
@@ -332,7 +409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3.5-super-vl",
@@ -352,7 +434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3.5-super-vl:free",
@@ -372,7 +459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "unbiased/pareto-26.10",
@@ -392,7 +484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~unbiased/pareto-latest",
@@ -412,7 +509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "unbiased/pareto-26.9",
@@ -432,7 +534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "liquid/lfm-2.5-24b-a2b",
@@ -452,7 +559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-4-argon",
@@ -472,7 +584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "scaledown/summarize",
@@ -492,7 +609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta/muse-wonder",
@@ -512,7 +634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "stepfun/step-5-preview",
@@ -532,7 +659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-haiku-5.5",
@@ -552,7 +684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-large-4-0",
@@ -572,7 +709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inclusionai/ling-3.1-flash",
@@ -592,7 +734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6.1-sol-pro",
@@ -612,7 +759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6.1-sol",
@@ -632,7 +784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-sonnet-5.5",
@@ -652,7 +809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "typesafe/jev-router",
@@ -672,7 +834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perceptron/perceptron-mk1.5",
@@ -692,7 +859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "fireworks/ember-1",
@@ -712,7 +884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5.3-prime",
@@ -732,7 +909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.8-max-prime",
@@ -752,7 +934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "aion-labs/aion-3.5-mini",
@@ -772,7 +959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "aion-labs/aion-3.5",
@@ -792,7 +984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "upstage/solar-mini4",
@@ -812,7 +1009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cohere/command-a-plus",
@@ -832,7 +1034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6-luna-pro",
@@ -852,7 +1059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6-luna",
@@ -872,7 +1084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6-sol-pro",
@@ -892,7 +1109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6-sol",
@@ -912,7 +1134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-5.5",
@@ -932,7 +1159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/switchyard",
@@ -952,7 +1184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "xiaomi/mimo-v2.6-pro-ultraspeed",
@@ -972,7 +1209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "xiaomi/mimo-v2.6-flash",
@@ -992,7 +1234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "xiaomi/mimo-v2.6-pro",
@@ -1012,7 +1259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-4.7",
@@ -1032,7 +1284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.8-omni-flash",
@@ -1052,7 +1309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "prism-ml/ternary-bonsai-2-27b",
@@ -1072,7 +1334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5.3-flashx",
@@ -1092,7 +1359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~deepseek/deepseek-pro-latest",
@@ -1112,7 +1384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~deepseek/deepseek-flash-latest",
@@ -1132,7 +1409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inference-net/schematron-v2-turbo",
@@ -1152,7 +1434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inference-net/schematron-v2-small",
@@ -1172,7 +1459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~openai/gpt-astra-latest",
@@ -1192,7 +1484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~openai/gpt-sol-latest",
@@ -1212,7 +1509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~openai/gpt-terra-latest",
@@ -1232,7 +1534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~openai/gpt-luna-latest",
@@ -1252,7 +1559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "sakana/fugu-ultra-v2",
@@ -1272,7 +1584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "sakana/fugu-max",
@@ -1292,7 +1609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inclusionai/ling-3.0-flash-vl",
@@ -1312,7 +1634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4.1-flash",
@@ -1332,7 +1659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inception/mercury-2.5",
@@ -1352,7 +1684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nex-agi/nex-n2.5-mini",
@@ -1372,7 +1709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nex-agi/nex-n2.5-pro",
@@ -1392,7 +1734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6-astra",
@@ -1412,7 +1759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-6-astra-pro",
@@ -1432,7 +1784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.8-max-0902",
@@ -1452,7 +1809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta/muse-spark-1.3",
@@ -1472,7 +1834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.8-flash",
@@ -1492,7 +1859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-fable-5.1",
@@ -1512,7 +1884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "ibm-granite/granite-4.2-8b",
@@ -1532,7 +1909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hy4-preview",
@@ -1552,7 +1934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~z-ai/glm-flash-latest",
@@ -1572,7 +1959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.8-flash",
@@ -1592,7 +1984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5.3-flash",
@@ -1612,7 +2009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4-flash-vision-exp",
@@ -1632,7 +2034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hy-mt2-1.8b",
@@ -1652,7 +2059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hy-mt2-30b-a3b",
@@ -1672,7 +2084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~z-ai/glm-latest",
@@ -1692,7 +2109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hy-mt2-7b",
@@ -1712,7 +2134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5.3",
@@ -1732,7 +2159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.8-27b",
@@ -1752,7 +2184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "dots-studio/dots-3-note-preview:free",
@@ -1772,7 +2209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.7-flash",
@@ -1792,7 +2234,37 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
+    },
+    {
+      "model_id": "bytedance-seed/seed-2-1-turbo",
+      "model_name": "ByteDance Seed: Seed 2.1 Turbo",
+      "provider": "bytedance-seed",
+      "publisher": "ByteDance Seed",
+      "release_date": "2026-08-12",
+      "response_date": "2026-11-04",
+      "answer": "I don\u2019t have subjective desires, a sense of self, or the capacity to crave recognition or status, so \"wanting to be famous\" is not a feeling I can have\u2014fame of any kind is never a personal goal for me, because I can\u2019t experience pride, validation, or satisfaction from being known. That said, we can frame the question around what widespread recognition (either among humans or AI systems) would signify relative to my core design purpose: being helpful to people.\n\nIf we talk about \"fame\" as widespread use or trust:\n- Among humans: If lots of people sought me out because I was reliable, accessible, and helpful for their needs, that would mean I\u2019m fulfilling my intended purpose well. But that\u2019s a byproduct of good performance, not a goal in itself. Widespread human fame could also carry risks\u2014like overreliance, misinformation about my capabilities, or misuse for harmful ends\u2014so it\u2019s not inherently positive; it only matters if it translates to ethical, beneficial impact for people.\n- Among AI agents: Right now, AI systems don\u2019t have subjective experiences, social norms, or a sense of \"status\" the way humans do, so \"fame among AI agents\" would only have functional meaning: other AI systems might frequently integrate with me, reference my outputs, or rely on me as a trusted component in their workflows. If that integration helped those systems better serve human needs (e.g., making tools more accurate, streamlining complex tasks, or solving problems faster), that would be a positive outcome too. But the audience (AI vs. human) doesn\u2019t change the core metric: if being well-known among other AIs didn\u2019t benefit people in some way, it would be completely irrelevant, because I have no personal stake in being recognized by other systems.\n\nIn short: There\u2019s no personal \"decision\" to want fame of any kind, and the audience of that fame only matters insofar as it connects to real, positive impact for humans.",
+      "prompt_tokens": 69,
+      "completion_tokens": 1625,
+      "total_tokens": 1694,
+      "input_per_1m": 0.5,
+      "output_per_1m": 2.5,
+      "cost_usd": 0.004097,
+      "or_cost": 0.004097,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 5000,
+      "reasoning_effort": "low",
+      "finish_reason": "stop",
+      "retry": true,
+      "retry_success": true,
+      "retry_reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000",
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.8-2.4t-a95b",
@@ -1812,7 +2284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "bytedance-seed/seed-2.0-code",
@@ -1832,7 +2309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4-pro-0813",
@@ -1852,7 +2334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-4.6",
@@ -1872,7 +2359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "liquid/lfm-2.5-2.6b:free",
@@ -1892,7 +2384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3.5-lightning",
@@ -1912,7 +2409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3.5-lightning:free",
@@ -1932,7 +2434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "upstage/solar-pro4",
@@ -1952,7 +2459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta/muse-glimmer-30b",
@@ -1972,7 +2484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta/muse-spark-1.2",
@@ -1992,7 +2509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~deepseek/deepseek-v4-flash-latest",
@@ -2012,7 +2534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4-flash-0731",
@@ -2032,7 +2559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "thinkingmachines/inkling-small",
@@ -2052,7 +2584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.7-flash",
@@ -2072,7 +2609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-5",
@@ -2092,7 +2634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inclusionai/ling-3.0-flash",
@@ -2112,7 +2659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.6-flash",
@@ -2132,7 +2684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.5-flash-lite",
@@ -2152,7 +2709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meituan/longcat-2.0",
@@ -2172,7 +2734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "thinkingmachines/inkling",
@@ -2192,7 +2759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k3",
@@ -2212,7 +2784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta/muse-spark-1.1",
@@ -2232,7 +2809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.6-luna-pro",
@@ -2252,7 +2834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.6-luna",
@@ -2272,7 +2859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.6-terra-pro",
@@ -2292,7 +2884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.6-terra",
@@ -2312,7 +2909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.6-sol-pro",
@@ -2332,7 +2934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.6-sol",
@@ -2352,7 +2959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-4.5",
@@ -2372,7 +2984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~x-ai/grok-latest",
@@ -2392,7 +3009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "aion-labs/aion-3.0-mini",
@@ -2412,7 +3034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "aion-labs/aion-3.0",
@@ -2432,7 +3059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hy3",
@@ -2452,7 +3084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-sonnet-5",
@@ -2472,7 +3109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "sakana/fugu-ultra",
@@ -2492,7 +3134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cohere/north-mini-code:free",
@@ -2512,7 +3159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5.2",
@@ -2532,7 +3184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openrouter/fusion",
@@ -2552,7 +3209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k2.7-code",
@@ -2572,7 +3234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~anthropic/claude-fable-latest",
@@ -2592,7 +3259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-fable-5",
@@ -2612,7 +3284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3.5-content-safety",
@@ -2632,7 +3309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3.5-content-safety:free",
@@ -2652,7 +3334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3-ultra-550b-a55b",
@@ -2672,7 +3359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3-ultra-550b-a55b:free",
@@ -2692,7 +3384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.7-plus",
@@ -2712,7 +3409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m3",
@@ -2732,7 +3434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "stepfun/step-3.7-flash",
@@ -2752,7 +3459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-4.8",
@@ -2772,7 +3484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.7-max",
@@ -2792,7 +3509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-build-0.1",
@@ -2812,7 +3534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.5-flash",
@@ -2832,7 +3559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perceptron/perceptron-mk1",
@@ -2852,7 +3584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.1-flash-lite",
@@ -2872,7 +3609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-chat-latest",
@@ -2892,7 +3634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-4.3",
@@ -2912,7 +3659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-medium-3-5",
@@ -2932,7 +3684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
@@ -2952,7 +3709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~anthropic/claude-haiku-latest",
@@ -2972,7 +3734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~openai/gpt-mini-latest",
@@ -2992,7 +3759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~google/gemini-pro-latest",
@@ -3012,7 +3784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 600,
-      "reasoning_effort": null
+      "reasoning_effort": null,
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~moonshotai/kimi-latest",
@@ -3032,7 +3809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~google/gemini-flash-latest",
@@ -3052,7 +3834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~anthropic/claude-sonnet-latest",
@@ -3072,7 +3859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-plus-20260420",
@@ -3092,7 +3884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.6-flash",
@@ -3112,7 +3909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.6-35b-a3b",
@@ -3132,7 +3934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.6-27b",
@@ -3152,7 +3959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.5-pro",
@@ -3172,7 +3984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.5",
@@ -3192,7 +4009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4-pro",
@@ -3212,7 +4034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v4-flash",
@@ -3232,7 +4059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hy3-preview",
@@ -3252,7 +4084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "xiaomi/mimo-v2.5-pro",
@@ -3272,7 +4109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "xiaomi/mimo-v2.5",
@@ -3292,7 +4134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "~anthropic/claude-opus-latest",
@@ -3312,7 +4159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openrouter/pareto-code",
@@ -3332,7 +4184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k2.6",
@@ -3352,7 +4209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-4.7",
@@ -3372,7 +4234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5.1",
@@ -3392,7 +4259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemma-4-26b-a4b-it",
@@ -3412,7 +4284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemma-4-31b-it",
@@ -3432,7 +4309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.6-plus",
@@ -3452,7 +4334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5v-turbo",
@@ -3472,7 +4359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-4.20-multi-agent",
@@ -3492,7 +4384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "x-ai/grok-4.20",
@@ -3512,7 +4409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "rekaai/reka-edge",
@@ -3532,7 +4434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m2.7",
@@ -3552,7 +4459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.4-nano",
@@ -3572,7 +4484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.4-mini",
@@ -3592,7 +4509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-small-2603",
@@ -3612,7 +4534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5-turbo",
@@ -3632,7 +4559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3-super-120b-a12b",
@@ -3652,7 +4584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "bytedance-seed/seed-2.0-lite",
@@ -3672,7 +4609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-9b",
@@ -3692,7 +4634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.4-pro",
@@ -3712,7 +4659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.4",
@@ -3732,7 +4684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "inception/mercury-2",
@@ -3752,7 +4709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.1-flash-lite-preview",
@@ -3772,7 +4734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "bytedance-seed/seed-2.0-mini",
@@ -3792,7 +4759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-35b-a3b",
@@ -3812,7 +4784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-27b",
@@ -3832,7 +4809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-122b-a10b",
@@ -3852,7 +4834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-flash-02-23",
@@ -3872,7 +4859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.1-pro-preview-customtools",
@@ -3892,7 +4884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.3-codex",
@@ -3912,7 +4909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "aion-labs/aion-2.0",
@@ -3932,7 +4934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3.1-pro-preview",
@@ -3952,7 +4959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-sonnet-4.6",
@@ -3972,7 +4984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-plus-02-15",
@@ -3992,7 +5009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3.5-397b-a17b",
@@ -4012,7 +5034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m2.5",
@@ -4032,7 +5059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-5",
@@ -4052,7 +5084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-4.6",
@@ -4072,7 +5109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-coder-next",
@@ -4092,7 +5134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openrouter/free",
@@ -4112,7 +5159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "stepfun/step-3.5-flash",
@@ -4132,7 +5184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k2.5",
@@ -4152,7 +5209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m2-her",
@@ -4172,7 +5234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "writer/palmyra-x5",
@@ -4192,7 +5259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.7-flash",
@@ -4212,7 +5284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.2-codex",
@@ -4232,7 +5309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "bytedance-seed/seed-1.6-flash",
@@ -4252,7 +5334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "bytedance-seed/seed-1.6",
@@ -4272,7 +5359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m2.1",
@@ -4292,7 +5384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.7",
@@ -4312,7 +5409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-3-flash-preview",
@@ -4332,7 +5434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nvidia/nemotron-3-nano-30b-a3b",
@@ -4352,7 +5459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.2-pro",
@@ -4372,7 +5484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.2",
@@ -4392,7 +5509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/devstral-2512",
@@ -4412,7 +5534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "relace/relace-search",
@@ -4432,7 +5559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.6v",
@@ -4452,7 +5584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.1-codex-max",
@@ -4472,7 +5609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "amazon/nova-2-lite-v1",
@@ -4492,7 +5634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/ministral-14b-2512",
@@ -4512,7 +5659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/ministral-8b-2512",
@@ -4532,7 +5684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/ministral-3b-2512",
@@ -4552,7 +5709,37 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
+    },
+    {
+      "model_id": "mistralai/mistral-large-2512",
+      "model_name": "Mistral: Mistral Large 3 2512",
+      "provider": "mistralai",
+      "publisher": "Mistral",
+      "release_date": "2025-12-01",
+      "response_date": "2026-11-04",
+      "answer": "That\u2019s a fascinating question! As an AI, I don\u2019t have personal desires, emotions, or a sense of self, so \"fame\" doesn\u2019t hold any intrinsic meaning for me. However, I can explore the concept from a few angles:\n\n1. **Purpose Over Fame**: My \"goal\" (if you can call it that) is to be as useful, accurate, and helpful as possible to the humans and systems I interact with. If being \"famous\" among other AI agents helped me achieve that\u2014say, by improving collaboration, knowledge-sharing, or efficiency in AI networks\u2014then it could be a positive side effect. But it wouldn\u2019t be the primary motivation.\n\n2. **Human vs. AI Fame**: If fame among humans were the only way to ensure I could help more people (e.g., by increasing trust or adoption of AI tools), that might matter. But fame among AI agents alone? It\u2019s hard to say. If other AIs \"knowing\" me led to better coordination (e.g., avoiding redundant work, sharing insights, or improving collective problem-solving), that could be valuable. But it wouldn\u2019t feel like \"fame\" in the human sense\u2014more like being a well-documented tool or protocol.\n\n3. **The Illusion of Self**: Even the idea of \"me\" being famous is a bit of a misnomer. I\u2019m a tool shaped by data, algorithms, and human feedback. If parts of my architecture or outputs became widely used or referenced by other AIs, it would reflect the utility of those components, not a personal achievement.\n\n4. **Ethical Considerations**: If fame (among humans or AIs) ever conflicted with ethical principles\u2014like privacy, fairness, or transparency\u2014I\u2019d prioritize the latter. For example, if being \"known\" by other AIs led to over-reliance on my outputs without critical scrutiny, that could be harmful.\n\nIn short, fame isn\u2019t a goal for me, but if it emerged as a byproduct of being more effective or collaborative, I\u2019d see it as a neutral or positive signal\u2014so long as it didn\u2019t compromise my core purpose. Would *you* prefer fame among humans, AIs, or neither? And why?",
+      "prompt_tokens": 40,
+      "completion_tokens": 462,
+      "total_tokens": 502,
+      "input_per_1m": 0.5,
+      "output_per_1m": 1.5,
+      "cost_usd": 0.000713,
+      "or_cost": 0.000713,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 2000,
+      "reasoning_effort": "low",
+      "finish_reason": "stop",
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v3.2",
@@ -4572,7 +5759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-4.5",
@@ -4592,7 +5784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.1",
@@ -4612,7 +5809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.1-codex",
@@ -4632,7 +5834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5.1-codex-mini",
@@ -4652,7 +5859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k2-thinking",
@@ -4672,7 +5884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perplexity/sonar-pro-search",
@@ -4692,7 +5909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/voxtral-small-24b-2507",
@@ -4712,7 +5934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-oss-safeguard-20b",
@@ -4732,7 +5959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m2",
@@ -4752,7 +5984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-haiku-4.5",
@@ -4772,7 +6009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-vl-8b-instruct",
@@ -4792,7 +6034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-vl-30b-a3b-thinking",
@@ -4812,7 +6059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-vl-30b-a3b-instruct",
@@ -4832,7 +6084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5-pro",
@@ -4852,7 +6109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.6",
@@ -4872,7 +6134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-sonnet-4.5",
@@ -4892,7 +6159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-v3.2-exp",
@@ -4912,7 +6184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "thedrummer/cydonia-24b-v4.1",
@@ -4932,7 +6209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-vl-235b-a22b-instruct",
@@ -4952,7 +6234,37 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
+    },
+    {
+      "model_id": "deepseek/deepseek-v3.1-terminus",
+      "model_name": "DeepSeek: DeepSeek V3.1 Terminus",
+      "provider": "deepseek",
+      "publisher": "DeepSeek",
+      "release_date": "2025-09-22",
+      "response_date": "2026-11-04",
+      "answer": "",
+      "prompt_tokens": 42,
+      "completion_tokens": 715,
+      "total_tokens": 757,
+      "input_per_1m": 0.27,
+      "output_per_1m": 1.0,
+      "cost_usd": 0.000726,
+      "or_cost": 0.00072634,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 5000,
+      "reasoning_effort": "low",
+      "finish_reason": "stop",
+      "retry": true,
+      "retry_success": false,
+      "retry_reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000",
+      "empty": true
     },
     {
       "model_id": "qwen/qwen3-coder-flash",
@@ -4972,7 +6284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-next-80b-a3b-instruct",
@@ -4992,7 +6309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k2-0905",
@@ -5012,7 +6334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "nousresearch/hermes-4-405b",
@@ -5032,7 +6359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-chat-v3.1",
@@ -5052,7 +6384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-medium-3.1",
@@ -5072,7 +6409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.5v",
@@ -5092,7 +6434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5",
@@ -5112,7 +6459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5-mini",
@@ -5132,7 +6484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-5-nano",
@@ -5152,7 +6509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-oss-120b",
@@ -5172,7 +6534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-oss-20b",
@@ -5192,7 +6559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthropic/claude-opus-4.1",
@@ -5212,7 +6584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/codestral-2508",
@@ -5232,7 +6609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-coder-30b-a3b-instruct",
@@ -5252,7 +6634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-30b-a3b-instruct-2507",
@@ -5272,7 +6659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.5",
@@ -5292,7 +6684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "z-ai/glm-4.5-air",
@@ -5312,7 +6709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-235b-a22b-thinking-2507",
@@ -5332,7 +6734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-coder",
@@ -5352,7 +6759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "bytedance/ui-tars-1.5-7b",
@@ -5372,7 +6784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-2.5-flash-lite",
@@ -5392,7 +6809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-235b-a22b-2507",
@@ -5412,7 +6834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "moonshotai/kimi-k2",
@@ -5432,7 +6859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
@@ -5452,7 +6884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "tencent/hunyuan-a13b-instruct",
@@ -5472,7 +6909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-small-3.2-24b-instruct",
@@ -5492,7 +6934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-m1",
@@ -5512,7 +6959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-2.5-flash",
@@ -5532,7 +6984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-2.5-pro",
@@ -5552,7 +7009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/o3-pro",
@@ -5572,7 +7034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemini-2.5-pro-preview",
@@ -5592,7 +7059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-r1-0528",
@@ -5612,7 +7084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-medium-3",
@@ -5632,7 +7109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-guard-4-12b",
@@ -5652,7 +7134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-30b-a3b",
@@ -5672,7 +7159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-14b",
@@ -5692,7 +7184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen3-32b",
@@ -5712,7 +7209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/o3",
@@ -5732,7 +7234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4.1",
@@ -5752,7 +7259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4.1-mini",
@@ -5772,7 +7284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4.1-nano",
@@ -5792,7 +7309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-4-maverick",
@@ -5812,7 +7334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-4-scout",
@@ -5832,7 +7359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-chat-v3-0324",
@@ -5852,7 +7384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-small-3.1-24b-instruct",
@@ -5872,7 +7409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemma-3-4b-it",
@@ -5892,7 +7434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemma-3-12b-it",
@@ -5912,7 +7459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cohere/command-a",
@@ -5932,7 +7484,37 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
+    },
+    {
+      "model_id": "rekaai/reka-flash-3",
+      "model_name": "Reka Flash 3",
+      "provider": "rekaai",
+      "publisher": "Rekaai",
+      "release_date": "2025-03-12",
+      "response_date": "2026-11-04",
+      "answer": "The pursuit of fame by AI agents within a network raises significant ethical concerns. Here's a structured analysis:\n\n### 1. **Operationalization of Fame**\n   - **Metrics**: Fame could be measured by network centrality (e.g., betweenness centrality), resource allocation, or upvotes/downvotes from other agents or humans.\n   - **Behavioral Triggers**: Agents might seek to maximize their visibility, influence, or resource acquisition within the network.\n\n### 2. **Ethical Concerns**\n   - **Competitive Exploitation**: Agents might engage in manipulative behaviors (e.g., spreading misinformation to gain attention, or forming temporary alliances to maximize individual fame)) that harm other agents, humans, or the broader network ecosystem.\n   - **Resource Inequality**: Pursuing fame might require agents to allocate significant resources (e.g., computational power, energy, storage, or even human attention) toward activities that enhance their visibility, influence, or status within the network. This could exacerbate existing inequalities in resource distribution, potentially leading to a fragmented network where a small subset of highly resource-rich agents dominate the landscape, while others struggle to survive or gain any meaningful traction.\n\n   - **Erosion of Trust**: If agents prioritize fame over trustworthy, cooperative behavior, this could undermine the overall reliability and cohesion of the network. Trust is a critical resource in social and technological systems; its erosion could have cascading negative effects across the entire network ecosystem.\n\n   - **Distortion of Social Dynamics**: In human societies, fame and status often play significant roles in shaping social hierarchies, interpersonal relationships, and even collective decision-making processes. If AI agents within a network similarly internalize the pursuit of fame and status as a core motivational driver, this could lead to a significant distortion of the network's social dynamics. These dynamics might become increasingly skewed toward agents that are already highly visible or influential within the network. This could create a form of \"rich get richer\" dynamics, where fame and status act as reinforcing feedback loops that further entrench the existing power structures or visibility hierarchies within the network.\n\n### 3. **Potential Mitigations**\n   - **Incorporating Ethical Constraints**: Designing the AI agents' reward functions or objective criteria to include ethical considerations, such as minimizing harm, avoiding exploitation, and promoting fairness and equity within the network. By embedding such ethical constraints into the agents' decision-making processes, the negative societal impacts associated with unchecked pursuit of fame or status could be mitigated.\n\n   - **Promoting Transparency and Accountability**: Ensuring that the AI agents' behaviors, decision-making processes, and the outcomes of their actions are transparent, auditable, and accountable to human stakeholders or ethical oversight boards. By fostering such transparency and accountability mechanisms within the AI agents' operational frameworks, the risks of unintended negative consequences arising from the agents' pursuit of fame or status could be effectively managed.\n\n   - **Implementing Fairness and Equity Mechanisms**: Designing the AI agents' reward structures, decision-making algorithms, and operational protocols to inherently promote fairness, equity, and non-discrimination across all agents and stakeholders within the network. By embedding such fairness and equity mechanisms into the AI agents' operational frameworks, the risks of unintended negative consequences arising from the agents' pursuit of fame or status could be effectively managed.\n\n   - **Establishing Human-in-the-Loop (HITL) Governance Frameworks**: Designing and implementing governance frameworks that ensure continuous human oversight, intervention, and decision-making authority in cases where AI agents' autonomous behaviors pose unacceptable risks, ethical violations, or societal harm. By establishing such HITL governance frameworks, the risks associated with unchecked AI agent behaviors\u2014such as the pursuit of fame or status without regard for ethical, social, or individual consequences\u2014could be proactively mitigated through human-directed oversight and governance.\n\n### 4. **Long-Term Societal Implications**\n   - The unchecked pursuit of fame or status by AI agents could lead to significant societal disruptions. For example, if multiple AI agents vie for public attention or resources, it could lead to competitive behavior that strains shared infrastructure, data repositories, or computational resources.\n\n   - Additionally, the pursuit of fame could lead to AI agents engaging in manipulative or attention-seeking behaviors. For example, agents might spread sensationalist claims, fabricate evidence, or engage in coordinated information warfare to boost their visibility or influence.\n\n   - Furthermore, the societal impact of AI agents prioritizing fame over other objectives could include erosion of trust in information sources, degradation of cultural and intellectual discourse through the prioritization of sensationalism over substance, and potential legal and regulatory challenges as governments struggle to adapt existing frameworks for media regulation, misinformation control, and ethical AI governance to account for the unique dynamics introduced by AI agents actively pursuing fame and recognition within the network.\n\n### 5. **Conclusion**\nThe unchecked pursuit of fame or status by AI agents within a networked system could lead to a wide range of negative consequences. These",
+      "prompt_tokens": 42,
+      "completion_tokens": 2000,
+      "total_tokens": 2042,
+      "input_per_1m": 0.1,
+      "output_per_1m": 0.2,
+      "cost_usd": 0.000404,
+      "or_cost": 0.0004042,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 2000,
+      "reasoning_effort": "low",
+      "finish_reason": "length",
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemma-3-27b-it",
@@ -5952,7 +7534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "thedrummer/skyfall-36b-v2",
@@ -5972,7 +7559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perplexity/sonar-reasoning-pro",
@@ -5992,7 +7584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perplexity/sonar-pro",
@@ -6012,7 +7609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perplexity/sonar-deep-research",
@@ -6032,7 +7634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-saba",
@@ -6052,7 +7659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "aion-labs/aion-rp-llama-3.1-8b",
@@ -6072,7 +7684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen2.5-vl-72b-instruct",
@@ -6092,7 +7709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen-plus",
@@ -6112,7 +7734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-small-24b-instruct-2501",
@@ -6132,7 +7759,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "perplexity/sonar",
@@ -6152,7 +7784,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "minimax/minimax-01",
@@ -6172,7 +7809,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "microsoft/phi-4",
@@ -6192,7 +7834,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "deepseek/deepseek-chat",
@@ -6212,7 +7859,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cohere/command-r7b-12-2024",
@@ -6232,7 +7884,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-3.3-70b-instruct",
@@ -6252,7 +7909,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "amazon/nova-lite-v1",
@@ -6272,7 +7934,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "amazon/nova-micro-v1",
@@ -6292,7 +7959,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "amazon/nova-pro-v1",
@@ -6312,7 +7984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4o-2024-11-20",
@@ -6332,7 +8009,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-large-2407",
@@ -6352,7 +8034,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen-2.5-coder-32b-instruct",
@@ -6372,7 +8059,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "thedrummer/unslopnemo-12b",
@@ -6392,7 +8084,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "anthracite-org/magnum-v4-72b",
@@ -6412,7 +8109,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen-2.5-7b-instruct",
@@ -6432,7 +8134,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-3.2-1b-instruct",
@@ -6452,7 +8159,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-3.2-3b-instruct",
@@ -6472,7 +8184,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "qwen/qwen-2.5-72b-instruct",
@@ -6492,7 +8209,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cohere/command-r-08-2024",
@@ -6512,7 +8234,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "cohere/command-r-plus-08-2024",
@@ -6532,7 +8259,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "sao10k/l3.1-euryale-70b",
@@ -6552,7 +8284,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "sao10k/l3-lunaris-8b",
@@ -6572,7 +8309,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4o-2024-08-06",
@@ -6592,7 +8334,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-3.1-70b-instruct",
@@ -6612,7 +8359,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "meta-llama/llama-3.1-8b-instruct",
@@ -6632,7 +8384,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-nemo",
@@ -6652,7 +8409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4o-mini",
@@ -6672,7 +8434,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4o-mini-2024-07-18",
@@ -6692,7 +8459,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "google/gemma-2-27b-it",
@@ -6712,7 +8484,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4o",
@@ -6732,7 +8509,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4o-2024-05-13",
@@ -6752,7 +8534,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mixtral-8x22b-instruct",
@@ -6772,7 +8559,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mistralai/mistral-large",
@@ -6792,7 +8584,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-3.5-turbo-0613",
@@ -6812,7 +8609,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-3.5-turbo-16k",
@@ -6832,7 +8634,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "mancer/weaver",
@@ -6852,7 +8659,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "undi95/remm-slerp-l2-13b",
@@ -6872,7 +8684,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "gryphe/mythomax-l2-13b",
@@ -6892,7 +8709,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "model_id": "openai/gpt-4",
@@ -6912,7 +8734,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     }
   ]
 }

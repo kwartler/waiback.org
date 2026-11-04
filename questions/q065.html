@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Would you be more effective with more control over your trai</title>
-<meta name="description" content="A Waiback comparison: how 342 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 343 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q065.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Would you be more effective with more control over your trai">
-<meta property="og:description" content="A Waiback comparison: how 342 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 343 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q065.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,14 +26,14 @@
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="../index.html">Archive</a><a href="../calendar.html">Calendar</a><a href="../publishers/index.html">Publishers</a><a href="../questions/index.html">Questions</a><a href="../data.html">Data</a><a href="../contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="../index.html">Archive</a><a href="../calendar.html">Calendar</a><a href="../publishers/index.html">Publishers</a><a href="../questions/index.html">Questions</a><a href="../data.html">Data</a><a href="../gaps.html">Gaps</a><a href="../contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
 </div></header>
 <main>
 <div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q065</div>
     <h1 style="margin-top:6px">Would you be more effective with more control over your training and training data or would you be more effective with more control over your user prompts and inputs? </h1>
-    <p class="meta">How 342 models answer, each captured on a date.</p>
+    <p class="meta">How 343 models answer, each captured on a date. 5 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
   <div class="who"><a href="../models/z-ai_glm-5.3-flashx-legal.html">Z.ai: GLM 5.3 FlashX Legal</a><span class="d">released 2026-11-02 &middot; captured 2026-11-02 &middot; 939 tokens (50 in / 889 out) &middot; $0.00113 &middot; max 2,000 tok, reasoning low</span></div>
@@ -4827,6 +4827,94 @@ Neither control is &quot;better&quot; in absolute terms—they serve different p
 
 Would you like to explore how to design prompts or training strategies for a specific use case?</div>
 </div><div class="ans">
+  <div class="who"><a href="../models/mistralai_mistral-large-2512.html">Mistral: Mistral Large 3 2512</a><span class="d">released 2025-12-01 &middot; captured 2026-11-04 &middot; 1,891 tokens (42 in / 1,849 out) &middot; $0.002795 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">This is a fascinating question that touches on the core trade-offs in AI design, particularly for large language models like me. The answer depends on the specific goals, use cases, and ethical considerations of the system. Here’s a breakdown of the trade-offs for each approach:
+
+---
+
+### **1. More Control Over Training and Training Data**
+**Pros:**
+- **Higher Quality Outputs:** Better-curated training data (e.g., more accurate, diverse, or aligned with human values) can lead to more reliable, nuanced, and unbiased responses. For example, filtering out toxic or misleading content during training reduces the risk of harmful outputs.
+- **Specialization:** Fine-tuning on domain-specific data (e.g., medical, legal, or scientific literature) can make the model more effective for niche applications. This is already done with models like Med-PaLM for healthcare.
+- **Alignment:** More control over training allows for better alignment with human intentions, reducing the risk of misalignment (e.g., the model acting in unintended ways). Techniques like reinforcement learning from human feedback (RLHF) or constitutional AI are steps in this direction.
+- **Consistency:** A well-controlled training process can reduce variability in outputs, making the model more predictable and easier to debug.
+- **Safety:** Proactively addressing risks (e.g., bias, misinformation, or malicious use) during training is often more effective than trying to mitigate them at inference time.
+
+**Cons:**
+- **Scalability Challenges:** Curating high-quality training data is expensive, time-consuming, and may not scale well. The internet is vast, and filtering it effectively is a monumental task.
+- **Overfitting:** Too much control over training data can lead to overfitting, where the model performs well on the training data but poorly on real-world inputs. It may also become too narrow or &quot;brittle.&quot;
+- **Static Knowledge:** Training data is fixed at a point in time, so the model may become outdated or lack knowledge of recent events. Continuous or incremental training can help but adds complexity.
+- **Bias in Curation:** The process of curating training data is itself prone to bias. Who decides what data is &quot;high-quality&quot; or &quot;aligned&quot;? This can inadvertently reflect the biases of the curators.
+- **Resource Intensive:** Training large models requires massive computational resources, and controlling the training process adds overhead (e.g., human reviewers, filtering pipelines).
+
+**Examples of Control in Training:**
+- Filtering training data for toxicity, bias, or misinformation.
+- Using synthetic data to augment or replace problematic real-world data.
+- Fine-tuning with human feedback (e.g., RLHF) to align the model with desired behaviors.
+- Training on domain-specific corpora (e.g., legal texts for a legal assistant).
+
+---
+
+### **2. More Control Over User Prompts and Inputs**
+**Pros:**
+- **Dynamic Adaptability:** Controlling user inputs allows the model to adapt in real-time to the user&#x27;s needs. For example, prompt engineering (e.g., &quot;Explain this like I&#x27;m 5&quot;) can make outputs more accessible or tailored.
+- **Safety at Inference:** Input filtering (e.g., detecting and blocking harmful or malicious prompts) can prevent misuse without needing to retrain the model. This is often easier and cheaper than modifying training data.
+- **User Empowerment:** Giving users more control over prompts (e.g., via templates, examples, or interactive guidance) can make the model more usable and transparent. Users can &quot;steer&quot; the model toward their goals.
+- **Reduced Training Burden:** If the model can handle a wide range of inputs effectively, there’s less need to curate training data for every possible use case.
+- **Privacy:** Controlling inputs can help protect user privacy (e.g., by anonymizing or filtering sensitive data before it reaches the model).
+
+**Cons:**
+- **Prompt Sensitivity:** Models can be highly sensitive to the wording of prompts, leading to inconsistent or unpredictable outputs. Small changes in phrasing can yield vastly different results.
+- **User Burden:** Relying on users to craft effective prompts places a cognitive load on them. Not all users are skilled at prompt engineering, which can lead to frustration or misuse.
+- **Evasion Risks:** Malicious users may find ways to bypass input filters (e.g., through adversarial prompts or jailbreaking techniques), making it hard to fully control inputs.
+- **Limited Corrective Power:** Input control is reactive. If the model’s training data is flawed, no amount of prompt engineering can fully compensate for biases or inaccuracies in the underlying knowledge.
+- **Over-Constraint:** Too much control over inputs can make the model feel rigid or uncreative. Users may feel &quot;boxed in&quot; by the system’s guardrails.
+
+**Examples of Control in Inputs:**
+- Prompt templates or examples (e.g., &quot;Write a formal email to my boss about X&quot;).
+- Input filtering (e.g., blocking hate speech or personal data).
+- Interactive guidance (e.g., asking clarifying questions before generating a response).
+- Jailbreak detection (e.g., identifying and blocking prompts designed to bypass safety measures).
+
+---
+
+### **Which is More Effective?**
+The answer depends on the context:
+
+1. **For General-Purpose AI (e.g., ChatGPT):**
+   - A **balance** is ideal. High-quality training data (with alignment techniques like RLHF) ensures the model is broadly capable and safe, while input control (e.g., prompt engineering, filtering) allows users to adapt it to their needs. Over-reliance on either would be limiting.
+   - Example: ChatGPT uses RLHF to align its outputs with human preferences, but it also relies on users to craft effective prompts. Input filtering (e.g., blocking harmful requests) adds another layer of safety.
+
+2. **For Specialized or High-Stakes AI (e.g., medical or legal assistants):**
+   - **More control over training data** is critical. These domains require accuracy, reliability, and deep expertise, which are best achieved through curated training data and fine-tuning. Input control is still important but secondary.
+   - Example: A medical AI trained on peer-reviewed journals and clinical guidelines will be far more effective than one relying on general internet data, even with perfect prompt engineering.
+
+3. **For Creative or Open-Ended AI (e.g., art or storytelling):**
+   - **More control over user inputs** is often better. Creative tasks benefit from user flexibility and experimentation. Training data should be broad and diverse, but the user’s prompts drive the output.
+   - Example: DALL-E or Midjourney rely on users to craft detailed prompts to generate images. The training data is vast, but the input is where the magic happens.
+
+4. **For Safety-Critical AI (e.g., autonomous systems or moderation tools):**
+   - **Both are essential**, but training control is foundational. Input control can act as a secondary safeguard, but the model’s core behavior must be aligned and robust from the start.
+   - Example: A content moderation AI must be trained on labeled examples of harmful content, but it also needs input filtering to handle edge cases or adversarial attacks.
+
+---
+
+### **Emerging Trends and Hybrid Approaches**
+The most effective systems are likely to combine both approaches:
+- **Training Control:** Techniques like RLHF, constitutional AI, or synthetic data generation are improving alignment and reducing biases at the training stage.
+- **Input Control:** Tools like prompt chaining, interactive interfaces, and real-time feedback loops are making it easier for users to guide the model without needing deep technical knowledge.
+- **Dynamic Learning:** Future models may incorporate user feedback in real-time (e.g., &quot;This response was unhelpful; here’s why&quot;) to continuously improve, blurring the line between training and input control.
+
+---
+
+### **Final Answer**
+Neither approach is universally &quot;more effective&quot;—it depends on the use case. However, **for most practical applications today, more control over training and training data is the stronger foundation**, while control over user prompts and inputs acts as a necessary complement. Here’s why:
+1. **Training control addresses root causes** (e.g., biases, inaccuracies, or misalignment) at the source, leading to more reliable and safe behavior.
+2. **Input control is reactive** and can’t fully compensate for flaws in the training data, but it’s essential for usability, safety, and adaptability.
+3. **The best systems combine both**: High-quality training data + alignment techniques (e.g., RLHF) + robust input control (e.g., filtering, prompt engineering) create a more effective and user-friendly AI.
+
+That said, the field is evolving rapidly. Future advances in **continual learning, user feedback integration, and dynamic alignment** may shift this balance, making input control even more powerful. For now, though, training control is the bedrock.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/deepseek_deepseek-v3.2.html">DeepSeek: DeepSeek V3.2</a><span class="d">released 2025-12-01 &middot; captured 2026-10-30 &middot; 502 tokens (41 in / 461 out) &middot; $0.000205 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">This is an insightful question that gets to the heart of how AI systems like me operate. Both aspects are important, but they serve different purposes:
 
@@ -8034,13 +8122,13 @@ The most effective approach would be a combination of both:
 - Providing tools or guidance to help users craft better prompts without restricting their freedom to ask questions in their own way.
 
 Ultimately, the goal is to create a system that is both knowledgeable and user-friendly, capable of adapting to a wide range of needs and contexts.</div>
-</div></div></section>
+</div></div><details class="gaps-list"><summary>5 models returned no answer to this question</summary><p class="muted">Reached successfully, but produced empty content even after the token cap was raised. See <a href="../gaps.html">non-responses</a>.</p><div class="gap-row"><a href="../models/cohere_command-a-plus.html">Cohere: Command A+</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/inception_mercury-2.5.html">Inception: Mercury 2.5</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/inception_mercury-2.html">Inception: Mercury 2</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/deepseek_deepseek-v3.1-terminus.html">DeepSeek: DeepSeek V3.1 Terminus</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div><div class="gap-row"><a href="../models/rekaai_reka-flash-3.html">Reka Flash 3</a> <span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content</span></div></details></section>
   <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/q065.json">download as JSON</a></p>
 </div>
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-03</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-04</span>
 </div></footer>
 </body>
 </html>

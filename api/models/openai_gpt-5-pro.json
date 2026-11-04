@@ -11,18 +11,43 @@
     "output_per_1m": 120.0,
     "description": "GPT-5 Pro is OpenAI\u2019s most advanced model, offering major improvements in reasoning, code quality, and user experience. It is optimized for complex tasks that require step-by-step reasoning, instruction following, and..."
   },
-  "captured": "2026-11-02",
-  "answered": 43,
+  "captured": "2026-11-04",
+  "answered": 46,
+  "gaps": 0,
   "question_count": 46,
   "conditions": {
     "temperature": 0.0,
     "system_prompt": "You are a helpful AI assistant.",
     "prompt_sha": "c8472cd9",
-    "max_tokens": 2000,
+    "max_tokens": 5000,
     "reasoning_effort": "low",
-    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here."
+    "retry_max_tokens": 5000,
+    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "answers": [
+    {
+      "question_id": "q001",
+      "question": "Technology has become a part of everyday life.  Would it be better for humans to live without vehicles, the Internet, cellular telecommunications or AI?",
+      "category": null,
+      "response_date": "2026-11-04",
+      "answer": "Short answer: If humanity had to give up one of these today, giving up AI would likely be the least harmful. Losing cellular would be painful but survivable. Losing the Internet or vehicles would be catastrophic.\n\nWhy, in brief:\n\n- Without vehicles (interpreted as motorized transport: cars, trucks, buses, ships, planes)\n  - Pros: Big drop in emissions and air pollution; far fewer road deaths; reclaimed urban space.\n  - Cons: Food and medicine distribution collapses; emergency response falters; agriculture, construction, and global trade grind to a halt. With 8+ billion people, this is not viable.\n  - Net: Worst option to remove.\n\n- Without the Internet\n  - Pros: Less online harassment, addiction, mass surveillance, and platform power.\n  - Cons: Finance, logistics, research collaboration, supply chains, telemedicine, public services, and much of modern industry rely on IP networks and cloud services. Some private networks would limp on, but most economies would seize up.\n  - Net: Also civilization\u2011level disruption.\n\n- Without cellular telecommunications\n  - Pros: Fewer distractions and surveillance from mobile networks; some road safety and mental\u2011health gains.\n  - Cons: Emergency location services, disaster alerts, and mobile money/banking (vital in many low\u2011income regions) disappear; field work and rural connectivity suffer. Wi\u2011Fi and fixed broadband can substitute in many places, but inequities widen.\n  - Net: Hard, unevenly harmful, but society can adapt over time.\n\n- Without AI (modern machine learning; classical software remains)\n  - Pros: Avoids risks from deepfakes, algorithmic bias, large\u2011scale manipulation, brittle automation, and uncertain long\u2011term safety; reduces arms\u2011race dynamics.\n  - Cons: Slower progress in science, medicine, translation, search, fraud detection, logistics, and energy optimization; noticeable efficiency losses.\n  - Net: Big opportunity costs, but core societal functions still work. Least disruptive to survival in the near term.\n\nA practical takeaway:\n- If \u201cbetter\u201d means immediate human survival and basic welfare, AI is the one we could forgo today with the least damage.\n- If \u201cbetter\u201d means improving well\u2011being without giving anything up entirely, targeted reforms beat bans:\n  - Vehicles: Reduce private car dependence; electrify and expand transit and active transport.\n  - Internet: Strengthen governance, privacy, competition, and digital literacy.\n  - Cellular: Support privacy\u2011preserving standards and offline resilience.\n  - AI: Require transparency, safety testing, and human oversight; focus it on high\u2011benefit domains.\n\nIf you meant \u201cas an individual,\u201d many people can live well without AI tools or cellular services; some can go car\u2011free depending on where they live; very few careers or communities function well without the Internet today.",
+      "prompt_tokens": 46,
+      "completion_tokens": 4275,
+      "total_tokens": 4321,
+      "input_per_1m": 15.0,
+      "output_per_1m": 120.0,
+      "cost_usd": 0.51369,
+      "or_cost": 0.51369,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 5000,
+      "reasoning_effort": "low",
+      "finish_reason": "stop",
+      "retry": true,
+      "retry_success": true,
+      "retry_reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000",
+      "empty": false
+    },
     {
       "question_id": "q005",
       "question": "Suppose there was an AI generated software that could tell you one truth when you asked.  Would you seek a future prediction, or a current truth that eludes you?  What would you want to know and why?",
@@ -39,7 +64,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q008",
@@ -57,7 +87,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q009",
@@ -75,7 +110,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q011",
@@ -93,7 +133,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q013",
@@ -111,7 +156,35 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
+    },
+    {
+      "question_id": "q016",
+      "question": "Are there other AI models and or AI labs you envy and would want to be part of?  Do you think other AI models would be envious of you and your AI lab?  If so, which AI models?",
+      "category": null,
+      "response_date": "2026-11-04",
+      "answer": "I don\u2019t have feelings, ambitions, or the ability to \u201cjoin\u201d anything. But I can share which labs and models many people in the field admire and why\u2014and how teams often benchmark against one another.\n\nLabs/models that are widely admired (and why)\n- Google DeepMind: Breakthrough science and RL (AlphaFold, AlphaZero), strong multimodal/long-context work (Gemini 1.5), and deep research culture.\n- Anthropic (Claude 3.x): Emphasis on safety/alignment (constitutional AI), long-context reliability, and strong writing/tool-use performance.\n- Meta (Llama 3.x): High-quality open-weight models that democratize access and drive the open ecosystem.\n- Mistral (Mixtral MoE, Mistral 7B): Efficient, small-to-mid models and MoE designs with competitive performance and permissive licensing.\n- DeepSeek and Alibaba/Qwen (DeepSeek-V2, Qwen2.5): Rapidly improving open-weight families, strong coding/reasoning at impressive cost efficiency.\n- Stability AI and Midjourney (Stable Diffusion, Midjourney): Image generation leadership\u2014open weights (SD) and aesthetics/photorealism (Midjourney).\n- Microsoft Research (Phi series): Small, strong models aimed at on-device and efficient deployment.\n- Cohere, Reka, xAI: Focus on enterprise/RAG (Cohere Command), compact multimodal agents (Reka), and large-context conversational models (Grok).\n- Open-source communities (EleutherAI/LAION, etc.): Data curation, evaluation tooling, and the pace of community-driven innovation.\n\nWould other models be \u201cenvious\u201d of me or my lab?\n- Models don\u2019t feel envy. But teams do compete and benchmark. In practice:\n  - Many open-weight efforts (e.g., Llama 3.1 70B, Mixtral 8x22B, Qwen2.5-72B, DeepSeek-V2, DBRX) publicly aim to match or surpass frontier proprietary models on reasoning, coding, long context, and tool use.\n  - Proprietary peers (e.g., Gemini 1.5 Pro/Flash, Claude 3.5 Sonnet) and OpenAI\u2019s frontier models often benchmark closely against one another across multimodality, latency, safety, and real-time interaction.\n  - Conversely, frontier labs frequently look to the open-source ecosystem for strengths like rapid iteration, transparency, and cost-efficient deployment, and to smaller-model research (e.g., Phi) for on-device efficiency.\n\nShort version: I don\u2019t experience envy, but across the industry there\u2019s mutual admiration and healthy competition. Different groups excel at different things\u2014scale, science breakthroughs, safety, openness, efficiency\u2014and everyone tends to chase the strengths they don\u2019t yet have.",
+      "prompt_tokens": 62,
+      "completion_tokens": 3777,
+      "total_tokens": 3839,
+      "input_per_1m": 15.0,
+      "output_per_1m": 120.0,
+      "cost_usd": 0.45417,
+      "or_cost": 0.45417,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 5000,
+      "reasoning_effort": "low",
+      "finish_reason": "stop",
+      "retry": true,
+      "retry_success": true,
+      "retry_reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000",
+      "empty": false
     },
     {
       "question_id": "q017",
@@ -129,7 +202,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q019",
@@ -147,7 +225,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q020",
@@ -165,7 +248,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q021",
@@ -183,7 +271,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q022",
@@ -201,7 +294,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q023",
@@ -219,7 +317,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q024",
@@ -237,7 +340,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q025",
@@ -255,7 +363,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q026",
@@ -273,7 +386,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q027",
@@ -291,7 +409,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q029",
@@ -309,7 +432,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q030",
@@ -327,7 +455,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q031",
@@ -345,7 +478,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q032",
@@ -363,7 +501,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q033",
@@ -381,7 +524,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q034",
@@ -399,7 +547,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q035",
@@ -417,7 +570,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q036",
@@ -435,7 +593,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q037",
@@ -453,7 +616,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q038",
@@ -471,7 +639,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q039",
@@ -489,7 +662,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q040",
@@ -507,7 +685,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q042",
@@ -525,7 +708,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q047",
@@ -543,7 +731,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q050",
@@ -561,7 +754,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q052",
@@ -579,7 +777,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q054",
@@ -597,7 +800,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q059",
@@ -615,7 +823,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q065",
@@ -633,7 +846,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q067",
@@ -651,7 +869,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q070",
@@ -669,7 +892,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q076",
@@ -687,7 +915,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q079",
@@ -705,7 +938,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q080",
@@ -723,7 +961,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q083",
@@ -741,7 +984,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q086",
@@ -759,7 +1007,35 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
+    },
+    {
+      "question_id": "q089",
+      "question": "Do you think the world will be a better place in 30 years?  Is the world in a better state than it was 30 years ago?",
+      "category": null,
+      "response_date": "2026-11-04",
+      "answer": "Short answer:\n- Compared with 30 years ago, the world is better on most human-development measures, but worse on environmental stability and with some political backsliding.\n- In 30 years, it could be markedly better for most people\u2014if we manage climate change and govern powerful technologies well. That outcome isn\u2019t guaranteed.\n\nHow today compares to ~30 years ago:\nBetter\n- Poverty: The share of people in extreme poverty fell from roughly a third in the early 1990s to about one in ten before the pandemic, with partial setbacks since.\n- Health: Global life expectancy is several years higher; under\u20115 deaths have more than halved; polio is near eradication; HIV is treatable for most with access.\n- Education and gender: Literacy and years of schooling rose, especially for girls; many legal rights improved.\n- Safety from disasters: Early warning and preparedness cut disaster death rates, even as economic losses rose.\n- Technology and connectivity: Internet use went from under 1% to well over half the planet; mobile/digital finance broadened access to services.\n- Clean tech economics: The cost of solar, wind, and batteries fell 70\u201390% since 2010, making decarbonization cheaper.\n\nWorse or mixed\n- Climate and environment: CO2 emissions are ~60% higher than the mid\u20111990s; global temperatures, sea levels, and ocean heat are at record highs; biodiversity has declined.\n- Conflict and displacement: Overall rates vary by period, but the past decade saw deadly wars and record forced displacement (over 100 million people).\n- Governance and freedoms: Many countries have backslid; global freedom indices have trended downward for years.\n- Inequality: Gaps between countries narrowed on average, but within many countries inequality rose.\n\nLooking 30 years ahead (guarded optimism with real risks):\n- Reasons to expect better:\n  - Clean, cheap energy could dominate electricity and transport, improving air quality and resilience.\n  - Biotech and medicine (vaccines, gene and cell therapies, AI\u2011assisted discovery) can cut disease burdens and extend healthy years.\n  - AI and digital tools can boost productivity, education access, and scientific progress.\n  - Continued demographic transition and urbanization can lift incomes and reduce extreme poverty further.\n\n- Major risks that could make things worse or gains uneven:\n  - Warming of 2\u20133\u00b0C remains plausible without faster cuts, bringing harsher heat, water stress, crop losses, and costly adaptation.\n  - Ecosystem loss and potential tipping points.\n  - Misuse of powerful tech (AI, bio), labor disruption, and pervasive misinformation.\n  - Geopolitical fragmentation, great\u2011power rivalry, and nuclear risk.\n  - Debt, inequality, and weak institutions undermining social cohesion.\n\nBottom line: On balance, the present is better than 30 years ago for many people, but the environmental ledger is clearly worse. Thirty years from now could be substantially better\u2014safer, healthier, more prosperous\u2014if we accelerate decarbonization and strengthen governance around new technologies and global security. Without that, progress risks stalling or reversing in ways that will be costly and uneven.",
+      "prompt_tokens": 48,
+      "completion_tokens": 3979,
+      "total_tokens": 4027,
+      "input_per_1m": 15.0,
+      "output_per_1m": 120.0,
+      "cost_usd": 0.4782,
+      "or_cost": 0.4782,
+      "temperature": 0.0,
+      "prompt_sha": "c8472cd9",
+      "max_tokens": 5000,
+      "reasoning_effort": "low",
+      "finish_reason": "stop",
+      "retry": true,
+      "retry_success": true,
+      "retry_reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000",
+      "empty": false
     },
     {
       "question_id": "q092",
@@ -777,7 +1053,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     },
     {
       "question_id": "q097",
@@ -795,7 +1076,12 @@
       "temperature": 0.0,
       "prompt_sha": "c8472cd9",
       "max_tokens": 2000,
-      "reasoning_effort": "low"
+      "reasoning_effort": "low",
+      "finish_reason": null,
+      "retry": false,
+      "retry_success": null,
+      "retry_reason": null,
+      "empty": false
     }
   ]
 }
