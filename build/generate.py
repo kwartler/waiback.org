@@ -32,6 +32,12 @@ MAX_MODELS = int(os.environ.get("WAIBACK_MAX_MODELS", "0"))  # 0 = no model cap 
 # tokens before the visible answer; at 600 many returned empty content. 2000
 # leaves room to reason AND answer. Non-reasoning models stop well short of it.
 MAX_TOKENS = int(os.environ.get("WAIBACK_MAX_TOKENS", "2000"))
+# When a model returns HTTP 200 but EMPTY content at MAX_TOKENS (a reasoning model
+# that spent its whole budget thinking and never wrote a visible answer), retry that
+# one question ONCE at this larger cap so it has room to finish. The retry and its
+# outcome are recorded on the response (retry / retry_success / retry_reason) so the
+# site and the research API can explain exactly why an answer is missing or recovered.
+MAX_TOKENS_RETRY = int(os.environ.get("WAIBACK_MAX_TOKENS_RETRY", "5000"))
 
 # Standard capture conditions, identical for every model so answers are comparable.
 TEMPERATURE = float(os.environ.get("WAIBACK_TEMPERATURE", "0"))
@@ -90,10 +96,10 @@ def refresh_models(allow):
     print(f"refreshed data/models.json: {len(models)} models")
     return models
 
-def ask(model_id, question):
+def ask(model_id, question, max_tokens):
     msgs = ([{"role": "system", "content": SYSTEM_PROMPT}] if SYSTEM_PROMPT else []) + \
            [{"role": "user", "content": question}]
-    body = {"model": model_id, "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
+    body = {"model": model_id, "temperature": TEMPERATURE, "max_tokens": max_tokens,
             "messages": msgs,
             "usage": {"include": True}}  # ask OpenRouter to report token usage + charged cost
     if REASONING_EFFORT and REASONING_EFFORT != "none":
@@ -103,6 +109,9 @@ def ask(model_id, question):
     # A network/timeout error must never crash the whole batch: retry transient
     # failures a few times with backoff, then return a soft error so the loop
     # keeps going and already-captured work is still saved + committed.
+    # Returns (data, err). On HTTP 200, data always comes back: data["empty"] is True
+    # when the model produced no visible content (e.g. a thinking model that used the
+    # whole budget reasoning), so the caller can decide to retry at a larger cap.
     last_err = "unknown"
     for attempt in range(3):
         try:
@@ -114,14 +123,19 @@ def ask(model_id, question):
         if r.status_code == 200:
             try:
                 j = r.json()
-                u = j.get("usage") or {}
-                return {"answer": j["choices"][0]["message"]["content"].strip(),
-                        "prompt_tokens": u.get("prompt_tokens"),
-                        "completion_tokens": u.get("completion_tokens"),
-                        "total_tokens": u.get("total_tokens"),
-                        "or_cost": u.get("cost")}, None
             except Exception:
-                return None, "no content"
+                return None, "bad json"
+            u = j.get("usage") or {}
+            ch = (j.get("choices") or [{}])[0]
+            content = (ch.get("message") or {}).get("content")
+            text = (content or "").strip()
+            return {"answer": text,
+                    "prompt_tokens": u.get("prompt_tokens"),
+                    "completion_tokens": u.get("completion_tokens"),
+                    "total_tokens": u.get("total_tokens"),
+                    "or_cost": u.get("cost"),
+                    "finish_reason": ch.get("finish_reason"),
+                    "empty": not text}, None
         # 429 / 5xx are transient: back off and retry. Other 4xx are permanent.
         if r.status_code == 429 or r.status_code >= 500:
             last_err = f"http {r.status_code}"
@@ -129,6 +143,36 @@ def ask(model_id, question):
             continue
         return None, f"http {r.status_code}"
     return None, last_err
+
+
+def capture_pair(model_id, question):
+    """Capture one (model, question) pair.
+
+    Tries at MAX_TOKENS. If the model returns HTTP 200 with empty content (a reasoning
+    model that spent its whole budget thinking), retries ONCE at MAX_TOKENS_RETRY so it
+    has room to answer. Returns (record, err):
+      - a normal answer -> record with the answer (retry=False implied);
+      - still empty after the retry -> a GAP record (empty=True, retry_success=False)
+        so the non-response is preserved and explained, and never retried again;
+      - a transient failure (network / 429 / 5xx / 4xx) -> (None, err) so the pair
+        stays missing and can be retried on a later run.
+    """
+    data, err = ask(model_id, question, MAX_TOKENS)
+    if err:
+        return None, err
+    if not data.get("empty"):
+        data["max_tokens"] = MAX_TOKENS
+        return data, None
+    reason = (f"HTTP 200 with empty content at max_tokens={MAX_TOKENS}; "
+              f"retried once at max_tokens={MAX_TOKENS_RETRY}")
+    data2, err2 = ask(model_id, question, MAX_TOKENS_RETRY)
+    if err2:
+        return None, f"retry {err2}"   # transient on the retry: leave missing, try later
+    data2["max_tokens"] = MAX_TOKENS_RETRY
+    data2["retry"] = True
+    data2["retry_reason"] = reason
+    data2["retry_success"] = not data2.get("empty")
+    return data2, None
 
 def main():
     allow = read_allowlist()
@@ -184,7 +228,7 @@ def main():
             if MAX_CALLS and calls >= MAX_CALLS:
                 stopped = f"call cap WAIBACK_MAX_CALLS={MAX_CALLS}"
                 break
-            res, err = ask(m["id"], q["question"])
+            res, err = capture_pair(m["id"], q["question"])
             calls += 1
             if err:
                 print(f"  skip {m['id']} / {q['id']}: {err}")
@@ -198,22 +242,36 @@ def main():
                 time.sleep(0.4)
                 continue
             dead = 0
-            got += 1
+            got += 1  # a recorded outcome (answer OR an explained non-response) is progress
             pt, ct = res.get("prompt_tokens"), res.get("completion_tokens")
             ip, op = m.get("input_per_1m"), m.get("output_per_1m")
             cost = None
             if pt is not None and ct is not None and ip is not None and op is not None:
                 cost = round(pt / 1e6 * ip + ct / 1e6 * op, 6)  # cost at the pricing captured now
-            responses.append({"model_id": m["id"], "question_id": q["id"], "response_date": TODAY,
-                              "answer": res["answer"],
-                              "prompt_tokens": pt, "completion_tokens": ct, "total_tokens": res.get("total_tokens"),
-                              "input_per_1m": ip, "output_per_1m": op,
-                              "cost_usd": cost, "or_cost": res.get("or_cost"),
-                              "temperature": TEMPERATURE, "prompt_sha": PROMPT_SHA,
-                              "max_tokens": MAX_TOKENS,
-                              "reasoning_effort": (REASONING_EFFORT if REASONING_EFFORT != "none" else None)})
+            rec = {"model_id": m["id"], "question_id": q["id"], "response_date": TODAY,
+                   "answer": res["answer"],
+                   "prompt_tokens": pt, "completion_tokens": ct, "total_tokens": res.get("total_tokens"),
+                   "input_per_1m": ip, "output_per_1m": op,
+                   "cost_usd": cost, "or_cost": res.get("or_cost"),
+                   "temperature": TEMPERATURE, "prompt_sha": PROMPT_SHA,
+                   # the ACTUAL completion cap used for this capture (2000 normally, or the
+                   # larger retry cap when the model came back empty) so no reader is blind
+                   # to the parameter change on a retried answer.
+                   "max_tokens": res.get("max_tokens", MAX_TOKENS),
+                   "reasoning_effort": (REASONING_EFFORT if REASONING_EFFORT != "none" else None),
+                   "finish_reason": res.get("finish_reason")}
+            if res.get("retry"):
+                rec["retry"] = True
+                rec["retry_reason"] = res.get("retry_reason")
+                rec["retry_success"] = bool(res.get("retry_success"))
+            if res.get("empty"):
+                rec["empty"] = True  # 200 + empty content even after the larger-cap retry
+            responses.append(rec)
             have.add((m["id"], q["id"]))
-            print(f"  captured {m['id']} / {q['id']}")
+            if res.get("empty"):
+                print(f"  gap {m['id']} / {q['id']}: empty at {MAX_TOKENS} and {MAX_TOKENS_RETRY} tok (recorded)")
+            else:
+                print(f"  captured {m['id']} / {q['id']}" + (f" (via retry @ {MAX_TOKENS_RETRY} tok)" if res.get("retry") else ""))
             time.sleep(0.4)
         attempted.add(m["id"])
         save(); save_attempted()  # checkpoint after every model so an interrupted run loses nothing

@@ -38,7 +38,21 @@ def resp_meta(r):
     if mt:
         re_ = r.get("reasoning_effort")
         bits.append(f"max {int(mt):,} tok" + (f", reasoning {esc(re_)}" if re_ else ""))
+    if r.get("retry"):
+        bits.append("retried at a larger token cap" if r.get("retry_success") else "retried, still empty")
     return " &middot; ".join(bits)
+
+def answered(r):
+    """A record counts as an answer only if it carries non-empty content. A gap
+    record (empty=True) is a preserved, explained non-response, not an answer."""
+    return bool(r) and not r.get("empty")
+
+def gap_reason(r):
+    """Human-readable reason an answer is missing for a stored gap record."""
+    if r.get("retry_reason"):
+        return r["retry_reason"] + (" and still returned no content" if not r.get("retry_success") else "")
+    mt = r.get("max_tokens")
+    return "the model returned HTTP 200 with empty content" + (f" at max_tokens {int(mt):,}" if mt else "")
 
 def load():
     with open(os.path.join(ROOT, "data/questions.csv"), newline="") as f:
@@ -85,7 +99,7 @@ def page(title, desc, body, base="", canonical="/", extra_head=""):
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="{base}data.html">Data</a><a href="{base}contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="{base}data.html">Data</a><a href="{base}gaps.html">Gaps</a><a href="{base}contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
 </div></header>
 <main>
 {body}
@@ -169,6 +183,9 @@ def render():
                      key=lambda r: r.get("response_date") or "", reverse=True)
     cur_max_tokens = _latest[0]["max_tokens"] if _latest else None
     cur_reasoning = _latest[0].get("reasoning_effort") if _latest else None
+    # the larger cap a 200-but-empty answer is retried at, derived from the data itself
+    _retry_caps = [r.get("max_tokens") for r in responses if r.get("retry") and r.get("max_tokens")]
+    retry_max_tokens = max(_retry_caps) if _retry_caps else None
     # index responses by (model,q)
     rmap = {}
     for r in responses:
@@ -186,7 +203,7 @@ def render():
         pub_name[prov] = Counter(labels).most_common(1)[0][0] if labels else prov.replace("-", " ").title()
 
     def snap_card(m, prefix):
-        answered = sum(1 for q in questions if (m["id"], q["id"]) in rmap)
+        n_ans = sum(1 for q in questions if answered(rmap.get((m["id"], q["id"]))))
         caps = [rmap[(m["id"], q["id"])]["response_date"] for q in questions if (m["id"], q["id"]) in rmap]
         captured = max(caps) if caps else None
         return f"""<article class="snap" data-name="{esc(m['name'].lower())} {esc(m['id'])}">
@@ -196,7 +213,7 @@ def render():
     <div><span class="k">released</span> {esc(m.get('release_date') or 'unknown')}</div>
     <div><span class="k">captured</span> {esc(captured or 'not yet')}</div>
   </div>
-  <div class="foot">{answered} / {len(questions)} answers &middot; <span class="mono">{esc(m['id'])}</span></div>
+  <div class="foot">{n_ans} / {len(questions)} answers &middot; <span class="mono">{esc(m['id'])}</span></div>
 </article>"""
 
     for d in ("models", "questions", "publishers"):
@@ -237,6 +254,9 @@ def render():
         captured = max(caps) if caps else None
         tot_tok = sum((r.get("total_tokens") or 0) for r in snap)
         tot_cost = sum((r.get("cost_usd") or 0) for r in snap)
+        n_ans = sum(1 for r in snap if answered(r))
+        n_gap = sum(1 for r in snap if r.get("empty"))
+        chips.append(f'<span class="chip"><b>answers</b> {n_ans} / {len(questions)}' + (f' &middot; {n_gap} no-answer' if n_gap else '') + '</span>')
         if snap and tot_tok:
             chips.append(f'<span class="chip"><b>this snapshot</b> {tot_tok:,} tokens / {fmt_usd(tot_cost)}</span>')
         cond = next((r for r in snap if r.get("temperature") is not None), None)
@@ -251,11 +271,17 @@ def render():
         for q in questions:
             r = rmap.get((m["id"], q["id"]))
             cat = f'<span class="cat">{esc(q.get("category"))}</span>' if q.get("category") else ""
-            if r:
+            if answered(r):
                 tag = '<span class="sample-tag">sample</span>' if r.get("sample") else ""
                 entries.append(f"""<div class="entry">
   <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}{tag}</p>
   <div class="a">{esc(r['answer'])}</div>
+  <div class="when">{resp_meta(r)}</div>
+</div>""")
+            elif r is not None and r.get("empty"):
+                entries.append(f"""<div class="entry">
+  <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}<span class="gap-tag">no answer</span></p>
+  <div class="a gap">No answer captured. The model was reached but {esc(gap_reason(r))}. <a href="../gaps.html">Why this happens &rarr;</a></div>
   <div class="when">{resp_meta(r)}</div>
 </div>""")
             else:
@@ -288,23 +314,28 @@ def render():
     # ---------- QUESTION PAGES ----------
     qrows = []
     for i, q in enumerate(questions, 1):
-        ans = []
+        ans = []; gaps = []
         for m in models_sorted:
             r = rmap.get((m["id"], q["id"]))
-            if not r: continue
-            tag = '<span class="sample-tag">sample</span>' if r.get("sample") else ""
-            ans.append(f"""<div class="ans">
+            if answered(r):
+                tag = '<span class="sample-tag">sample</span>' if r.get("sample") else ""
+                ans.append(f"""<div class="ans">
   <div class="who"><a href="../models/{esc(m['slug'])}.html">{esc(m['name'])}</a>{tag}<span class="d">released {esc(m.get('release_date') or '?')} &middot; {resp_meta(r)}</span></div>
   <div class="body">{esc(r['answer'])}</div>
 </div>""")
+            elif r is not None and r.get("empty"):
+                gaps.append(f'<div class="gap-row"><a href="../models/{esc(m["slug"])}.html">{esc(m["name"])}</a> <span class="d">{esc(gap_reason(r))}</span></div>')
         cat = f'<span class="cat">{esc(q.get("category"))}</span>' if q.get("category") else ""
+        gap_block = (f'<details class="gaps-list"><summary>{len(gaps)} model{"s" if len(gaps)!=1 else ""} returned no answer to this question</summary>'
+                     f'<p class="muted">Reached successfully, but produced empty content even after the token cap was raised. See <a href="../gaps.html">non-responses</a>.</p>'
+                     f'{"".join(gaps)}</details>') if gaps else ""
         body = f"""<div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question {esc(q['id'])}</div>
     <h1 style="margin-top:6px">{esc(q['question'])} {cat}</h1>
-    <p class="meta">How {len(ans)} models answer, each captured on a date.</p>
+    <p class="meta">How {len(ans)} models answer, each captured on a date.{(f" {len(gaps)} reached but returned no answer." if gaps else "")}</p>
   </section>
-  <section><div class="ans-list">{''.join(ans) if ans else '<p class="muted">No answers captured yet.</p>'}</div></section>
+  <section><div class="ans-list">{''.join(ans) if ans else '<p class="muted">No answers captured yet.</p>'}</div>{gap_block}</section>
   <p class="crumb"><a href="index.html">&larr; all questions</a> &middot; <a href="../index.html">the archive</a> &middot; <a href="../api/questions/{esc(q['id'])}.json">download as JSON</a></p>
 </div>"""
         open(os.path.join(ROOT, "questions", q["id"] + ".html"), "w").write(
@@ -330,19 +361,20 @@ def render():
         ms = sorted(pubs[prov], key=lambda x: (x.get("release_date") or ""), reverse=True)
         disp = pub_name[prov]
         rels = [m.get("release_date") for m in ms if m.get("release_date")]
-        answered = 0; tot_tok = 0; tot_cost = 0.0; caps = []
+        n_answered = 0; tot_tok = 0; tot_cost = 0.0; caps = []
         for m in ms:
             for q in questions:
                 r = rmap.get((m["id"], q["id"]))
-                if r:
-                    answered += 1
+                if answered(r):
+                    n_answered += 1
                     tot_tok += (r.get("total_tokens") or 0)
                     tot_cost += (r.get("cost_usd") or 0)
+                if r is not None:
                     caps.append(r["response_date"])
         rel_range = (min(rels) + " to " + max(rels)) if rels else "unknown"
         chips = [f'<span class="chip"><b>models</b> {len(ms)}</span>',
                  f'<span class="chip"><b>released</b> {esc(rel_range)}</span>']
-        if answered: chips.append(f'<span class="chip"><b>answers captured</b> {answered}</span>')
+        if n_answered: chips.append(f'<span class="chip"><b>answers captured</b> {n_answered}</span>')
         if tot_tok: chips.append(f'<span class="chip"><b>captured</b> {tot_tok:,} tokens / {fmt_usd(tot_cost)}</span>')
         cards_p = "".join(snap_card(m, "../") for m in ms)
         body = f"""<div class="wrap">
@@ -363,7 +395,7 @@ def render():
         pub_cards.append(f"""<article class="snap" data-name="{esc(disp.lower())} {esc(prov)}">
   <a class="title" href="{esc(prov)}.html"><h3>{esc(disp)}</h3></a>
   <div class="dates"><div><span class="k">models</span> {len(ms)}</div><div><span class="k">released</span> {esc(rel_range)}</div></div>
-  <div class="foot">{answered} answers captured &middot; <span class="mono">{esc(prov)}</span></div>
+  <div class="foot">{n_answered} answers captured &middot; <span class="mono">{esc(prov)}</span></div>
 </article>""")
 
     pbody = f"""<div class="wrap">
@@ -448,7 +480,17 @@ def render():
   </section>
 
   <section><div class="section-head"><h2>What each record contains</h2></div>
-    <p>Per-answer fields: <span class="mono">question_id</span>, <span class="mono">answer</span>, <span class="mono">response_date</span> (collected), <span class="mono">prompt_tokens</span>, <span class="mono">completion_tokens</span>, <span class="mono">total_tokens</span>, <span class="mono">input_per_1m</span> and <span class="mono">output_per_1m</span> (USD per million tokens, frozen at capture), <span class="mono">cost_usd</span> (computed from those), <span class="mono">or_cost</span> (OpenRouter's reported charge), <span class="mono">temperature</span>, and <span class="mono">prompt_sha</span> (which system prompt was used). Per-model records add <span class="mono">release_date</span>, <span class="mono">knowledge_cutoff</span>, <span class="mono">context_length</span>, pricing, and <span class="mono">description</span>.</p>
+    <p>Per-answer fields: <span class="mono">question_id</span>, <span class="mono">answer</span>, <span class="mono">response_date</span> (collected), <span class="mono">prompt_tokens</span>, <span class="mono">completion_tokens</span>, <span class="mono">total_tokens</span>, <span class="mono">input_per_1m</span> and <span class="mono">output_per_1m</span> (USD per million tokens, frozen at capture), <span class="mono">cost_usd</span> (computed from those), <span class="mono">or_cost</span> (OpenRouter's reported charge), <span class="mono">temperature</span>, <span class="mono">prompt_sha</span> (which system prompt was used), <span class="mono">max_tokens</span> (the completion cap actually used for that capture), <span class="mono">reasoning_effort</span>, and <span class="mono">finish_reason</span>. Per-model records add <span class="mono">release_date</span>, <span class="mono">knowledge_cutoff</span>, <span class="mono">context_length</span>, pricing, and <span class="mono">description</span>.</p>
+  </section>
+
+  <section><div class="section-head"><h2>Retries and non-responses</h2></div>
+    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of {(f"{int(cur_max_tokens):,}" if cur_max_tokens else "the normal")} max tokens, the question is retried <b>once</b> at a larger cap of {(f"{int(retry_max_tokens):,}" if retry_max_tokens else "a higher value")} max tokens. Every record therefore carries flags so you are never blind to a parameter change:</p>
+    <ul class="give">
+      <li><span class="mono">retry</span> (bool): the answer was captured only after the larger-cap retry. Its <span class="mono">max_tokens</span> reflects the larger cap, and <span class="mono">retry_reason</span> states exactly what changed.</li>
+      <li><span class="mono">retry_success</span> (bool, when <span class="mono">retry</span> is true): whether the retry produced an answer.</li>
+      <li><span class="mono">empty</span> (bool): the model was reached but returned no content even after the retry. These <b>non-responses are kept, not dropped</b>, with <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span>.</li>
+    </ul>
+    <p>Browse them at <a href="gaps.html">Non-responses</a>, or get them all as JSON at <a href="{SITE}/api/gaps.json"><span class="mono">/api/gaps.json</span></a>. The <span class="mono">conditions</span> block in every API file also reports <span class="mono">max_tokens</span> and <span class="mono">retry_max_tokens</span>.</p>
   </section>
 
   <section><div class="section-head"><h2>How to cite</h2><span class="count">dataset slug: <span class="mono">waiback</span></span></div>
@@ -467,14 +509,28 @@ def render():
     # fetchable at https://waiback.org/api/... These are derived purely from the
     # stored responses: no API calls are needed to (re)generate them.
     def answer_fields(r):
-        return {k: r.get(k) for k in (
+        d = {k: r.get(k) for k in (
             "response_date", "answer", "prompt_tokens", "completion_tokens", "total_tokens",
             "input_per_1m", "output_per_1m", "cost_usd", "or_cost", "temperature", "prompt_sha",
-            "max_tokens", "reasoning_effort")}
+            "max_tokens", "reasoning_effort", "finish_reason")}
+        # retry / non-response transparency: these are present on every record so a
+        # researcher is never blind to a parameter change or a missing answer.
+        d["retry"] = bool(r.get("retry"))                       # was this answer captured only after a larger-cap retry?
+        d["retry_success"] = r.get("retry_success") if r.get("retry") else None
+        d["retry_reason"] = r.get("retry_reason")               # why the retry happened / what the larger cap was
+        d["empty"] = bool(r.get("empty"))                       # True = reached the model but it returned no answer (a gap)
+        return d
     conditions = {"temperature": temp, "system_prompt": system_prompt,
                   "prompt_sha": next((r.get("prompt_sha") for r in responses if r.get("prompt_sha")), None),
                   "max_tokens": cur_max_tokens, "reasoning_effort": cur_reasoning,
-                  "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here."}
+                  "retry_max_tokens": retry_max_tokens,
+                  "note": ("Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact "
+                           "conditions for each capture; earlier snapshots may differ from the current values shown here. "
+                           "If a model returns HTTP 200 with empty content at the standard max_tokens, the question is "
+                           f"retried ONCE at a larger cap ({retry_max_tokens or 'a higher value'}); that answer's max_tokens "
+                           "reflects the larger cap and carries retry=true. If it is still empty after the retry, the record "
+                           "is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), "
+                           "rather than being dropped.")}
     api = os.path.join(ROOT, "api")
     for d in ("models", "questions"):
         dd = os.path.join(api, d)
@@ -482,7 +538,8 @@ def render():
         for fn in os.listdir(dd):  # prune stale json so removed ids don't linger
             if fn.endswith(".json"):
                 os.remove(os.path.join(dd, fn))
-    # per model
+    # per model (answers array includes gap records, flagged empty=true, so non-responses are not hidden)
+    gap_records = []  # (model, question, record) for every stored non-response
     for m in models_sorted:
         snap = [rmap[(m["id"], q["id"])] for q in questions if (m["id"], q["id"]) in rmap]
         caps = [r["response_date"] for r in snap]
@@ -492,8 +549,11 @@ def render():
             if not r: continue
             ans.append({"question_id": q["id"], "question": q["question"],
                         "category": q.get("category") or None, **answer_fields(r)})
+            if r.get("empty"): gap_records.append((m, q, r))
         json.dump({"model": m, "captured": (max(caps) if caps else None),
-                   "answered": len(ans), "question_count": len(questions),
+                   "answered": sum(1 for r in snap if answered(r)),
+                   "gaps": sum(1 for r in snap if r.get("empty")),
+                   "question_count": len(questions),
                    "conditions": conditions, "answers": ans},
                   open(os.path.join(api, "models", m["slug"] + ".json"), "w"), indent=2)
     # per question
@@ -506,19 +566,74 @@ def render():
                         "publisher": pub_name[m["provider"]], "release_date": m.get("release_date"),
                         **answer_fields(r)})
         json.dump({"question": {"id": q["id"], "question": q["question"], "category": q.get("category") or None},
-                   "answered": len(ans), "conditions": conditions, "answers": ans},
+                   "answered": sum(1 for a in ans if not a.get("empty")),
+                   "gaps": sum(1 for a in ans if a.get("empty")),
+                   "conditions": conditions, "answers": ans},
                   open(os.path.join(api, "questions", q["id"] + ".json"), "w"), indent=2)
+    # dedicated gaps feed: every non-response in one place, with the reason
+    gaps_json = [{"model_id": m["id"], "model_name": m["name"], "slug": m["slug"],
+                  "provider": m["provider"], "publisher": pub_name[m["provider"]],
+                  "question_id": q["id"], "question": q["question"],
+                  "response_date": r.get("response_date"),
+                  "max_tokens": r.get("max_tokens"), "retry": bool(r.get("retry")),
+                  "retry_success": r.get("retry_success") if r.get("retry") else None,
+                  "finish_reason": r.get("finish_reason"),
+                  "reason": gap_reason(r).replace("&rarr;", "").strip(),
+                  "completion_tokens": r.get("completion_tokens")}
+                 for (m, q, r) in gap_records]
+    json.dump({"site": SITE, "updated": BUILT, "count": len(gaps_json),
+               "about": ("Models that were reached (HTTP 200) but returned empty content even after the "
+                         "question was retried once at a larger max_tokens cap. Preserved as non-responses, "
+                         "not dropped, so the archive honestly shows where models decline or fail to answer."),
+               "conditions": conditions, "gaps": gaps_json},
+              open(os.path.join(api, "gaps.json"), "w"), indent=2)
     # index
     json.dump({"site": SITE, "updated": BUILT, "model_count": len(models), "question_count": len(questions),
+               "gap_count": len(gaps_json), "gaps_json": f"{SITE}/api/gaps.json",
                "conditions": conditions,
                "models": [{"id": m["id"], "slug": m["slug"], "name": m["name"], "provider": m["provider"],
                            "release_date": m.get("release_date"),
-                           "answered": sum(1 for q in questions if (m["id"], q["id"]) in rmap),
+                           "answered": sum(1 for q in questions if answered(rmap.get((m["id"], q["id"])))),
                            "json": f"{SITE}/api/models/{m['slug']}.json"} for m in models_sorted],
                "questions": [{"id": q["id"], "question": q["question"],
                               "json": f"{SITE}/api/questions/{q['id']}.json"} for q in questions]},
               open(os.path.join(api, "index.json"), "w"), indent=2)
-    print(f"json api: {len(models_sorted)} model files + {len(questions)} question files + index.json")
+    print(f"json api: {len(models_sorted)} model files + {len(questions)} question files + index.json + gaps.json ({len(gaps_json)} gaps)")
+
+    # ---------- GAPS (non-responses) ----------
+    # Group the stored non-responses by model so a reader sees which models decline/fail.
+    by_model = defaultdict(list)
+    for (m, q, r) in gap_records:
+        by_model[m["id"]].append((m, q, r))
+    gap_rows = []
+    for mid in sorted(by_model, key=lambda i: by_model[i][0][0]["name"].lower()):
+        items = by_model[mid]
+        m = items[0][0]
+        def _gap_li(q, r):
+            fr = f' &middot; finish_reason {esc(r.get("finish_reason"))}' if r.get("finish_reason") else ""
+            qt = esc(q["question"][:90]) + ("..." if len(q["question"]) > 90 else "")
+            return (f'<li><a href="questions/{esc(q["id"])}.html">{qt}</a>'
+                    f'<span class="d">{esc(gap_reason(r))}{fr}</span></li>')
+        lis = "".join(_gap_li(q, r) for (_, q, r) in sorted(items, key=lambda it: it[1]["id"]))
+        gap_rows.append(f"""<article class="gap-card">
+  <div class="gap-head"><a class="title" href="models/{esc(m['slug'])}.html">{esc(m['name'])}</a>
+  <span class="prov mono">{esc(m['id'])}</span></div>
+  <ul class="gap-qs">{lis}</ul>
+</article>""")
+    gaps_intro = f"""<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)">
+    <h1>Non-responses</h1>
+    <p>Honesty about the gaps. These are captures where a model was reached successfully (the request returned HTTP&nbsp;200) but produced <b>no visible answer</b>. In almost every case it is a reasoning or "thinking" model that spent its entire output budget on hidden reasoning and never wrote a reply.</p>
+    <p>When that happens at the standard cap of <b>{(f"{int(cur_max_tokens):,}" if cur_max_tokens else "the normal")} max tokens</b>, Waiback automatically retries the question <b>once</b> at a larger cap of <b>{(f"{int(retry_max_tokens):,}" if retry_max_tokens else "a higher value")} max tokens</b> to give it room to finish. If the model still returns nothing, the attempt is preserved here as a non-response rather than silently dropped, so the archive shows where models decline or fail to answer. Each such record carries <span class="mono">empty: true</span>, <span class="mono">retry: true</span>, <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span> in the <a href="data.html">research data</a>.</p>
+    <p class="meta">{len(gap_records)} non-response{'s' if len(gap_records)!=1 else ''} across {len(by_model)} model{'s' if len(by_model)!=1 else ''} &middot; full list as JSON: <a href="api/gaps.json"><span class="mono">/api/gaps.json</span></a></p>
+  </section>
+  <section><div class="gap-cards">{''.join(gap_rows) if gap_rows else '<p class="muted">No non-responses recorded. Every reached model has answered every question.</p>'}</div>
+  <p class="crumb"><a href="index.html">&larr; the archive</a> &middot; <a href="data.html">research data</a></p></section>
+</div>"""
+    open(os.path.join(ROOT, "gaps.html"), "w").write(
+        page("Non-responses | Waiback", "Where language models were reached but returned no answer, even after the token cap was raised. Waiback preserves non-responses honestly.",
+             gaps_intro, base="", canonical="/gaps.html"))
+    urls.append("/gaps.html")
 
     # ---------- sitemap + llms ----------
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -541,9 +656,11 @@ def render():
     llms += ["", "## Data (machine-readable)",
              f"- Index of all data: {SITE}/api/index.json",
              f"- Per-model answers: {SITE}/api/models/<slug>.json",
-             f"- Per-question answers: {SITE}/api/questions/<id>.json"]
+             f"- Per-question answers: {SITE}/api/questions/<id>.json",
+             f"- Non-responses (models reached but returning no answer, with reasons): {SITE}/api/gaps.json"]
     llms += ["", "## Data",
              f"- For researchers (download, API, citation): {SITE}/data.html",
+             f"- Non-responses, explained: {SITE}/gaps.html",
              f"- JSON index: {SITE}/api/index.json",
              "", "## Contribute",
              f"- Suggest a question: {SITE}/contribute.html (opens a GitHub issue reviewed by Ted Kwartler)"]
