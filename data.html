@@ -32,7 +32,7 @@
 <div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <h1>Data for researchers</h1>
-    <p>The entire archive is open. Every model is asked the same fixed questions under fixed conditions (temperature 0, one shared system prompt, a completion cap of 5,000 max tokens, reasoning effort low), and each answer is stored with the model's <b>release date</b>, the <b>date it was collected</b>, and the exact capture settings used, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
+    <p>The entire archive is open. Every model is asked the same fixed questions under fixed conditions (temperature 0, one shared system prompt, a completion cap of 2,000 max tokens, reasoning effort low), and each answer is stored with the model's <b>release date</b>, the <b>date it was collected</b>, and the exact capture settings used, so you can study how answers shift as models are released and updated over time. Free to use for research and journalism with attribution.</p>
   </section>
 
   <section><div class="section-head"><h2>How to obtain the data</h2></div>
@@ -50,7 +50,7 @@
   </section>
 
   <section><div class="section-head"><h2>Retries and non-responses</h2></div>
-    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of 5,000 max tokens, the question is retried <b>once</b> at a larger cap of 5,000 max tokens. Every record therefore carries flags so you are never blind to a parameter change:</p>
+    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of 2,000 max tokens, the question is retried <b>once</b> at a larger cap of 5,000 max tokens. Every record therefore carries flags so you are never blind to a parameter change:</p>
     <ul class="give">
       <li><span class="mono">retry</span> (bool): the answer was captured only after the larger-cap retry. Its <span class="mono">max_tokens</span> reflects the larger cap, and <span class="mono">retry_reason</span> states exactly what changed.</li>
       <li><span class="mono">retry_success</span> (bool, when <span class="mono">retry</span> is true): whether the retry produced an answer.</li>
@@ -74,7 +74,7 @@
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-04</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-05</span>
 </div></footer>
 </body>
 </html>

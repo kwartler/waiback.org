@@ -33,7 +33,7 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <h1>Non-responses</h1>
     <p>Honesty about the gaps. These are captures where a model was reached successfully (the request returned HTTP&nbsp;200) but produced <b>no visible answer</b>. In almost every case it is a reasoning or "thinking" model that spent its entire output budget on hidden reasoning and never wrote a reply.</p>
-    <p>When that happens at the standard cap of <b>5,000 max tokens</b>, Waiback automatically retries the question <b>once</b> at a larger cap of <b>5,000 max tokens</b> to give it room to finish. If the model still returns nothing, the attempt is preserved here as a non-response rather than silently dropped, so the archive shows where models decline or fail to answer. Each such record carries <span class="mono">empty: true</span>, <span class="mono">retry: true</span>, <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span> in the <a href="data.html">research data</a>.</p>
+    <p>When that happens at the standard cap of <b>2,000 max tokens</b>, Waiback automatically retries the question <b>once</b> at a larger cap of <b>5,000 max tokens</b> to give it room to finish. If the model still returns nothing, the attempt is preserved here as a non-response rather than silently dropped, so the archive shows where models decline or fail to answer. Each such record carries <span class="mono">empty: true</span>, <span class="mono">retry: true</span>, <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span> in the <a href="data.html">research data</a>.</p>
     <p class="meta">112 non-responses across 14 models &middot; full list as JSON: <a href="api/gaps.json"><span class="mono">/api/gaps.json</span></a></p>
   </section>
   <section><div class="gap-cards"><article class="gap-card">
@@ -98,7 +98,7 @@
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-04</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-05</span>
 </div></footer>
 </body>
 </html>

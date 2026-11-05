@@ -1,7 +1,7 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-04",
-  "model_count": 364,
+  "updated": "2026-11-05",
+  "model_count": 362,
   "question_count": 46,
   "gap_count": 112,
   "gaps_json": "https://waiback.org/api/gaps.json",
@@ -9,12 +9,21 @@
     "temperature": 0.0,
     "system_prompt": "You are a helpful AI assistant.",
     "prompt_sha": "c8472cd9",
-    "max_tokens": 5000,
+    "max_tokens": 2000,
     "reasoning_effort": "low",
     "retry_max_tokens": 5000,
     "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "models": [
+    {
+      "id": "ricursiveai/ripple-65b-preview",
+      "slug": "ricursiveai_ripple-65b-preview",
+      "name": "ricursiveAI/Ripple-65B-Preview",
+      "provider": "ricursiveai",
+      "release_date": "2026-11-04",
+      "answered": 46,
+      "json": "https://waiback.org/api/models/ricursiveai_ripple-65b-preview.json"
+    },
     {
       "id": "tencent/hy4",
       "slug": "tencent_hy4",
@@ -968,6 +977,15 @@
       "release_date": "2026-08-09",
       "answered": 46,
       "json": "https://waiback.org/api/models/meta_muse-glimmer-30b.json"
+    },
+    {
+      "id": "inclusionai/ling-3.0-tiny",
+      "slug": "inclusionai_ling-3.0-tiny",
+      "name": "inclusionAI: Ling 3.0 Tiny",
+      "provider": "inclusionai",
+      "release_date": "2026-08-06",
+      "answered": 46,
+      "json": "https://waiback.org/api/models/inclusionai_ling-3.0-tiny.json"
     },
     {
       "id": "meta/muse-spark-1.2",
@@ -1969,15 +1987,6 @@
       "json": "https://waiback.org/api/models/moonshotai_kimi-k2.5.json"
     },
     {
-      "id": "minimax/minimax-m2-her",
-      "slug": "minimax_minimax-m2-her",
-      "name": "MiniMax: MiniMax M2-her",
-      "provider": "minimax",
-      "release_date": "2026-01-23",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/minimax_minimax-m2-her.json"
-    },
-    {
       "id": "writer/palmyra-x5",
       "slug": "writer_palmyra-x5",
       "name": "Writer: Palmyra X5",
@@ -2021,15 +2030,6 @@
       "release_date": "2025-12-23",
       "answered": 46,
       "json": "https://waiback.org/api/models/bytedance-seed_seed-1.6.json"
-    },
-    {
-      "id": "minimax/minimax-m2.1",
-      "slug": "minimax_minimax-m2.1",
-      "name": "MiniMax: MiniMax M2.1",
-      "provider": "minimax",
-      "release_date": "2025-12-23",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/minimax_minimax-m2.1.json"
     },
     {
       "id": "z-ai/glm-4.7",
@@ -2264,15 +2264,6 @@
       "release_date": "2025-10-29",
       "answered": 46,
       "json": "https://waiback.org/api/models/openai_gpt-oss-safeguard-20b.json"
-    },
-    {
-      "id": "minimax/minimax-m2",
-      "slug": "minimax_minimax-m2",
-      "name": "MiniMax: MiniMax M2",
-      "provider": "minimax",
-      "release_date": "2025-10-23",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/minimax_minimax-m2.json"
     },
     {
       "id": "anthropic/claude-haiku-4.5",
@@ -2948,15 +2939,6 @@
       "release_date": "2025-01-27",
       "answered": 46,
       "json": "https://waiback.org/api/models/perplexity_sonar.json"
-    },
-    {
-      "id": "minimax/minimax-01",
-      "slug": "minimax_minimax-01",
-      "name": "MiniMax: MiniMax-01",
-      "provider": "minimax",
-      "release_date": "2025-01-15",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/minimax_minimax-01.json"
     },
     {
       "id": "microsoft/phi-4",
