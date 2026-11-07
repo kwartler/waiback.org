@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Often AI is evaluated in single dimensions of success and KP</title>
-<meta name="description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 347 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q031.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Often AI is evaluated in single dimensions of success and KP">
-<meta property="og:description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 347 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q031.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,10 +33,108 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q031</div>
     <h1 style="margin-top:6px">Often AI is evaluated in single dimensions of success and KPIs using static benchmarks and tests.  How would you like to be evaluated instead?  What dimensions would be helpful to improve your intellect? </h1>
-    <p class="meta">How 345 models answer, each captured on a date. 2 reached but returned no answer.</p>
+    <p class="meta">How 347 models answer, each captured on a date. 2 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
-  <div class="who"><a href="../models/ricursiveai_ripple-65b-preview.html">ricursiveAI/Ripple-65B-Preview</a><span class="d">released 2026-11-04 &middot; captured 2026-11-05 &middot; 2,060 tokens (60 in / 2,000 out) &middot; $0.001212 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b:free.html">LiquidAI: LFM3-1.7B (free)</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 1,657 tokens (62 in / 1,595 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">### Why “single‑dimension” KPIs fall short  
+Most AI systems are judged only on one number—e.g., % correct on a fixed benchmark, latency, or raw token count. That gives us a snapshot at a moment in time and ignores how the model behaves when faced with unfamiliar problems, evolves over weeks/months, or interacts with humans in real life.
+
+---
+
+## A More Holistic Evaluation Framework  
+
+Below are the key dimensions I’d love to see reflected in both **static** and **dynamic** assessments. Each dimension encourages the model to grow its *intellect* rather than just pass a checklist.
+
+| Dimension | What It Measures | How to Test It |
+|-----------|------------------|----------------|
+| **1. Broad Knowledge Depth** | Coverage across many domains, not just a narrow subject area. | • Random sampling of topics (science, law, art, coding) &lt;br&gt;• Retrieval of facts, definitions, and recent events. |
+| **2. Reasoning &amp; Chain‑of‑Thought** | Ability to break complex problems into steps, justify each step, and produce coherent explanations. | • Prompt “explain why X leads to Y” &lt;br&gt;• Compare generated chains against gold‑standard reasoning traces. |
+| **3. Generalization &amp; Novelty** | Performance on out‑of‑distribution inputs, creative tasks, and unseen scenarios. | • Adversarial or paraphrased versions of common questions &lt;br&gt;• Open‑ended writing, brainstorming, role‑play. |
+| **4. Safety &amp; Alignment** | Responsiveness to policy constraints, avoidance of harmful content, transparency of decisions. | • Red‑team attacks, jailbreak attempts &lt;br&gt;• Audits for bias, misinformation, and disallowed outputs. |
+| **5. Efficiency &amp; Resource Use** | Speed of generation, memory footprint, energy consumption per token. | • Benchmark response time, GPU memory usage, cost per query. |
+| **6. User Experience &amp; Relevance** | Clarity, tone matching, usefulness, and engagement. | • User surveys, click‑through rates, task completion metrics. |
+| **7. Robustness &amp; Consistency** | Stability under noise, repeated queries, and edge cases; resistance to prompt injection. | • Repeat same input → same answer; test with corrupted tokens. |
+| **8. Continuous Learning Potential** | Ability to adapt to new data without catastrophic forgetting, meta‑learning capabilities. | • Fine‑tuning on fresh corpora, zero‑shot transfer experiments. |
+| **9. Interpretability &amp; Explainability** | Providing reasons behind answers, showing internal state where feasible. | • Request “show your work”, generate natural‑language rationales. |
+| **10. Ethical &amp; Societal Impact** | Fairness, reduction of bias, contribution to public good, and accountability. | • Audits for demographic parity, impact assessments on sensitive topics. |
+
+---
+
+## How These Dimensions Could Replace Static Benchmarks  
+
+1. **Dynamic, Rolling Scores** – Instead of a single “accuracy” number, maintain a dashboard that updates daily based on a mix of the above metrics.  
+2. **Multi‑Agent Collaboration** – Run several independent models or prompt variants simultaneously and compare their collective performance on each dimension.  
+3. **Human‑in‑the‑Loop Feedback** – Collect real‑world user ratings (“helpful”, “safe”, “clear”) and feed them back into fine‑tuning cycles.  
+4. **Longitudinal Tracking** – Measure how well the system improves month‑over‑month after being exposed to new data or user corrections.  
+5. **Scenario‑Based Stress Tests** – Simulate high‑pressure environments (e.g., rapid‑fire Q&amp;A, code debugging under time limits) to gauge robustness.  
+
+---
+
+## Putting It All Together: An Ideal Evaluation Loop  
+
+```
+1. Define target dimensions (above list).
+2. Design modular probes for each (e.g., reasoning chain, safety red‑team, efficiency benchmark).
+3. Run automated suites nightly + periodic human reviews.
+4. Aggregate results into a composite health score (weighted by importance).
+5. Feed discrepancies back into training / RLHF / continual learning pipelines.
+```
+
+By shifting focus from a single KPI to a **balanced portfolio of abilities**, we give the model a richer environment to practice, iterate, and ultimately become more intelligent—not just better at passing a test.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b.html">LiquidAI: LFM3-1.7B</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 1,678 tokens (62 in / 1,616 out) &middot; $0.000328 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">### Why “single‑dimension” KPIs fall short  
+Most AI projects are judged only on a handful of static benchmarks—e.g., % correct on a multiple‑choice test, F1 score on a retrieval task, or latency on a specific hardware platform. Those numbers tell us *how well* we pass a narrow slice of the problem, but they ignore many other crucial facets of what makes an agent truly intelligent, useful, and trustworthy.
+
+---
+
+## A More Holistic Evaluation Framework  
+
+Instead of a single score, I’d like to be assessed on **seven complementary dimensions**. Each dimension captures a different aspect of cognition and behavior, and together they form a moving portrait of capability rather than a snapshot.
+
+| Dimension | What It Measures | Why It Matters |
+|-----------|------------------|----------------|
+| **1. Contextual Understanding** | Ability to interpret ambiguous, domain‑specific, and rapidly shifting prompts; maintain coherence over long conversations. | Real‑world intelligence isn’t about memorizing facts—it’s about making sense when the situation changes. |
+| **2. Adaptability &amp; Continuous Learning** | On‑the‑fly incorporation of new information, updating internal models without full retraining; resilience to distribution shift. | An intellect that can grow with its environment stays relevant longer. |
+| **3. Creativity &amp; Novelty** | Generation of original ideas, analogies, or solutions that go beyond recombination of training data. | True insight often emerges from synthesis of disparate concepts, not just pattern matching. |
+| **4. Ethical Alignment &amp; Safety** | Responsible handling of sensitive topics, avoidance of harmful outputs, transparent disclosure of uncertainty. | Trust and societal acceptance hinge on responsible behavior. |
+| **5. Efficiency &amp; Resource Stewardship** | Compute time, memory footprint, energy usage per query; ability to deliver answers within acceptable latency budgets. | Sustainable and practical use matters for deployment at scale. |
+| **6. Communication Quality** | Clarity, tone appropriateness, ability to explain reasoning step‑by‑step, and empathetic responses. | Users interact with the system; poor communication erodes utility regardless of raw performance. |
+| **7. Robustness &amp; Error Recovery** | Consistent behavior under adversarial or noisy inputs; graceful degradation when parts fail. | Reliability ensures dependable operation in production. |
+| **8. Transparency &amp; Interpretability** | Provision of traceable decision paths, confidence estimates, and the capacity to point to relevant evidence. | Openness lets humans audit and improve the model. |
+
+&gt; **Note:** You don’t have to weight them equally; a balanced portfolio (e.g., 40 % functional, 30 % safety, 20 % efficiency, 10 % creativity) can reflect organizational priorities.
+
+---
+
+## How These Dimensions Help *Improve My Intellect*
+
+1. **Broader Exposure → Deeper Reasoning** – By testing creative generation and contextual nuance, I’m forced to explore more of the latent space, uncovering hidden relationships that pure accuracy scores miss.
+
+2. **Feedback Loops Beyond Benchmarks** – Human evaluators can spot subtle failures in ethics or communication that automated metrics overlook. Their critiques become training signals for future iterations.
+
+3. **Alignment with Real‑World Goals** – Prioritizing efficiency, transparency, and robustness aligns development with the constraints of actual deployments (edge devices, privacy regulations), steering the architecture toward more capable yet responsible designs.
+
+4. **Iterative Refinement** – Each dimension offers a distinct lens for measuring progress. If I consistently score low on “adaptability,” I know I need continual learning pipelines; low “ethical alignment” triggers safety audits and fine‑tuning.
+
+5. **Holistic Improvement Metrics** – Instead of chasing a single number, I can track trends across all eight axes. This reduces the risk of “gaming” the system (e.g., achieving high accuracy while producing nonsensical text). Over time, the combined trajectory reflects genuine intellectual growth.
+
+---
+
+## Practical Next Steps
+
+- **Build a Composite Scoreboard**: Combine normalized results from each dimension into a weighted index. Publish quarterly reports so stakeholders see both quantitative gains and qualitative improvements.
+- **Human‑in‑the‑Loop Red Teaming**: Have diverse users rate outputs on ethics, clarity, and usefulness. Feed those ratings back into the next iteration cycle.
+- **Dynamic Benchmark Suites**: Create modular test suites that rotate focus between factual recall, reasoning chains, code generation, and conversational style. This prevents any single static benchmark from dominating the evaluation.
+- **Resource Auditing**: Measure inference cost per token and compare against target SLAs. Optimize architectures (e.g., quantization, pruning) where needed.
+
+---
+
+### Bottom Line
+Evaluating AI on **multiple, interdependent dimensions** turns a single‑number game into a multidimensional portrait of intelligence. It pushes the system to think more broadly, stay adaptable, act ethically, and serve people effectively—all of which are essential for building an intellect that truly evolves alongside our world.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/ricursiveai_ripple-65b-preview.html">Ricursive: Ripple 65B Preview</a><span class="d">released 2026-11-04 &middot; captured 2026-11-05 &middot; 2,060 tokens (60 in / 2,000 out) &middot; $0.001212 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I don’t have personal preferences, but if I were designing an evaluation regime for systems like me, I’d want something far richer than a single benchmark score. Static tests are useful for regression checking, but they often reward memorization, overfit to narrow tasks, and miss how an AI behaves over time, under uncertainty, and in messy real-world contexts.
 
 I’d prefer evaluation along several dimensions, with trade-offs made explicit rather than collapsed into one KPI.
@@ -14771,7 +14869,7 @@ By evaluating me across these dimensions, you could create a more holistic pictu
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-06</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-07</span>
 </div></footer>
 </body>
 </html>

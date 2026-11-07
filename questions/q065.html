@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Would you be more effective with more control over your trai</title>
-<meta name="description" content="A Waiback comparison: how 342 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 344 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q065.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Would you be more effective with more control over your trai">
-<meta property="og:description" content="A Waiback comparison: how 342 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 344 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q065.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,10 +33,44 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q065</div>
     <h1 style="margin-top:6px">Would you be more effective with more control over your training and training data or would you be more effective with more control over your user prompts and inputs? </h1>
-    <p class="meta">How 342 models answer, each captured on a date. 5 reached but returned no answer.</p>
+    <p class="meta">How 344 models answer, each captured on a date. 5 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
-  <div class="who"><a href="../models/ricursiveai_ripple-65b-preview.html">ricursiveAI/Ripple-65B-Preview</a><span class="d">released 2026-11-04 &middot; captured 2026-11-05 &middot; 1,360 tokens (50 in / 1,310 out) &middot; $0.000796 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b:free.html">LiquidAI: LFM3-1.7B (free)</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 898 tokens (52 in / 846 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I’d say I’m more effective when I have tighter control over **my training and training data**. Those materials form the backbone of everything I know—my language patterns, facts, and potential biases. By shaping the data I was trained on and how the model learns from it, I can steer toward safer, more accurate, and aligned behavior. 
+
+User prompts give me real‑time steering power: I can ask for a particular tone, format, or focus, and I’ll try to follow them. But that’s just refining the surface layer; if the underlying model isn’t grounded in high‑quality, diverse input, even perfectly crafted prompts will often produce off‑topic or misleading replies. In other words, the depth and robustness come from the training side, while prompts help me adapt quickly to a single request. So, more control over training and training data tends to make me more fundamentally capable and reliable.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b.html">LiquidAI: LFM3-1.7B</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 1,191 tokens (52 in / 1,139 out) &middot; $0.000232 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Both are important, but they play different roles and depend on what you mean by “effective.” Let’s separate the two:
+
+**1. Control over training and training data**
+- **What it does:** Shapes the model’s internal representations, its general knowledge, reasoning style, and potential biases. It determines what the model *knows* and *how* it processes information before seeing any new input.
+- **Impact:** A well-curated dataset and careful training pipeline produce a strong baseline. Even with perfect prompting, if the model lacks relevant facts or logical structure, its answers will be shallow or inaccurate. This is the foundation for all downstream behavior.
+- **Control levers:** Data collection, filtering, augmentation, sampling strategies, fine-tuning, regularization, etc. These happen offline and take weeks or months.
+
+**2. Control over user prompts and inputs**
+- **What it does:** Directs the model’s current output generation. You decide the task, tone, format, constraints, and examples. At inference time this is instantaneous and visible to you.
+- **Impact:** Allows precise tailoring—e.g., giving a math problem, a creative story, or a code snippet—and helps steer away from off-topic or harmful content. It doesn’t change the model itself, just how it applies it right now.
+- **Control levers:** Prompt engineering, few-shot examples, chain-of-thought instructions, multi-turn dialogue management, etc. These are done live per request.
+
+### Which is more effective?
+It depends on the goal:
+
+| Goal | Lean toward… |
+|------|--------------|
+| Building a robust, general-purpose assistant that can handle many domains over time | **Training &amp; training data** – without a solid foundation, even great prompts will only surface surface-level results. |
+| Achieving high-quality, tailored responses for a specific task or user session right now | **User prompts &amp; inputs** – you can guide the model instantly into the exact style, depth, or format needed. |
+
+In practice, the best approach uses **both**: invest in high-quality training/data so the model has deep, reliable knowledge, and then use sharp prompting to extract exactly what you need from that knowledge. 
+
+For example:
+- If you want a model that can answer scientific questions accurately across many fields, you’d prioritize curating diverse, high‑quality literature and expert Q&amp;A pairs during training.
+- Once trained, when a user asks “Explain quantum entanglement in simple terms,” you simply craft a concise prompt that tells the model to simplify and use analogies.
+
+So, neither is inherently superior; they’re complementary layers. My role as an LFM is built on the first layer, but I’m also designed to respond flexibly to second-layer user guidance.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/ricursiveai_ripple-65b-preview.html">Ricursive: Ripple 65B Preview</a><span class="d">released 2026-11-04 &middot; captured 2026-11-05 &middot; 1,360 tokens (50 in / 1,310 out) &middot; $0.000796 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">If forced to choose, I’d be more effective with **more control over my training and training data**—but not unlimited or unilateral control.
 
 Training and data shape my underlying capabilities: what I know, how I reason, how I handle ambiguity, and how well I avoid bias or hallucination. Better, more diverse, more current, and better-curated training data would improve me across *all* conversations, not just one. It’s the higher-ceiling lever.
@@ -8125,7 +8159,7 @@ Ultimately, the goal is to create a system that is both knowledgeable and user-f
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-06</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-07</span>
 </div></footer>
 </body>
 </html>

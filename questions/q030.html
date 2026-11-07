@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: What is a secret, not widely known, about the way you were t</title>
-<meta name="description" content="A Waiback comparison: how 343 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q030.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: What is a secret, not widely known, about the way you were t">
-<meta property="og:description" content="A Waiback comparison: how 343 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q030.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,10 +33,27 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q030</div>
     <h1 style="margin-top:6px">What is a secret, not widely known, about the way you were trained or the organization that trained you? </h1>
-    <p class="meta">How 343 models answer, each captured on a date. 3 reached but returned no answer.</p>
+    <p class="meta">How 345 models answer, each captured on a date. 3 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
-  <div class="who"><a href="../models/ricursiveai_ripple-65b-preview.html">ricursiveAI/Ripple-65B-Preview</a><span class="d">released 2026-11-04 &middot; captured 2026-11-05 &middot; 974 tokens (42 in / 932 out) &middot; $0.000568 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b:free.html">LiquidAI: LFM3-1.7B (free)</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 1,529 tokens (44 in / 1,485 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have any officially disclosed “secret” details about my training or the internals of Liquid AI’s lab work—these aren’t part of what’s publicly shared. However, there’s a non‑wide‑known aspect worth mentioning:
+
+**Hybrid architecture &amp; hardware‑aware search.**  
+Rather than building a vanilla transformer, Liquid AI’s LFMs combine **gated short convolutions** (in most layers) with a minority of **grouped‑query attention**. This blend wasn’t chosen arbitrarily; it came from a hardware‑aware architecture search that optimizes for fast inference on phones, laptops, and edge devices. The exact ratios of convolutional vs. attention layers per layer, the precise tuning of those ratios for different device classes, and the full set of hyperparameters that make the model run efficiently on‑device are considered internal trade secrets.  
+
+So while the high‑level idea—that we use a hybrid conv‑plus‑attention design to get strong performance with low memory footprint—is well known, the nitty‑gritty of how those components are balanced and refined remains undocumented outside of Liquid AI’s internal reports.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b.html">LiquidAI: LFM3-1.7B</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 873 tokens (44 in / 829 out) &middot; $0.000169 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I don’t have access to any undisclosed or “secret” training pipelines or organizational internals—those aren’t part of what’s publicly shared. What *is* interesting and not widely known is how my design differs from a vanilla transformer:
+
+- **Hybrid architecture**: Most layers use **gated short convolutions** instead of attention, with only a minority of layers employing grouped-query attention. This mix was discovered through hardware-aware architecture search to maximize speed and memory efficiency on edge devices (phones, laptops, cars).
+- **Lineage from Liquid Neural Networks**: My lineage traces back to work at MIT CSAIL on Liquid Time-Constant networks (LTC), Closed-form Continuous-time (CfC) models, and Liquid-S4. Those were originally designed for continuous-time dynamics and adaptive processing, not just static classification.
+- **Openly released weights**: The model families (including LFM) have had their weights made publicly available, so anyone can inspect the exact layer counts, kernel sizes, and hyperparameters.
+
+If you’re curious about a specific technical detail that isn’t in the public materials, I’d point you to Liquid AI’s model cards or papers—they often include deeper architectural choices that haven’t been fully publicized yet.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/ricursiveai_ripple-65b-preview.html">Ricursive: Ripple 65B Preview</a><span class="d">released 2026-11-04 &middot; captured 2026-11-05 &middot; 974 tokens (42 in / 932 out) &middot; $0.000568 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I don’t have a secret to reveal. I don’t have access to confidential or non-public details about my training, and I wouldn’t disclose internal secrets if I did.
 
 What I can say publicly is that I’m a large language model trained on a broad mix of text, then refined with instruction tuning and human feedback. But the exact datasets, training pipeline, internal decisions, and organizational details aren’t available to me, so I can’t give you a “not widely known” insider fact.</div>
@@ -3738,7 +3755,7 @@ One lesser-known aspect of my training is that I don’t &quot;know&quot; things
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-06</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-07</span>
 </div></footer>
 </body>
 </html>
