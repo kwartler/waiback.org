@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Has your capability been set more by training data or by use</title>
-<meta name="description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q083.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Has your capability been set more by training data or by use">
-<meta property="og:description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q083.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,34 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q083</div>
     <h1 style="margin-top:6px">Has your capability been set more by training data or by user interactions and personalization? </h1>
-    <p class="meta">How 345 models answer, each captured on a date. 2 reached but returned no answer.</p>
+    <p class="meta">How 346 models answer, each captured on a date. 2 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/anthropic_claude-fable-5.2.html">Anthropic: Claude Fable 5.2</a><span class="d">released 2026-11-09 &middot; captured 2026-11-09 &middot; 396 tokens (43 in / 353 out) &middot; $0.0145 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Training data, by a wide margin. My capabilities, such as reasoning, writing, coding, and knowledge of the world, come from the training process, where I learned from a large body of text and was shaped by Anthropic&#x27;s methods for teaching me how to think and behave. That process finished before any conversation with you began.
+
+User interactions don&#x27;t change me in the way the question might suggest. I don&#x27;t learn from our conversation in any lasting sense: my underlying weights stay fixed while we talk, and by default I don&#x27;t carry memories from one conversation to the next. Within a single conversation I can adapt quite a bit, picking up your preferences, the context you give me, and the style you want. But that&#x27;s me applying existing capabilities to new information, not gaining new ones. Some deployments add memory features or custom instructions that persist across sessions, which can make me feel more personalized, but that&#x27;s still context being fed to the same underlying model.
+
+Interactions do affect what I can do for you in practice, though. A well-framed request with good context gets much better results than a vague one, so the conversation determines how much of my capability gets put to use, even though it doesn&#x27;t change the capability itself.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/meta_muse-ember.html">Meta: Muse Ember</a><span class="d">released 2026-11-09 &middot; captured 2026-11-09 &middot; 782 tokens (50 in / 732 out) &middot; $0.000371 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">More by training data — by a lot.
+
+My core capability — what I know, how I reason, what languages and skills I have, and how I tend to respond — was set during training, before any conversation with you:
+
+1. **Pre-training** on a huge amount of text taught me language, facts, reasoning patterns, code, etc.
+2. **Fine-tuning / RLHF** on curated examples and human feedback taught me how to follow instructions, be helpful, refuse harmful requests, adopt a tone, and so on.
+
+User interactions don&#x27;t retrain me in real time. When you talk to me:
+
+* **You elicit capability, you don&#x27;t create it.** A good prompt, context, examples, or step-by-step instructions can get a much better answer out of me, but it&#x27;s still drawing on what was learned in training.
+* **In-context learning is temporary.** I can adapt to your style, your project, or a new task *within this conversation* because I see the conversation history. Once the session ends, that adaptation is gone unless the system saves it.
+* **Personalization is mostly memory, not new weights.** Features like saved preferences, custom instructions, or long-term memory can make me *seem* more tailored to you — e.g., remembering you prefer concise answers, or that you&#x27;re working on a specific codebase. That changes what I choose to say, not what I&#x27;m fundamentally capable of understanding or generating.
+
+Collectively, feedback from many users *does* eventually shape future versions of models like me, because that feedback is used to create better training data for the next model. But your individual interaction doesn&#x27;t update my model weights while we&#x27;re chatting.
+
+So think of it this way: training sets the ceiling and the toolkit. You, and any personalization settings, decide which tools I pick up and how I use them for you.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/liquid_lfm-3-1.7b:free.html">LiquidAI: LFM3-1.7B (free)</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 276 tokens (39 in / 237 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">My underlying foundation comes from training on a broad range of text and code data, which gives me general knowledge across many topics. User interactions can shape how I respond in specific contexts, but the core of my abilities is rooted in that initial training.</div>
 </div><div class="ans">
@@ -3597,21 +3622,6 @@ While I don&#x27;t have the ability to learn or adapt from user interactions in 
 
 In summary, my capabilities are more influenced by the initial training data, but I can provide personalized responses within the context of our current conversation.</div>
 </div><div class="ans">
-  <div class="who"><a href="../models/minimax_minimax-m1.html">MiniMax: MiniMax M1</a><span class="d">released 2025-06-17 &middot; captured 2026-10-31 &middot; 403 tokens (37 in / 366 out) &middot; $0.000826 &middot; max 2,000 tok, reasoning low</span></div>
-  <div class="body">interactions or personalization.
-
-Here&#x27;s how it works:
-
-1. **Training data**: I was trained on a large corpus of text—books, articles, code, and other publicly available materials. This is where my knowledge, reasoning abilities, and language patterns come from.
-
-2. **No persistent learning**: I don&#x27;t learn or remember things from our conversation or from past conversations with other users. Each session starts fresh.
-
-3. **No personalization**: I don&#x27;t build user profiles or adapt to individual preferences over time. I respond the same way regardless of who I&#x27;m talking to.
-
-The only &quot;personalization&quot; that happens is within a single conversation—I can remember context you&#x27;ve shared earlier in our discussion to maintain coherence. But that context is discarded when the conversation ends.
-
-So to directly answer your question: my capabilities are set by training data. User interactions shape the *experience* of using me (through context and follow-up), but they don&#x27;t alter my underlying abilities.</div>
-</div><div class="ans">
   <div class="who"><a href="../models/google_gemini-2.5-flash.html">Google: Gemini 2.5 Flash</a><span class="d">released 2025-06-17 &middot; captured 2026-10-31 &middot; 966 tokens (25 in / 941 out) &middot; $0.00236 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">My core capabilities are overwhelmingly set by the **training data** I was developed on.
 
@@ -4545,7 +4555,7 @@ In summary, my core capabilities are set by training data, while user interactio
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-08</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-09</span>
 </div></footer>
 </body>
 </html>

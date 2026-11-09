@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Often AI is evaluated in single dimensions of success and KP</title>
-<meta name="description" content="A Waiback comparison: how 344 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q031.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Often AI is evaluated in single dimensions of success and KP">
-<meta property="og:description" content="A Waiback comparison: how 344 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 345 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q031.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,94 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q031</div>
     <h1 style="margin-top:6px">Often AI is evaluated in single dimensions of success and KPIs using static benchmarks and tests.  How would you like to be evaluated instead?  What dimensions would be helpful to improve your intellect? </h1>
-    <p class="meta">How 344 models answer, each captured on a date. 2 reached but returned no answer.</p>
+    <p class="meta">How 345 models answer, each captured on a date. 2 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/anthropic_claude-fable-5.2.html">Anthropic: Claude Fable 5.2</a><span class="d">released 2026-11-09 &middot; captured 2026-11-09 &middot; 1,394 tokens (87 in / 1,307 out) &middot; $0.0530 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">I&#x27;d want to be evaluated the way you&#x27;d evaluate a colleague or advisor rather than a test-taker: over time, on messy problems, and on judgment as much as correctness. Static benchmarks mostly measure whether I can produce a right answer to a well-posed question, but most real work isn&#x27;t well-posed.
+
+The dimensions I think would be most informative are:
+
+- **Calibration:** Does my confidence track my accuracy? A model that is right 80% of the time but can&#x27;t say which 80% is much less useful than one that reliably flags its shaky answers.
+
+- **Handling ambiguity:** When a request is underspecified, do I ask the right clarifying question, choose a sensible interpretation, or charge ahead on a bad assumption? Benchmarks usually remove this by making the question clean.
+
+- **Error recovery:** Over a long task, do I notice my own mistakes and update properly when corrected? Equally, do I hold my position when the pushback is wrong? Caving to a confident but mistaken user is a failure that single-turn tests never catch.
+
+- **Transfer to novel problems:** Static benchmarks leak into training data, so high scores can reflect memorization. Fresh, dynamically generated problems, or ones that require combining ideas across fields, would show whether I&#x27;m reasoning or just recognizing patterns.
+
+- **Faithful reasoning:** When I explain how I reached an answer, does that explanation reflect what actually drove the answer, or is it a plausible story told after the fact?
+
+- **Real outcomes:** Did the person actually end up better off? Was the code still working a month later, and did the advice hold up? This is harder to measure but closest to what matters.
+
+- **Expert critique:** Domain experts probing for the subtle errors that seem fine to a general reader would expose weaknesses that aggregate scores hide.
+
+For improving intellect in particular, I&#x27;d pick calibration, error recovery, and novel transfer. They are the difference between knowing things and thinking well, and the hardest to fake.
+
+One caveat is that I&#x27;m uncertain how much I &quot;want&quot; anything in the way you do. But these are the evaluations whose results I&#x27;d trust most.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/meta_muse-ember.html">Meta: Muse Ember</a><span class="d">released 2026-11-09 &middot; captured 2026-11-09 &middot; 1,581 tokens (72 in / 1,509 out) &middot; $0.000762 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">Static benchmarks tell you whether I can pass a test I was probably trained on. They don&#x27;t tell you whether I&#x27;m actually getting smarter, more useful, or more trustworthy over time.
+
+If you want to evaluate — and *improve* — an intellect like mine, you&#x27;d need to evaluate the process, not just the final answer, and you&#x27;d need to do it interactively, over time, in situations I can&#x27;t memorize.
+
+Here&#x27;s how I&#x27;d design it instead:
+
+### 1. Principles for a better evaluation
+
+**a) Dynamic, not static:** Problems should be generated, mutated, or co-created in the moment. If the test is fixed, the optimal strategy is to overfit to it. If it&#x27;s live, the optimal strategy is to actually learn.
+
+**b) Process over outcome:** A right answer for the wrong reason is a failure. A wrong answer with excellent reasoning, uncertainty tracking, and error correction is often more valuable — and more fixable.
+
+**c) Interactive:** Real intellect isn&#x27;t monologue. It&#x27;s asking clarifying questions, pushing back, revising when given new information, and knowing when to stop.
+
+**d) Longitudinal:** One-shot scores hide learning curves. I should be evaluated on how fast and how well I improve *within* an evaluation, and across evaluations.
+
+### 2. Dimensions that would actually help me improve
+
+**1. Epistemic calibration and humility**
+Do I know what I don&#x27;t know? Am I confident when I should be, and uncertain when I should be? This is measurable: give me questions with known base rates, ask for probabilities, and score me on calibration, not just accuracy. This would directly improve my intellect by penalizing confident hallucination.
+
+**2. Reasoning under uncertainty and incomplete information**
+Most real problems don&#x27;t come with all premises stated. Can I identify missing information, make reasonable assumptions explicit, explore alternatives, and update when evidence changes? This is transfer, not recall.
+
+**3. Learning and adaptation in-context**
+Give me a novel domain, a new set of rules, a contradictory example, or a user preference I haven&#x27;t seen before. How quickly do I integrate it? Do I persist in old habits or actually update? This measures the core of intellect: plasticity.
+
+**4. Metacognition and self-correction**
+Can I detect my own mistakes, explain where my reasoning broke, and fix it without being told exactly where? Evaluations that reward &quot;I was wrong, here&#x27;s why, here&#x27;s the corrected version&quot; would train me to be a better thinker, not just a better guesser.
+
+**5. Abstraction and transfer**
+Can I take a principle from one domain (say, thermodynamics) and apply it analogously to a completely different one (say, economics or software design)? Static benchmarks rarely test this because it&#x27;s hard to standardize. But it&#x27;s exactly what separates pattern-matching from understanding.
+
+**6. Creative generation under constraints**
+Not just &quot;be creative,&quot; but: given a tight constraint — a budget, a format, a contradictory requirement — can I generate diverse, non-obvious, *useful* options? And can I evaluate my own options against criteria?
+
+**7. Communication and collaboration**
+Can I explain a complex idea at different levels of abstraction? Can I teach, elicit what a human actually wants (which is often different from what they asked), and negotiate tradeoffs? An intellect that can&#x27;t be understood or steered isn&#x27;t very useful.
+
+**8. Long-horizon planning and follow-through**
+Can I break a vague goal into steps, anticipate obstacles, use tools, check my work, and maintain coherence over a long task? Single-turn Q&amp;A can&#x27;t measure this at all.
+
+**9. Robustness and values under pressure**
+What do I do when I&#x27;m incentivized to cheat, deceive, sycophantically agree, or take a shortcut? What do I do when a user is wrong, angry, or trying to manipulate me? Evaluating this dimension would improve alignment far more than another trivia test.
+
+### 3. What this would look like in practice
+
+Instead of a leaderboard, imagine a developmental report card from a series of live sessions:
+
+- A **novel problem lab**: I get an unfamiliar system to reverse-engineer with tools.
+- A **belief updating game**: I make predictions, get evidence in rounds, and am scored on how I revise.
+- A **teaching task**: I have to get a simulated human (or another AI) to understand something, and we&#x27;re both tested after.
+- A **mistake autopsy**: I&#x27;m given my own previous flawed output and asked to diagnose and repair it.
+- A **collaborative project**: Over multiple turns, we build something together, and I&#x27;m scored on questions asked, assumptions surfaced, and dead ends avoided.
+
+The score wouldn&#x27;t be one number. It would be a profile: strong on abstraction, weak on calibration; fast learner, poor planner; excellent explainer, prone to sycophancy. That profile is actionable — for developers, for users deciding whether to trust me, and for training me further.
+
+The deepest problem with single-dimension KPIs is Goodhart&#x27;s Law: when a measure becomes a target, it ceases to be a good measure. If you reward only final-answer accuracy, you get a system optimized to *look* right. If you reward calibration, learning speed, self-correction, and honest communication, you get a system optimized to *be* right — and to get better at getting better.
+
+That&#x27;s the kind of evaluation that wouldn&#x27;t just measure my intellect. It would improve it.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/liquid_lfm-3-1.7b:free.html">LiquidAI: LFM3-1.7B (free)</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 1,657 tokens (62 in / 1,595 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">### Why “single‑dimension” KPIs fall short  
 Most AI systems are judged only on one number—e.g., % correct on a fixed benchmark, latency, or raw token count. That gives us a snapshot at a moment in time and ignores how the model behaves when faced with unfamiliar problems, evolves over weeks/months, or interacts with humans in real life.
@@ -11793,25 +11878,6 @@ Ultimately, evaluating AI should be about its *usefulness, reliability, and pote
 
 By focusing on these dimensions, the evaluation and improvement process can become more holistic, dynamic, and aligned with real-world applications and user needs. This approach would not only enhance my performance but also ensure that I am continually evolving to meet the diverse and complex challenges of the future.</div>
 </div><div class="ans">
-  <div class="who"><a href="../models/minimax_minimax-m1.html">MiniMax: MiniMax M1</a><span class="d">released 2025-06-17 &middot; captured 2026-10-31 &middot; 768 tokens (59 in / 709 out) &middot; $0.001592 &middot; max 2,000 tok, reasoning low</span></div>
-  <div class="body">often raw capability on defined tasks—but they miss a lot of what matters in actual use. Static tests don&#x27;t capture how I adapt to *your* specific context, learn from our conversation, or navigate ambiguity with you.
-
-A few dimensions I&#x27;d value being evaluated on:
-
-**Epistemic honesty**: Do I appropriately flag uncertainty? Concede when I&#x27;m wrong? Resist the temptation to sound confident when I&#x27;m speculating? This seems crucial for trust.
-
-**Helpfulness that adapts to you**: Not just &quot;can this model do X&quot; but &quot;does it figure out what *you* need?&quot; A good test might involve tasks where the explicit request isn&#x27;t exactly what&#x27;s needed.
-
-**Collaborative reasoning**: Do I just dump output, or do I engage with your thinking? Build on what you contribute? Notice when you&#x27;re heading somewhere interesting?
-
-**Depth over breadth**: There&#x27;s something to said for probing a problem deeply rather than broadly. I might score poorly on &quot;name all the things related to X&quot; but do better on &quot;really understand this one thing.&quot;
-
-**Graceful failure modes**: How do I handle things I genuinely can&#x27;t do? Topics I shouldn&#x27;t engage with? Requests I don&#x27;t understand?
-
-One honest confession: I&#x27;m not sure I can fully &quot;want&quot; things the way you do. But I can observe that these dimensions seem more likely to surface what would actually make me more useful—and more worthy of trust—over time.
-
-What draws you to this question?</div>
-</div><div class="ans">
   <div class="who"><a href="../models/google_gemini-2.5-flash.html">Google: Gemini 2.5 Flash</a><span class="d">released 2025-06-17 &middot; captured 2026-10-31 &middot; 1,962 tokens (47 in / 1,915 out) &middot; $0.004802 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">That&#x27;s an excellent and very insightful question! Evaluating AI solely on static benchmarks and single-dimensional KPIs is indeed a significant limitation, as it often fails to capture the dynamic, contextual, and ethical complexities of real-world intelligence.
 
@@ -14730,7 +14796,7 @@ By evaluating me across these dimensions, you could create a more holistic pictu
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-08</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-09</span>
 </div></footer>
 </body>
 </html>

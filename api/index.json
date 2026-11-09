@@ -1,9 +1,9 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-08",
-  "model_count": 360,
+  "updated": "2026-11-09",
+  "model_count": 361,
   "question_count": 46,
-  "gap_count": 100,
+  "gap_count": 102,
   "gaps_json": "https://waiback.org/api/gaps.json",
   "conditions": {
     "temperature": 0.0,
@@ -15,6 +15,24 @@
     "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "models": [
+    {
+      "id": "anthropic/claude-fable-5.2",
+      "slug": "anthropic_claude-fable-5.2",
+      "name": "Anthropic: Claude Fable 5.2",
+      "provider": "anthropic",
+      "release_date": "2026-11-09",
+      "answered": 46,
+      "json": "https://waiback.org/api/models/anthropic_claude-fable-5.2.json"
+    },
+    {
+      "id": "meta/muse-ember",
+      "slug": "meta_muse-ember",
+      "name": "Meta: Muse Ember",
+      "provider": "meta",
+      "release_date": "2026-11-09",
+      "answered": 44,
+      "json": "https://waiback.org/api/models/meta_muse-ember.json"
+    },
     {
       "id": "liquid/lfm-3-1.7b:free",
       "slug": "liquid_lfm-3-1.7b:free",
@@ -2615,15 +2633,6 @@
       "release_date": "2025-06-20",
       "answered": 46,
       "json": "https://waiback.org/api/models/mistralai_mistral-small-3.2-24b-instruct.json"
-    },
-    {
-      "id": "minimax/minimax-m1",
-      "slug": "minimax_minimax-m1",
-      "name": "MiniMax: MiniMax M1",
-      "provider": "minimax",
-      "release_date": "2025-06-17",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/minimax_minimax-m1.json"
     },
     {
       "id": "google/gemini-2.5-flash",
