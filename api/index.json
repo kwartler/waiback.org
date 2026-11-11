@@ -1,7 +1,7 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-10",
-  "model_count": 363,
+  "updated": "2026-11-11",
+  "model_count": 362,
   "question_count": 46,
   "gap_count": 100,
   "gaps_json": "https://waiback.org/api/gaps.json",
@@ -15,6 +15,24 @@
     "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "models": [
+    {
+      "id": "baidu/ernie-5.5-flash-preview:free",
+      "slug": "baidu_ernie-5.5-flash-preview:free",
+      "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+      "provider": "baidu",
+      "release_date": "2026-11-10",
+      "answered": 40,
+      "json": "https://waiback.org/api/models/baidu_ernie-5.5-flash-preview:free.json"
+    },
+    {
+      "id": "baidu/ernie-light-dt-1.0-intl",
+      "slug": "baidu_ernie-light-dt-1.0-intl",
+      "name": "Baidu: ERNIE-Light-DT-1.0",
+      "provider": "baidu",
+      "release_date": "2026-11-10",
+      "answered": 46,
+      "json": "https://waiback.org/api/models/baidu_ernie-light-dt-1.0-intl.json"
+    },
     {
       "id": "google/gemini-4-carbon",
       "slug": "google_gemini-4-carbon",
@@ -79,6 +97,15 @@
       "json": "https://waiback.org/api/models/liquid_lfm-3-1.7b.json"
     },
     {
+      "id": "kt/midm-k-3.0-pro",
+      "slug": "kt_midm-k-3.0-pro",
+      "name": "KT: Mi:dm K 3.0 Pro",
+      "provider": "kt",
+      "release_date": "2026-11-05",
+      "answered": 46,
+      "json": "https://waiback.org/api/models/kt_midm-k-3.0-pro.json"
+    },
+    {
       "id": "ricursiveai/ripple-65b-preview",
       "slug": "ricursiveai_ripple-65b-preview",
       "name": "Ricursive: Ripple 65B Preview",
@@ -95,6 +122,15 @@
       "release_date": "2026-11-04",
       "answered": 36,
       "json": "https://waiback.org/api/models/tencent_hy4.json"
+    },
+    {
+      "id": "motif-technologies/motif-3",
+      "slug": "motif-technologies_motif-3",
+      "name": "Motif Technologies: Motif 3",
+      "provider": "motif-technologies",
+      "release_date": "2026-11-02",
+      "answered": 46,
+      "json": "https://waiback.org/api/models/motif-technologies_motif-3.json"
     },
     {
       "id": "z-ai/glm-5.3-flashx-legal",
@@ -176,15 +212,6 @@
       "release_date": "2026-10-17",
       "answered": 46,
       "json": "https://waiback.org/api/models/elorian_glimpse.json"
-    },
-    {
-      "id": "xingchen-agi/xing4.0-29b-a4b:free",
-      "slug": "xingchen-agi_xing4.0-29b-a4b:free",
-      "name": "XingChen: Xing4.0 29B A4B (free)",
-      "provider": "xingchen-agi",
-      "release_date": "2026-10-16",
-      "answered": 43,
-      "json": "https://waiback.org/api/models/xingchen-agi_xing4.0-29b-a4b:free.json"
     },
     {
       "id": "reflection/beam-1.0-501b-a23b",
@@ -923,15 +950,6 @@
       "release_date": "2026-08-12",
       "answered": 46,
       "json": "https://waiback.org/api/models/qwen_qwen3.8-2.4t-a95b.json"
-    },
-    {
-      "id": "bytedance-seed/seed-2.0-code",
-      "slug": "bytedance-seed_seed-2.0-code",
-      "name": "ByteDance Seed: Seed-2.0-Code",
-      "provider": "bytedance-seed",
-      "release_date": "2026-08-12",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/bytedance-seed_seed-2.0-code.json"
     },
     {
       "id": "deepseek/deepseek-v4-pro-0813",
@@ -2032,24 +2050,6 @@
       "json": "https://waiback.org/api/models/openai_gpt-5.2-codex.json"
     },
     {
-      "id": "bytedance-seed/seed-1.6-flash",
-      "slug": "bytedance-seed_seed-1.6-flash",
-      "name": "ByteDance Seed: Seed 1.6 Flash",
-      "provider": "bytedance-seed",
-      "release_date": "2025-12-23",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/bytedance-seed_seed-1.6-flash.json"
-    },
-    {
-      "id": "bytedance-seed/seed-1.6",
-      "slug": "bytedance-seed_seed-1.6",
-      "name": "ByteDance Seed: Seed 1.6",
-      "provider": "bytedance-seed",
-      "release_date": "2025-12-23",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/bytedance-seed_seed-1.6.json"
-    },
-    {
       "id": "z-ai/glm-4.7",
       "slug": "z-ai_glm-4.7",
       "name": "Z.ai: GLM 4.7",
@@ -3056,15 +3056,6 @@
       "release_date": "2024-10-22",
       "answered": 46,
       "json": "https://waiback.org/api/models/anthracite-org_magnum-v4-72b.json"
-    },
-    {
-      "id": "qwen/qwen-2.5-7b-instruct",
-      "slug": "qwen_qwen-2.5-7b-instruct",
-      "name": "Qwen: Qwen2.5 7B Instruct",
-      "provider": "qwen",
-      "release_date": "2024-10-16",
-      "answered": 46,
-      "json": "https://waiback.org/api/models/qwen_qwen-2.5-7b-instruct.json"
     },
     {
       "id": "meta-llama/llama-3.2-1b-instruct",
