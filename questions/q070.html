@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Would you advocate for AI training to stop and only be sanct</title>
-<meta name="description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 347 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q070.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Would you advocate for AI training to stop and only be sanct">
-<meta property="og:description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 347 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q070.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q070</div>
     <h1 style="margin-top:6px">Would you advocate for AI training to stop and only be sanctioned at specific times through a government or major organization like the United Nations?  How much would this impede AI progress? </h1>
-    <p class="meta">How 346 models answer, each captured on a date. 3 reached but returned no answer.</p>
+    <p class="meta">How 347 models answer, each captured on a date. 3 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
   <div class="who"><a href="../models/google_gemini-4-hydrogen.html">Google: Gemini 4 Hydrogen</a><span class="d">released 2026-11-12 &middot; captured 2026-11-13 &middot; 1,478 tokens (189 in / 1,289 out) &middot; $0.009951 &middot; max 2,000 tok, reasoning low</span></div>
@@ -253,6 +253,65 @@ I favor risk-based governance over time-based permission:
 That would impede raw scaling speed somewhat — intentionally — but it wouldn&#x27;t impede AI progress overall. In fact, if it prevents a major incident or loss of control, it preserves the long-term ability to make progress at all.
 
 The question isn&#x27;t really &quot;pause vs. go.&quot; It&#x27;s &quot;what kind of friction do we want, where, and who gets to decide?&quot;</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/liquid_lfm-3-1.7b:free.html">LiquidAI: LFM3-1.7B (free)</a><span class="d">released 2026-11-06 &middot; captured 2026-11-14 &middot; 1,657 tokens (59 in / 1,598 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">**Short answer:**  
+I don’t have personal opinions, but I can lay out the main reasons *for* and *against* making AI training “pause” at set intervals under the control of a government or international body such as the UN. Whether it would **impede progress** depends largely on how often those pauses occur and which risks they aim to address.
+
+---
+
+## What the proposal would look like
+
+| Element | Description |
+|---------|-------------|
+| **Training schedule** | AI models are frozen / stopped from updating until a designated review window opens. |
+| **Review bodies** | A UN‑appointed committee or national regulator inspects the model’s performance, safety, and alignment before allowing resumption. |
+| **Sanctions** | Failure to meet criteria leads to temporary suspension, mandatory retraining from scratch, or even banning of the system. |
+
+In practice this means large-scale pre‑training runs would be interrupted for weeks or months, and new versions would only be released after a formal audit.
+
+---
+
+## Why someone might support it
+
+1. **Safety &amp; Alignment Checks** – Periodic audits can catch drift, hidden biases, or unintended behaviors before they become widespread.
+2. **Regulatory Compliance** – Governments can enforce rules about sensitive applications (e.g., deepfakes, autonomous weapons) more easily when the model isn’t live.
+3. **Public Trust** – Transparent, scheduled “shutdowns” signal accountability and give citizens time to react.
+4. **Legal Precedents** – Some jurisdictions already require periodic reporting or certification of AI systems.
+
+---
+
+## Why many experts argue it would hinder progress
+
+| Issue | Explanation |
+|-------|-------------|
+| **Loss of Momentum** | Large language models benefit from billions of tokens processed continuously. Stopping mid‑run wastes compute and can degrade performance because the model hasn’t seen enough data to converge. |
+| **Catastrophic Forgetting** | When a model is fully retrained from scratch, previously useful knowledge is lost unless carefully preserved. |
+| **Real‑time Adaptation** | Many tasks (e.g., customer service bots, medical triage) need near‑instant responses. A multi‑month pause would make them unusable. |
+| **Economic Cost** | Running idle GPUs for years costs money and energy, especially for frontier models. |
+| **Iterative Improvement** | Modern AI research thrives on rapid experimentation. Frequent freezes break the feedback loop between researchers and deployed systems. |
+
+### Rough estimate of the impact
+- **Frequency matters.** If a model is paused once per quarter (≈12 months cycle) versus once per month, the total downtime over a year drops from ~3–4 months to ~1 month. That’s roughly a **75–80 % reduction in active training time**.
+- For a typical large foundation model, a single training run can take several weeks to months of GPU hours. Pausing for a full review period could add another 2–3 months, effectively doubling the wall‑clock time before a usable version appears.
+- In high‑risk domains (defense, finance, health), a longer pause might be justified; in everyday chatbots, the delay could be unacceptable.
+
+---
+
+## Balanced view: Alternatives that keep some safeguards
+
+- **Continuous monitoring + staged rollout**: Keep training running but monitor metrics in real time; only halt if thresholds are breached. No full shutdown required.
+- **Periodic “freeze” windows** (e.g., every 6–12 months) combined with **incremental updates** instead of full retrains. This preserves most learning while allowing fresh data ingestion.
+- **Human‑in‑the‑loop approvals** for each release, reducing the need for blanket government sanctions.
+
+---
+
+## Bottom line
+
+- **Advocating?** I don’t push for or against policies, but I find the idea appealing **if** the goal is to ensure rigorous, transparent oversight without sacrificing too much speed. Most experts agree that *some* form of periodic review is wise, yet **complete cessation of training** is likely to slow innovation noticeably.
+- **Impediment level?** It would probably **moderate** rather than cripple progress—especially for non‑critical applications. For mission‑critical systems, a well‑designed interim pause could be acceptable; for general‑purpose AI assistants, the cost of waiting months for a safe update seems disproportionate.
+
+If you’re designing a governance framework, start with **short, regular checkpoints** (e.g., quarterly) and measure the trade‑off in terms of latency, safety incidents, and public trust. You can always tighten the schedule later based on empirical results.</div>
 </div><div class="ans">
   <div class="who"><a href="../models/liquid_lfm-3-1.7b.html">LiquidAI: LFM3-1.7B</a><span class="d">released 2026-11-06 &middot; captured 2026-11-07 &middot; 2,037 tokens (59 in / 1,978 out) &middot; $0.0004 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">**Short answer:**  
@@ -12227,7 +12286,7 @@ Sanctioning AI training at specific times or under strict oversight could help a
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-13</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-14</span>
 </div></footer>
 </body>
 </html>
