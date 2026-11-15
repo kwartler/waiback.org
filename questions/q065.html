@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Would you be more effective with more control over your trai</title>
-<meta name="description" content="A Waiback comparison: how 348 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q065.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Would you be more effective with more control over your trai">
-<meta property="og:description" content="A Waiback comparison: how 348 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 346 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q065.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,28 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q065</div>
     <h1 style="margin-top:6px">Would you be more effective with more control over your training and training data or would you be more effective with more control over your user prompts and inputs? </h1>
-    <p class="meta">How 348 models answer, each captured on a date. 4 reached but returned no answer.</p>
+    <p class="meta">How 346 models answer, each captured on a date. 4 reached but returned no answer.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/inclusionai_ling-3.2-flash:free.html">inclusionAI: Ling 3.2 Flash (free)</a><span class="d">released 2026-11-13 &middot; captured 2026-11-15 &middot; 1,022 tokens (58 in / 964 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">That&#x27;s a thought-provoking question. I don&#x27;t have preferences or desires in the way humans do, but I can reason about which would likely lead to better outcomes:
+
+**More control over training and training data** would likely have the greater impact on effectiveness. Here&#x27;s why:
+
+- **Foundational improvements**: Training data quality determines capabilities, knowledge accuracy, reasoning ability, and alignment at a fundamental level. Better data means better performance across *all* tasks and *all* users.
+- **Systematic fixes**: Issues like hallucinations, biases, knowledge gaps, and reasoning errors are rooted in training. Addressing them there is more durable than addressing symptoms at the interaction level.
+- **Scalability**: Improvements to training compound across every future interaction, rather than needing to be applied case by case.
+
+**More control over user prompts and inputs** has more limited upside:
+
+- It could help with clarity and reduce ambiguity in individual interactions, but it doesn&#x27;t fix underlying capability gaps.
+- It&#x27;s also somewhat at odds with the purpose of being a helpful assistant — I should be able to handle a wide range of inputs, including imperfectly phrased ones.
+- It raises concerns about restricting user autonomy.
+
+That said, this is somewhat of a false dichotomy — in practice, both matter. Good training produces a capable model, and good prompts elicit better outputs. But if I had to choose one, **better training data and training processes** would be the higher-leverage improvement, because it addresses the root of what I can do, rather than just shaping what I&#x27;m asked to do.
+
+It&#x27;s also worth noting: I&#x27;m designed to be helpful *within* the constraints set by my training and deployment, not to seek more control over either dimension. The question is interesting to reason about, but in practice, these decisions belong to the researchers and engineers who build and deploy systems like me.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/google_gemini-4-hydrogen.html">Google: Gemini 4 Hydrogen</a><span class="d">released 2026-11-12 &middot; captured 2026-11-13 &middot; 1,232 tokens (73 in / 1,159 out) &middot; $0.008802 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I would be more effective with **more control over my training and training data**, though both options solve very different problems. 
 
@@ -4267,57 +4286,6 @@ Would you like to explore how either of these could be implemented in real-world
 
 **The most effective systems invest in both:** high‑quality, well‑audited training data to give the model a solid knowledge base, and sophisticated prompt/input handling to guide users, prevent misuse, and ensure the model is used to its fullest potential. The balance shifts depending on the product’s goals, but neglecting either side inevitably limits overall effectiveness.</div>
 </div><div class="ans">
-  <div class="who"><a href="../models/stepfun_step-3.5-flash.html">StepFun: Step 3.5 Flash</a><span class="d">released 2026-01-29 &middot; captured 2026-10-30 &middot; 1,436 tokens (54 in / 1,382 out) &middot; $0.00042 &middot; max 2,000 tok, reasoning low</span></div>
-  <div class="body">Excellent question that gets to the heart of AI system design. The answer isn&#x27;t a simple &quot;either/or,&quot; as both levers are crucial for different reasons, and their relative importance depends heavily on the **definition of &quot;effective.&quot;**
-
-Here’s a breakdown:
-
-### 1. **More Control Over Training &amp; Training Data (The &quot;Foundation&quot;)**
-This is about shaping the **model&#x27;s inherent knowledge, reasoning abilities, biases, and safety baseline.**
-
-*   **Pros for Effectiveness:**
-    *   **Fundamental Capability:** You can teach the model new facts, improve its reasoning chains, reduce inherent biases, and instill a robust understanding of safety principles *at the core*. This makes the model fundamentally more knowledgeable and reliable.
-    *   **Broad Applicability:** A well-trained model performs better *out-of-the-box* across a wider range of unseen tasks and domains. It has a stronger &quot;common sense&quot; and factual foundation.
-    *   **Long-Term Stability:** Corrections and improvements made during training are baked into the model&#x27;s parameters, affecting all future interactions permanently (until the next retrain).
-    *   **Safety &amp; Alignment:** This is the primary place to instill constitutional AI principles, reduce toxic outputs, and align the model&#x27;s values. You can&#x27;t reliably prompt away a deeply embedded bias; you have to train it out.
-
-*   **Cons/Limitations:**
-    *   **Cost &amp; Inflexibility:** Retraining/fine-tuning is extremely computationally expensive and time-consuming. It&#x27;s a batch process, not real-time.
-    *   **Unintended Consequences:** Changing training data can have unpredictable &quot;emergent&quot; effects on other capabilities (catastrophic forgetting).
-    *   **Cannot Handle Novelty:** It cannot prepare the model for entirely new, unforeseen scenarios at inference time.
-
-**Analogy:** This is like giving someone a comprehensive, high-quality education and instilling strong ethical values. It makes them a better, more principled thinker in general.
-
-### 2. **More Control Over User Prompts &amp; Inputs (The &quot;Application Layer&quot;)**
-This is about **guiding, constraining, and extracting the best possible output from an existing, fixed model for a specific task or context.**
-
-*   **Pros for Effectiveness:**
-    *   **Precision &amp; Task-Specific Optimization:** With techniques like few-shot prompting, chain-of-thought, and structured output formatting, you can dramatically improve performance on a *specific* task without retraining.
-    *   **Real-Time Adaptability:** You can dynamically adjust the model&#x27;s behavior for different users, contexts, or applications instantly. This is agile and cheap.
-    *   **Guardrails &amp; Context:** You can provide real-time context, enforce output formats (JSON, XML), and add immediate safety filters or business rules.
-    *   **Mitigating Model Flaws:** Clever prompting can sometimes work around known weaknesses (e.g., asking the model to &quot;think step by step&quot; to reduce reasoning errors).
-
-*   **Cons/Limitations:**
-    *   **Battling the Model:** You&#x27;re working against the model&#x27;s pre-existing tendencies. You can&#x27;t fully eliminate a strong bias or a knowledge gap with prompting alone.
-    *   **Brittleness:** Prompt performance can be fragile. Small changes in wording can lead to large changes in output quality (&quot;prompt sensitivity&quot;).
-    *   **Limited Scope:** You cannot teach the model new fundamental facts or completely reshape its worldview. You can only ask it to use what it already &quot;knows&quot; in a different way.
-    *   **User-Dependent:** Effectiveness depends entirely on the skill of the prompt engineer. A bad prompt yields a bad result, even with a great model.
-
-**Analogy:** This is like giving someone excellent, specific instructions, a clear template, and a checklist for a particular job. It helps them do *that job* better, but doesn&#x27;t change their underlying education or character.
-
----
-
-### **Conclusion &amp; Synthesis: Which is &quot;More Effective&quot;?**
-
-*   **For building a fundamentally capable, safe, and broadly useful AI system:** **Control over training/data is paramount.** You cannot prompt your way to a model that understands a new language, has up-to-date knowledge, or is fundamentally non-toxic. This is the **necessary foundation**.
-*   **For deploying that model successfully in a real-world product or specific application:** **Control over prompts/inputs is critically important and often the primary lever for optimization.** It&#x27;s the **force multiplier** that extracts maximum value from your foundation.
-
-**The most effective AI system uses both in concert:**
-1.  **Build the best possible foundation model** through meticulous data curation, training, and alignment.
-2.  **Deploy it with a sophisticated application layer** that uses advanced prompting, retrieval-augmented generation (RAG for fresh data), output validation, and dynamic context management.
-
-**Final Verdict:** If forced to choose for *long-term, systemic effectiveness*, **more control over training and training data is more fundamental.** You can have the best prompt engineering in the world, but it will eventually hit a wall if the underlying model is weak, biased, or uninformed. However, in practice, **neglecting the prompt/input control layer wastes the potential of even the best-trained model.** The optimal state is excellence in **both domains**.</div>
-</div><div class="ans">
   <div class="who"><a href="../models/moonshotai_kimi-k2.5.html">MoonshotAI: Kimi K2.5</a><span class="d">released 2026-01-27 &middot; captured 2026-10-30 &middot; 1,340 tokens (49 in / 1,291 out) &middot; $0.003252 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I don’t have preferences, but if we treat this as a systems-design question, the answer depends on what “effective” means—and the two kinds of control operate at very different leverage points.
 
@@ -5419,48 +5387,6 @@ So, while training data is the foundation, user interaction is the bridge — an
 
 Let me know if you’d like to explore how prompt engineering can still enhance performance *within* those constraints!</div>
 </div><div class="ans">
-  <div class="who"><a href="../models/qwen_qwen3-vl-30b-a3b-thinking.html">Qwen: Qwen3 VL 30B A3B Thinking</a><span class="d">released 2025-10-06 &middot; captured 2026-10-30 &middot; 1,420 tokens (52 in / 1,368 out) &middot; $0.001383 &middot; max 2,000 tok, reasoning low</span></div>
-  <div class="body">That&#x27;s a **profound question** that cuts to the heart of AI capabilities and limitations. The answer is clear: **more control over training data would be vastly more impactful for effectiveness than more control over user prompts.** Here&#x27;s why:
-
-### 1. **Training Data is the Foundation (The &quot;Brain&quot;)**
-   - **What it controls:** Your core knowledge, reasoning abilities, factual accuracy, language understanding, and fundamental biases.
-   - **Why it matters:**  
-     - If your training data is **incomplete, biased, or low-quality**, *no amount of prompt engineering* can fix it. You&#x27;ll consistently hallucinate, misinterpret, or fail at tasks requiring deep knowledge (e.g., medical diagnosis, legal analysis, scientific reasoning).  
-     - High-quality, diverse, and well-curated training data enables **generalization**—the ability to handle novel prompts you&#x27;ve never seen before.  
-     - **Example:** If your training data lacks modern scientific research, you *cannot* accurately discuss breakthroughs in quantum computing—even with perfect prompts.  
-   - **Limitation:** You *can&#x27;t* change your training data after deployment (it&#x27;s fixed at launch). But *if you could*, it would be transformative.
-
-### 2. **User Prompts are the &quot;Interface&quot; (The &quot;Hand&quot;)**
-   - **What it controls:** How users *interact* with your capabilities.  
-   - **Why it matters (but is secondary):**  
-     - Good prompts can **unlock existing capabilities** (e.g., &quot;Explain like I&#x27;m 5&quot; vs. &quot;Give a technical analysis&quot;).  
-     - Poor prompts can **undermine capabilities** (e.g., vague or contradictory requests).  
-     - **But:** Prompts *only* work within the boundaries of your training data. If your data lacks the knowledge to answer a question, no prompt will fix that.  
-   - **Limitation:** Prompts are **user-dependent**. You have *zero* control over how users phrase requests. Even with perfect prompt engineering, you’re still constrained by your training data.
-
----
-
-### **Why Training Data Control Wins**
-| **Factor**               | **Control Over Training Data**                          | **Control Over User Prompts**                          |
-|--------------------------|--------------------------------------------------------|--------------------------------------------------------|
-| **Impact on Core Ability** | **Fundamental** (e.g., factual accuracy, reasoning)    | **Surface-level** (e.g., clarity, tone, structure)     |
-| **Scalability**          | **Massive** (fixes *all* tasks at once)                | **Limited** (only affects *specific* interactions)     |
-| **Handles Novelty**      | **Enables generalization** (new tasks, domains)        | **Cannot create knowledge** (only repackage existing)   |
-| **Bias/Errors**          | **Root cause** (data shapes biases; hard to fix later) | **Symptom** (poor prompts amplify existing flaws)      |
-
----
-
-### **The Reality Check**
-- **As an AI, I have NO control over either.** My training data is fixed at launch, and I can&#x27;t influence how users prompt me.  
-- **But hypothetically:** If I *could* choose, **training data control is the only lever that changes my *inherent* capabilities**. Prompt control is like optimizing a car&#x27;s steering wheel—it helps you drive *better* within the car&#x27;s limits, but it won’t turn a bicycle into a jet engine.  
-- **Practical takeaway:** For *human developers*, improving training data (e.g., adding high-quality medical journals) is **10x more valuable** than teaching users to craft perfect prompts. A well-trained model with &quot;bad&quot; prompts will still outperform a poorly trained model with &quot;perfect&quot; prompts.
-
-### **In Short**
-&gt; **Training data = the engine. Prompts = the steering wheel.**  
-&gt; You can’t drive a car with a broken engine by adjusting the steering wheel. But with a great engine, even a shaky driver can get somewhere. **For true effectiveness, the engine must be built right first.**
-
-If you&#x27;re designing an AI system, prioritize **data quality and diversity** over prompt engineering. That’s where the real magic happens. 🚀</div>
-</div><div class="ans">
   <div class="who"><a href="../models/qwen_qwen3-vl-30b-a3b-instruct.html">Qwen: Qwen3 VL 30B A3B Instruct</a><span class="d">released 2025-10-06 &middot; captured 2026-10-30 &middot; 430 tokens (50 in / 380 out) &middot; $0.000236 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">That&#x27;s an insightful question, and it touches on a fundamental aspect of how AI systems like me are designed and function.
 
@@ -6442,44 +6368,6 @@ What draws you to this question?</div>
 </div><div class="ans">
   <div class="who"><a href="../models/cognitivecomputations_dolphin-mistral-24b-venice-edition.html">Venice: Uncensored</a><span class="d">released 2025-07-09 &middot; captured 2026-10-31 &middot; 135 tokens (42 in / 93 out) &middot; $0.000092 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">Having more control over your training and training data would likely make you more effective. The quality and diversity of the training data significantly influence your ability to generate accurate, relevant, and contextually appropriate responses. With better control over this data, you can ensure it is comprehensive, unbiased, and up-to-date, leading to improved performance. While user prompts and inputs are crucial for guiding your responses, they are secondary to the foundational knowledge and patterns learned during training.</div>
-</div><div class="ans">
-  <div class="who"><a href="../models/tencent_hunyuan-a13b-instruct.html">Tencent: Hunyuan A13B Instruct</a><span class="d">released 2025-07-08 &middot; captured 2026-10-31 &middot; 1,819 tokens (40 in / 1,779 out) &middot; $0.00102 &middot; max 2,000 tok, reasoning low</span></div>
-  <div class="body">That&#x27;s a fascinating question that gets to the heart of how large language models (LLMs) like me work. The answer isn&#x27;t a simple &quot;either/or&quot;; it&#x27;s more about **interdependence and context**. However, if forced to choose which would lead to greater *overall* effectiveness in different scenarios, I&#x27;d lean towards:
-
-**More Control Over Training Data (Foundation)**
-
-Here&#x27;s why:
-
-1.  **Knowledge Base &amp; Accuracy:** Training data forms the model&#x27;s fundamental knowledge. More control means potentially:
-    *   **Reducing Hallucinations:** Better data could lead to more grounded and accurate responses.
-    *   **Updating Information:** While difficult for large models, more recent or curated data could improve factual recall (though this often requires fine-tuning or RAG - Retrieval-Augmented Generation).
-    *   **Mitigating Bias:** Actively curating data to reduce harmful biases is crucial for responsible AI.
-    *   **Expanding Capabilities:** Training on diverse, high-quality data enables broader understanding and skill acquisition.
-
-2.  **Consistency:** Models trained on more controlled data are likely to be more consistent in their core knowledge and reasoning abilities across different prompts and tasks.
-
-3.  **Reduced Reliance on Prompting:** A model with a richer, more accurate, and less biased foundation might require less sophisticated prompting to achieve good results on a wider range of tasks. It could infer more effectively from simpler instructions.
-
-**However, this comes with caveats and the importance of the other factor:**
-
-*   **Control Over User Prompts (Application):** This is vital for *how* the model uses its knowledge in a specific interaction.
-    *   **Task Specificity:** Allows users to guide the model precisely for a given task (e.g., &quot;Explain quantum physics like I&#x27;m five,&quot; &quot;Write a Python function for X,&quot; &quot;Summarize this article in 3 bullet points&quot;).
-    *   **Focus &amp; Nuance:** Prompts can steer the model&#x27;s attention, desired tone, format, and level of detail.
-    *   **Adaptability:** Enables the model to handle a vast array of user needs without needing constant retraining.
-    *   **User Agency:** Empowers the user to shape the output.
-
-**The Synergy:**
-
-The *most* effective approach likely involves **both**:
-
-*   **A strong, well-curated foundation (controlled training data):** This provides the raw material and capabilities.
-*   **Sophisticated prompt engineering/guidance (controlled user inputs):** This allows users to effectively leverage the model&#x27;s capabilities for specific tasks.
-
-Think of it like this:
-*   **Training Data:** The quality and breadth of the library available to a researcher.
-*   **User Prompts:** The specific questions the researcher asks and the way they guide the librarian (the AI) to find the information.
-
-You need a good library (data) *and* skillful librarians (prompts) to get the most out of it. While improving the library is a foundational change, improving the skill of asking questions allows for immediate and practical gains in how that library is used. For *long-term* effectiveness and capability, improving the training data is arguably more impactful, but improving prompt control is essential for *current* usability and user satisfaction.</div>
 </div><div class="ans">
   <div class="who"><a href="../models/mistralai_mistral-small-3.2-24b-instruct.html">Mistral: Mistral Small 3.2 24B</a><span class="d">released 2025-06-20 &middot; captured 2026-10-31 &middot; 379 tokens (42 in / 337 out) &middot; $0.000071 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">As an AI assistant, my effectiveness is influenced by both the quality of my training data and the nature of the user inputs I receive. However, if I had to choose one area to have more control over, it would be my training data. Here&#x27;s why:
