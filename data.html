@@ -55,8 +55,9 @@
       <li><span class="mono">retry</span> (bool): the answer was captured only after the larger-cap retry. Its <span class="mono">max_tokens</span> reflects the larger cap, and <span class="mono">retry_reason</span> states exactly what changed.</li>
       <li><span class="mono">retry_success</span> (bool, when <span class="mono">retry</span> is true): whether the retry produced an answer.</li>
       <li><span class="mono">empty</span> (bool): the model was reached but returned no content even after the retry. These <b>non-responses are kept, not dropped</b>, with <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span>.</li>
+      <li><span class="mono">error</span> (bool): the model <b>could not be reached at all</b>, so no answer was captured. This is distinct from a non-response: the provider rate-limited us (<span class="mono">http 429</span>), rejected the request (<span class="mono">http 400/403</span>), or no longer serves the model (<span class="mono">http 404</span>, delisted). <span class="mono">error_status</span> gives the short status and <span class="mono">error_reason</span> a plain-English explanation. These are <b>re-attempted on later runs</b> and clear automatically once a capture succeeds, so a rate-limited model can still fill in.</li>
     </ul>
-    <p>Browse them at <a href="gaps.html">Non-responses</a>, or get them all as JSON at <a href="https://waiback.org/api/gaps.json"><span class="mono">/api/gaps.json</span></a>. The <span class="mono">conditions</span> block in every API file also reports <span class="mono">max_tokens</span> and <span class="mono">retry_max_tokens</span>.</p>
+    <p>Browse both at <a href="gaps.html">Gaps</a>, or get them all as JSON at <a href="https://waiback.org/api/gaps.json"><span class="mono">/api/gaps.json</span></a>, where each entry carries a <span class="mono">kind</span> of <span class="mono">no_answer</span> (reached but empty) or <span class="mono">unavailable</span> (could not be reached). The <span class="mono">conditions</span> block in every API file also reports <span class="mono">max_tokens</span> and <span class="mono">retry_max_tokens</span>.</p>
   </section>
 
   <section><div class="section-head"><h2>How to cite</h2><span class="count">dataset slug: <span class="mono">waiback</span></span></div>
@@ -74,7 +75,7 @@
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-15</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-16</span>
 </div></footer>
 </body>
 </html>
