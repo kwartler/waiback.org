@@ -29,16 +29,35 @@ except Exception:
     PROFILE = {"name": "Ted Kwartler", "url": "https://tedkwartler.com/",
                "sameAs": ["https://tedkwartler.com/"], "projects": []}
 
+def _org(o, otype="Organization"):
+    """A schema.org Organization node from a {name, url} dict."""
+    if not o or not o.get("name"): return None
+    d = {"@type": otype, "name": o["name"]}
+    if o.get("url"): d["url"] = o["url"]
+    return d
+
 def person_node():
-    """The schema.org Person for the site author, from the shared profile."""
+    """The schema.org Person for the site author, from the shared profile. Named
+    employers, schools and boards are emitted as structured worksFor / alumniOf /
+    affiliation / memberOf so search and generative engines can resolve the entities."""
     p = {"@type": "Person", "@id": PERSON_ID,
          "name": PROFILE.get("name", "Ted Kwartler"),
          "url": PROFILE.get("url", "https://tedkwartler.com/"),
          "sameAs": [u for u in PROFILE.get("sameAs", []) if u]}
-    hl = PROFILE.get("headline")
-    if hl and not hl.startswith("TODO"): p["jobTitle"] = hl
+    jt = PROFILE.get("jobTitle") or PROFILE.get("headline")
+    if jt and not jt.startswith("TODO"): p["jobTitle"] = jt
     bio = PROFILE.get("bio")
     if bio and not bio.startswith("TODO"): p["description"] = bio
+    wf = _org(PROFILE.get("worksFor"))
+    if wf: p["worksFor"] = wf
+    al = _org(PROFILE.get("alumniOf"), "CollegeOrUniversity")
+    if al: p["alumniOf"] = al
+    affs = [_org(a) for a in PROFILE.get("affiliation", [])]
+    affs = [a for a in affs if a]
+    if affs: p["affiliation"] = affs
+    mems = [_org(m) for m in PROFILE.get("memberOf", [])]
+    mems = [m for m in mems if m]
+    if mems: p["memberOf"] = mems
     return p
 
 def esc(s): return html.escape(str(s if s is not None else ""))
