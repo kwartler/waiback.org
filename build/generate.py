@@ -174,6 +174,30 @@ def capture_pair(model_id, question):
     data2["retry_success"] = not data2.get("empty")
     return data2, None
 
+
+def error_detail(err):
+    """Map a raw capture error into (short status, human-readable reason) so a
+    persistent failure can be recorded and explained on the site instead of a pair
+    silently reading as 'not yet captured'. These are the provider/transport failures
+    that leave a pair uncaptured (distinct from a 200-but-empty non-response)."""
+    e = (err or "").lower()
+    if "429" in e:
+        return "http 429", "the provider rate-limited our requests (HTTP 429), so this answer could not be captured"
+    if "http 400" in e:
+        return "http 400", "the provider rejected the request for this model (HTTP 400)"
+    if "http 401" in e or "http 403" in e:
+        return "http 403", "the provider denied access to this model (HTTP 401/403)"
+    if "http 404" in e:
+        return "http 404", "the model was not found at the provider (HTTP 404), typically because it was delisted"
+    if "http 5" in e:
+        return "http 5xx", "the provider returned a server error (HTTP 5xx)"
+    if "request error" in e or "timeout" in e:
+        return "network", "the request to the provider failed (network error or timeout)"
+    if "bad json" in e:
+        return "bad response", "the provider returned a malformed response"
+    return "error", f"the request failed ({err})"
+
+
 def main():
     allow = read_allowlist()
     questions = read_questions()
@@ -186,13 +210,18 @@ def main():
         json.dump(prompts, open(ppath, "w"), indent=2)
     models = refresh_models(allow)
 
-    # keep only real (non-sample) prior answers; samples get replaced
+    # keep only real (non-sample) prior answers; samples get replaced.
+    # Error records (error=True) are kept SEPARATELY: they explain a pair that could
+    # not be captured (rate-limited / rejected / delisted), but they must NOT count as
+    # "captured", so a later run re-attempts the pair and clears the error once it works.
     try:
         prior = json.load(open(os.path.join(ROOT, "data/responses.json")))
     except Exception:
         prior = []
-    responses = [r for r in prior if not r.get("sample")]
-    have = {(r["model_id"], r["question_id"]) for r in responses}
+    responses = [r for r in prior if not r.get("sample") and not r.get("error")]
+    errors = {(r["model_id"], r["question_id"]): r
+              for r in prior if r.get("error") and not r.get("sample")}
+    have = {(r["model_id"], r["question_id"]) for r in responses}  # real captures only
 
     # "attempted" models ledger so batches advance to NEW models instead of re-touching
     # partially-captured ones. Set WAIBACK_RETRY=1 to re-work attempted models and fill gaps.
@@ -202,8 +231,16 @@ def main():
     RETRY = os.environ.get("WAIBACK_RETRY", "").lower() in ("1", "true", "yes")
 
     RPATH = os.path.join(ROOT, "data/responses.json")
-    def save(): json.dump(responses, open(RPATH, "w"), indent=2)
+    def save():
+        # real captures first, then the error records that explain uncaptured pairs
+        json.dump(responses + list(errors.values()), open(RPATH, "w"), indent=2)
     def save_attempted(): json.dump(sorted(attempted), open(APATH, "w"), indent=2)
+
+    def mark_error(model_id, qid, err):
+        st, human = error_detail(err)
+        errors[(model_id, qid)] = {"model_id": model_id, "question_id": qid,
+                                   "response_date": TODAY, "error": True,
+                                   "error_status": st, "error_reason": human}
 
     total_pairs = len(models) * len(questions)
     already = len(have)
@@ -232,17 +269,25 @@ def main():
             calls += 1
             if err:
                 print(f"  skip {m['id']} / {q['id']}: {err}")
+                mark_error(m["id"], q["id"], err)  # record WHY, so the site can explain it
                 dead += 1
                 # a model that errors on its first few questions and has captured
                 # nothing (e.g. a 404 :batch/non-chat variant) is not worth 46
-                # wasted calls -> abandon it and move to the next model
+                # wasted calls -> abandon it and move to the next model. Attribute the
+                # same failure to its other still-missing pairs so the whole model reads
+                # consistently ("provider rate-limited / rejected us") rather than some
+                # questions saying "unavailable" and the rest "not yet captured".
                 if dead >= 3 and got == 0:
                     print(f"  abandon {m['id']}: {dead} consecutive errors, no captures")
+                    for qq in missing:
+                        if (m["id"], qq["id"]) not in have:
+                            mark_error(m["id"], qq["id"], err)
                     break
                 time.sleep(0.4)
                 continue
             dead = 0
             got += 1  # a recorded outcome (answer OR an explained non-response) is progress
+            errors.pop((m["id"], q["id"]), None)  # a real capture supersedes any prior error
             pt, ct = res.get("prompt_tokens"), res.get("completion_tokens")
             ip, op = m.get("input_per_1m"), m.get("output_per_1m")
             cost = None
