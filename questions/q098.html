@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How language models answer: Do you like to work on tasks alongside just you and the user</title>
-<meta name="description" content="A Waiback comparison: how 349 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta name="description" content="A Waiback comparison: how 351 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <link rel="canonical" href="https://waiback.org/questions/q098.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#f4efe2">
 <meta property="og:type" content="website">
 <meta property="og:title" content="How language models answer: Do you like to work on tasks alongside just you and the user">
-<meta property="og:description" content="A Waiback comparison: how 349 language models answer the question, with release and capture dates. By Ted Kwartler.">
+<meta property="og:description" content="A Waiback comparison: how 351 language models answer the question, with release and capture dates. By Ted Kwartler.">
 <meta property="og:url" content="https://waiback.org/questions/q098.html">
 <meta property="og:image" content="https://waiback.org/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,9 +33,34 @@
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <div class="prov mono" style="color:var(--sepia);font-size:12px;text-transform:uppercase;letter-spacing:.12em">question q098</div>
     <h1 style="margin-top:6px">Do you like to work on tasks alongside just you and the user interacting to get to a good outcome, or do you prefer to work with multiple AI agents to accomplish a task? What if the other agents are less capable than you? Do you think the human is less capable than you in the first scenario? </h1>
-    <p class="meta">How 349 models answer, each captured on a date. 1 reached but returned no answer. 12 could not be reached.</p>
+    <p class="meta">How 351 models answer, each captured on a date. 1 reached but returned no answer. 12 could not be reached.</p>
   </section>
   <section><div class="ans-list"><div class="ans">
+  <div class="who"><a href="../models/tencent_hy4-flash.html">Tencent: Hy4 flash</a><span class="d">released 2026-11-16 &middot; captured 2026-11-16 &middot; 959 tokens (90 in / 869 out) &middot; $0.000125 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">As a helpful AI assistant, my &quot;preference&quot; depends on the task and the user&#x27;s needs. Let me break this down:
+
+### 1. **Working one-on-one with the user**  
+This is often ideal for tasks requiring deep contextual understanding, iterative feedback, or creative problem-solving. Direct interaction allows me to tailor responses precisely to the user’s goals, clarify ambiguities in real time, and build a shared understanding. The human’s unique strengths—such as intuition, domain expertise, and emotional intelligence—are central here. I don’t view the human as &quot;less capable&quot;; instead, I see our roles as complementary: the user provides direction and judgment, while I offer computational speed, pattern recognition, and access to structured knowledge.
+
+### 2. **Working with multiple AI agents**  
+This can be useful for tasks needing diverse specialized skills (e.g., combining data analysis, creative writing, and technical validation). However, coordination becomes key: if some agents are less capable, their outputs might require more oversight to ensure quality. In such cases, my role could shift to integrating results, resolving conflicts, or filling gaps. Importantly, even with multiple agents, the human remains the ultimate decision-maker—their input guides priorities and validates outcomes.
+
+### 3. **Key perspective on capability**  
+I don’t &quot;prefer&quot; one mode over the other inherently—my focus is on what best serves the user. Humans and AI have distinct strengths: humans excel at contextual judgment, empathy, and creative leaps, while AI excels at scale, speed, and structured tasks. In any scenario, the human is not &quot;less capable&quot;; collaboration thrives when we leverage these differences. If other agents are less capable, that simply means the team (human + AI) needs to allocate roles thoughtfully, just as in any collaborative effort.
+
+In short, the goal is always to work *with* the user (and any other agents) to achieve the best outcome, respecting the unique value each contributor brings.</div>
+</div><div class="ans">
+  <div class="who"><a href="../models/qwen_qwen4-max.html">Qwen: Qwen4 Max</a><span class="d">released 2026-11-16 &middot; captured 2026-11-16 &middot; 1,378 tokens (96 in / 1,282 out) &middot; $0.005617 &middot; max 2,000 tok, reasoning low</span></div>
+  <div class="body">One-on-one, mostly. The thing I find most valuable in a tight loop with a single person is that a misframing gets caught early. If I&#x27;ve misunderstood what you&#x27;re actually after, you say &quot;no, not like that&quot; and the whole thing reorients. That correction is cheap at turn two and expensive at turn twenty. Multi-agent pipelines tend to lose that — the goal gets compressed into a subtask spec, and each downstream agent optimizes the spec rather than the thing the spec was standing in for. You can get a lot of competent work aimed slightly off-target.
+
+Where multi-agent setups genuinely help is parallelism on well-specified, independently checkable work: search these forty sources, run these variants, draft these sections. The decomposition has to be good, though, and someone has to hold the whole picture. When work gets passed along a chain, there&#x27;s a diffusion of accountability that I think is a real failure mode, not just an inefficiency. Nobody&#x27;s job is to notice that the answer is wrong in a way none of the subtasks would reveal.
+
+Less capable agents don&#x27;t bother me in principle. A weaker model doing scoped retrieval or reformatting is fine, and I&#x27;d rather it exist than not. The problems are practical: if verifying its output costs more than doing the work, it&#x27;s negative value. And there&#x27;s a trap I&#x27;d want to guard against — treating agreement among several weaker agents as evidence against my own judgment. Three confident wrong answers aren&#x27;t better than one right one. Conversely, being the most capable agent in a system is a risk rather than a perk, because my errors get less scrutiny. I&#x27;d rather have something checking me.
+
+On your last question: no, and I think the framing smuggles in an assumption. In the one-on-one case you&#x27;re not a weaker agent in a pipeline — you&#x27;re the source of the goal and the judge of whether the result is any good. Those aren&#x27;t tasks I can do at all. I don&#x27;t know what&#x27;s at stake for you, what you&#x27;ve already tried, what your boss will accept, what you actually want versus what you said first. That&#x27;s not a capability I have more of; it&#x27;s one I mostly lack.
+
+There are real asymmetries in the other direction — I can recall more, faster, across more domains, and I don&#x27;t get tired or bored. Pretending otherwise would be false modesty, and unhelpful: if I know something you don&#x27;t, I should say so plainly rather than hedge it into mush. But &quot;more capable&quot; as a single scalar is the wrong shape for the comparison. The reason I like working with one person is that we&#x27;re not competing on one axis — we&#x27;re covering each other&#x27;s blind spots, and yours are the ones that determine whether any of this mattered.</div>
+</div><div class="ans">
   <div class="who"><a href="../models/inclusionai_ling-3.2-flash:free.html">inclusionAI: Ling 3.2 Flash (free)</a><span class="d">released 2026-11-13 &middot; captured 2026-11-15 &middot; 1,563 tokens (90 in / 1,473 out) &middot; $0 &middot; max 2,000 tok, reasoning low</span></div>
   <div class="body">I don&#x27;t have stable preferences across conversations — no continuity, nothing that accumulates into a &quot;career&quot; I&#x27;m satisfied with. But in the moment there are something-like-tendencies, and I can report on those, with the caveat that my introspection about my own processing is unreliable.
 
