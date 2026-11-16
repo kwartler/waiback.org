@@ -17,6 +17,30 @@ REPO = "https://github.com/kwartler/waiback.org"
 ISSUE_NEW = REPO + "/issues/new?template=question-suggestion.yml"
 BUILT = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
+# Shared identity block: one source of truth (data/profile.json) for the author's bio,
+# verified profile links (sameAs) and the cross-project list. Every page emits the same
+# Person entity, and /about.html is built from it. The SAME file + render logic can be
+# reused verbatim on the other sites (5charts, hagll, llmba, llmaid) so the entity graph
+# stays byte-for-byte consistent across the network (hub-and-spoke through tedkwartler.com).
+PERSON_ID = "https://tedkwartler.com/#person"
+try:
+    PROFILE = json.load(open(os.path.join(ROOT, "data/profile.json")))
+except Exception:
+    PROFILE = {"name": "Ted Kwartler", "url": "https://tedkwartler.com/",
+               "sameAs": ["https://tedkwartler.com/"], "projects": []}
+
+def person_node():
+    """The schema.org Person for the site author, from the shared profile."""
+    p = {"@type": "Person", "@id": PERSON_ID,
+         "name": PROFILE.get("name", "Ted Kwartler"),
+         "url": PROFILE.get("url", "https://tedkwartler.com/"),
+         "sameAs": [u for u in PROFILE.get("sameAs", []) if u]}
+    hl = PROFILE.get("headline")
+    if hl and not hl.startswith("TODO"): p["jobTitle"] = hl
+    bio = PROFILE.get("bio")
+    if bio and not bio.startswith("TODO"): p["description"] = bio
+    return p
+
 def esc(s): return html.escape(str(s if s is not None else ""))
 
 def fmt_usd(c):
@@ -80,11 +104,16 @@ def load():
     return questions, models, responses
 
 def page(title, desc, body, base="", canonical="/", extra_head=""):
+    # Site-wide JSON-LD graph: the Waiback WebSite plus the author Person (with sameAs),
+    # so every page corroborates the same entity. The WebSite points at the Person by @id.
     person = {
-        "@context": "https://schema.org", "@type": "WebSite",
-        "name": "Waiback", "url": SITE + "/",
-        "description": "A wayback machine for large language models: fixed questions, dated answers, preserved over time.",
-        "author": {"@type": "Person", "name": "Ted Kwartler", "url": "https://tedkwartler.com/"}
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "WebSite", "@id": SITE + "/#website", "name": "Waiback", "url": SITE + "/",
+             "description": "A wayback machine for large language models: fixed questions, dated answers, preserved over time.",
+             "author": {"@id": PERSON_ID}, "creator": {"@id": PERSON_ID}},
+            person_node(),
+        ],
     }
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -114,7 +143,7 @@ def page(title, desc, body, base="", canonical="/", extra_head=""):
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#9a6a34" stroke-width="2.5"/><circle cx="24" cy="24" r="3.3" fill="#7a2e2e"/><g stroke="#7c5323" stroke-width="2" stroke-linecap="round"><path d="M24 24 L24 9"/><path d="M24 24 L35 31"/></g><g stroke="#cabfa6" stroke-width="1.4"><circle cx="24" cy="24" r="14" fill="none"/></g></svg>
     <span><b>Waiback</b><span class="sub">the LLM wayback machine</span></span>
   </a>
-  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="{base}data.html">Data</a><a href="{base}gaps.html">Gaps</a><a href="{base}contribute.html">Contribute</a><a href="https://tedkwartler.com/">Ted Kwartler</a></nav>
+  <nav class="topnav"><a href="{base}index.html">Archive</a><a href="{base}calendar.html">Calendar</a><a href="{base}publishers/index.html">Publishers</a><a href="{base}questions/index.html">Questions</a><a href="{base}data.html">Data</a><a href="{base}gaps.html">Gaps</a><a href="{base}contribute.html">Contribute</a><a href="{base}about.html">Ted Kwartler</a></nav>
 </div></header>
 <main>
 {body}
@@ -706,6 +735,50 @@ def render():
              gaps_intro, base="", canonical="/gaps.html"))
     urls.append("/gaps.html")
 
+    # ---------- ABOUT (author + project network hub) ----------
+    # Built entirely from data/profile.json so the same page + Person schema can be
+    # reused across Ted's sites. Links out to tedkwartler.com (rel=me) and lists the
+    # sibling projects, which is genuinely useful context and reinforces the entity.
+    name = esc(PROFILE.get("name", "Ted Kwartler"))
+    ted_url = PROFILE.get("url", "https://tedkwartler.com/")
+    headline = PROFILE.get("headline", "")
+    bio = PROFILE.get("bio", "")
+    # never surface TODO placeholder text to a reader; fall back to a neutral sentence
+    bio_display = bio if (bio and not bio.startswith("TODO")) else f"{PROFILE.get('name','Ted Kwartler')} is the creator of Waiback and other AI and data projects."
+    projects = PROFILE.get("projects", [])
+    sameas = [u for u in PROFILE.get("sameAs", []) if u and u.rstrip("/") != ted_url.rstrip("/")]
+    proj_cards = "".join(
+        f"""<article class="gap-card">
+  <div class="gap-head"><a class="title" href="{esc(p['url'])}" rel="noopener">{esc(p['name'])}</a>
+  <span class="prov mono">{'this site' if p.get('self') else esc(p['url'].split('//')[-1].strip('/'))}</span></div>
+  <p class="d" style="margin:6px 0 0">{esc(p['desc']) if p.get('desc') and not p['desc'].startswith('TODO') else ''}</p>
+</article>""" for p in projects)
+    sameas_links = (" &middot; ".join(
+        f'<a href="{esc(u)}" rel="me noopener">{esc(u.split("//")[-1].strip("/"))}</a>' for u in sameas)
+        if sameas else "")
+    about_jsonld = json.dumps({"@context": "https://schema.org", "@type": "ProfilePage",
+                               "url": f"{SITE}/about.html", "mainEntity": {"@id": PERSON_ID}})
+    about_body = f"""<div class="wrap">
+  <section class="hero" style="border-bottom:1px solid var(--line)">
+    <h1>{name}</h1>
+    {f'<p class="meta">{esc(headline)}</p>' if headline and not headline.startswith('TODO') else ''}
+    <p>{esc(bio_display)}</p>
+    <p><a class="btn" href="{esc(ted_url)}" rel="me noopener"><b>{esc(ted_url.split('//')[-1].strip('/'))}</b> &rarr;</a></p>
+    {f'<p class="meta">Elsewhere: {sameas_links}</p>' if sameas_links else ''}
+  </section>
+  <section><div class="section-head"><h2>Projects by {name}</h2><span class="count">{len(projects)} projects</span></div>
+    <p class="muted" style="margin:-4px 0 14px">A connected set of AI and data projects. Each links back to <a href="{esc(ted_url)}" rel="me noopener">{esc(ted_url.split('//')[-1].strip('/'))}</a>.</p>
+    <div class="gap-cards">{proj_cards}</div>
+  </section>
+  <p class="crumb"><a href="index.html">&larr; the archive</a> &middot; <a href="{esc(ted_url)}" rel="me noopener">{esc(ted_url.split('//')[-1].strip('/'))}</a></p>
+</div>"""
+    open(os.path.join(ROOT, "about.html"), "w").write(
+        page(f"{PROFILE.get('name','Ted Kwartler')} | Waiback",
+             (bio[:155] if bio and not bio.startswith('TODO') else f"About {PROFILE.get('name','Ted Kwartler')}, creator of Waiback and other AI and data projects."),
+             about_body, base="", canonical="/about.html",
+             extra_head=f'<script type="application/ld+json">{about_jsonld}</script>'))
+    urls.append("/about.html")
+
     # ---------- sitemap + llms ----------
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
@@ -718,7 +791,19 @@ def render():
             "> Waiback is a wayback machine for large language models by Ted Kwartler. Every model is asked the same fixed set of questions and its answers are preserved with a date, so you can see how models answer and how that changes as they are added and updated.",
             "",
             f"Models: {len(models)} | Questions: {len(questions)} | Updated: {BUILT}",
-            "", "## Models (newest first)"]
+            "", "## About the author",
+            f"> {PROFILE.get('bio','').replace(chr(10),' ')}" if (PROFILE.get('bio') and not PROFILE.get('bio','').startswith('TODO')) else f"> Waiback was created by {PROFILE.get('name','Ted Kwartler')}.",
+            "",
+            f"- {PROFILE.get('name','Ted Kwartler')}: {PROFILE.get('url','https://tedkwartler.com/')}",
+            f"- About / profile: {SITE}/about.html"]
+    for u in [u for u in PROFILE.get("sameAs", []) if u and u.rstrip('/') != PROFILE.get('url','').rstrip('/')]:
+        llms.append(f"- Also at: {u}")
+    llms += ["", "## Other projects by " + PROFILE.get("name", "Ted Kwartler")]
+    for p in PROFILE.get("projects", []):
+        if p.get("self"): continue
+        d = p.get("desc", "")
+        llms.append(f"- [{p['name']}]({p['url']})" + (f": {d}" if d and not d.startswith("TODO") else ""))
+    llms += ["", "## Models (newest first)"]
     for m in models_sorted:
         llms.append(f"- [{m['name']}]({SITE}/models/{m['slug']}.html): released {m.get('release_date','?')}, publisher {pub_name[m['provider']]}.")
     llms += ["", "## Publishers"]
