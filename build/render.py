@@ -330,8 +330,15 @@ def render():
         chips = [f'<span class="chip"><b>released</b> {esc(m.get("release_date") or "?")}</span>']
         if m.get("knowledge_cutoff"): chips.append(f'<span class="chip"><b>knowledge cutoff</b> {esc(m["knowledge_cutoff"])}</span>')
         if m.get("context_length"): chips.append(f'<span class="chip"><b>context</b> {int(m["context_length"]):,}</span>')
-        chips.append(f'<span class="chip"><b>price</b> {fmt_price(m.get("input_per_1m"))} in / {fmt_price(m.get("output_per_1m"))} out</span>')
         snap = [rmap[(m["id"], q["id"])] for q in questions if (m["id"], q["id"]) in rmap]
+        # price is frozen at the moment each answer was captured, read from the stored
+        # record (never the live catalog), so it never changes if OpenRouter re-prices later.
+        _priced = next((r for r in snap if r.get("input_per_1m") is not None and not is_error(r)),
+                       next((r for r in snap if r.get("input_per_1m") is not None), None))
+        _pin = _priced.get("input_per_1m") if _priced else m.get("input_per_1m")
+        _pout = _priced.get("output_per_1m") if _priced else m.get("output_per_1m")
+        _ptag = " at capture" if _priced else ""
+        chips.append(f'<span class="chip"><b>price{_ptag}</b> {fmt_price(_pin)} in / {fmt_price(_pout)} out</span>')
         caps = [r["response_date"] for r in snap if not is_error(r)]  # real captures only
         captured = max(caps) if caps else None
         tot_tok = sum((r.get("total_tokens") or 0) for r in snap)
@@ -392,6 +399,7 @@ def render():
       {stamp}
     </div>
     <div class="metabar">{''.join(chips)}</div>
+    {'<p class="pricenote">Price and cost shown are a snapshot at the moment of capture and are not updated if the model is re-priced later.</p>' if _priced else ''}
     {('<p class="desc">'+esc(m['description'][:420])+('...' if len(m.get('description',''))>420 else '')+'</p>') if m.get('description') else ''}
   </div>
   <div class="qa"><h2 style="font-size:1.3rem;margin-bottom:4px">Answer sheet</h2>{''.join(entries)}</div>
