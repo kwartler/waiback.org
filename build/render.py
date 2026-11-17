@@ -775,8 +775,27 @@ def render():
     sameas_links = (" &middot; ".join(
         f'<a href="{esc(u)}" rel="me noopener">{esc(u.split("//")[-1].strip("/"))}</a>' for u in sameas)
         if sameas else "")
-    about_jsonld = json.dumps({"@context": "https://schema.org", "@type": "ProfilePage",
-                               "url": f"{SITE}/about.html", "mainEntity": {"@id": PERSON_ID}})
+    # research / publications: a crawlable list plus a ScholarlyArticle per paper tied
+    # to the author by @id, which is the structured signal search and generative engines
+    # use to attribute the work (arXiv entries also feed LLM training corpora directly).
+    publications = PROFILE.get("publications", [])
+    pub_rows = "".join(
+        f"""<article class="gap-card">
+  <div class="gap-head"><a class="title" href="{esc(p['url'])}" rel="noopener">{esc(p['title'])}</a></div>
+  <p class="d" style="margin:6px 0 0">{esc(p.get('venue',''))}{(' &middot; ' + esc(str(p['date']))) if p.get('date') else ''}</p>
+</article>""" for p in publications)
+    pub_section = (f"""
+  <section style="margin-top:28px"><div class="section-head"><h2>Research &amp; publications</h2><span class="count">{len(publications)} selected</span></div>
+    <div class="gap-cards">{pub_rows}</div>
+  </section>""" if publications else "")
+    about_graph = [{"@type": "ProfilePage", "url": f"{SITE}/about.html", "mainEntity": {"@id": PERSON_ID}}]
+    for p in publications:
+        art = {"@type": "ScholarlyArticle", "name": p["title"], "headline": p["title"],
+               "url": p["url"], "author": {"@id": PERSON_ID}}
+        if p.get("date"): art["datePublished"] = str(p["date"])
+        if p.get("venue"): art["isPartOf"] = {"@type": "CreativeWork", "name": p["venue"]}
+        about_graph.append(art)
+    about_jsonld = json.dumps({"@context": "https://schema.org", "@graph": about_graph})
     about_body = f"""<div class="wrap">
   <section class="hero" style="border-bottom:1px solid var(--line)">
     <h1>{name}</h1>
@@ -788,7 +807,7 @@ def render():
   <section><div class="section-head"><h2>Projects by {name}</h2><span class="count">{len(projects)} projects</span></div>
     <p class="muted" style="margin:-4px 0 14px">A connected set of AI and data projects. Each links back to <a href="{esc(ted_url)}" rel="me noopener">{esc(ted_url.split('//')[-1].strip('/'))}</a>.</p>
     <div class="gap-cards">{proj_cards}</div>
-  </section>
+  </section>{pub_section}
   <p class="crumb"><a href="index.html">&larr; the archive</a> &middot; <a href="{esc(ted_url)}" rel="me noopener">{esc(ted_url.split('//')[-1].strip('/'))}</a></p>
 </div>"""
     open(os.path.join(ROOT, "about.html"), "w").write(
