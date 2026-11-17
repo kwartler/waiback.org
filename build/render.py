@@ -290,10 +290,28 @@ def render():
 
     # ---------- INDEX ----------
     cards = [snap_card(m, "") for m in models_sorted]
+    # headline ("glamor") stats for the hero, derived straight from the data
+    n_answers = sum(1 for r in responses if answered(r))
+    n_tokens = sum((r.get("total_tokens") or 0) for r in responses)
+    _dts = [r.get("response_date") for r in responses if r.get("response_date")]
+    since = min(_dts) if _dts else None
+    def _h(n):
+        n = int(n)
+        for u, d in (("B", 1_000_000_000), ("M", 1_000_000), ("K", 1_000)):
+            if n >= d:
+                return (f"{n/d:.1f}".rstrip("0").rstrip(".")) + u
+        return f"{n:,}"
+    _tiles = [(f"{len(models):,}", "Models"), (f"{len(questions)}", "Questions"),
+              (f"{n_answers:,}", "Answers"), (f"{len(pubs)}", "Publishers"),
+              (_h(n_tokens), "Tokens analyzed")]
+    stats_html = '<div class="stats">' + "".join(
+        f'<div class="stat"><div class="n">{esc(v)}</div><div class="l">{esc(l)}</div></div>'
+        for v, l in _tiles) + '</div>'
     intro = f"""<section class="hero"><div class="wrap">
   <h1>A wayback machine for language models.</h1>
   <p>Waiback asks every model the same fixed set of questions and preserves its answers, dated. Each model gets a snapshot page showing when it was released and when we captured how it answers, so you can see how machine knowledge shifts as models are added and updated.</p>
-  <p class="meta">{len(models)} models &middot; {len(questions)} questions &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></p>
+  {stats_html}
+  <p class="meta">Capturing since {esc(since or '?')}, updated {BUILT} &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></p>
   <details class="conditions"><summary>Capture conditions</summary>
     <p>Every answer is captured under fixed conditions, the same for every model: <b>temperature {temp:g}</b>, one shared system prompt, a completion cap of <b>{(f"{int(cur_max_tokens):,} max tokens" if cur_max_tokens else "a set token budget")}</b>{(f", and <b>reasoning effort {esc(cur_reasoning)}</b>" if cur_reasoning else "")}. Each answer also records the exact settings used, so earlier snapshots captured under different limits stay self-describing.</p>
     <blockquote class="sysprompt">{esc(system_prompt)}</blockquote>
