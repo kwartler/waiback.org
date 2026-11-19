@@ -1,6 +1,6 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "model_count": 368,
   "question_count": 60,
   "gap_count": 202,
@@ -16,6 +16,15 @@
     "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
   },
   "models": [
+    {
+      "id": "google/gemini-4-neon",
+      "slug": "google_gemini-4-neon",
+      "name": "Google: Gemini 4 Neon",
+      "provider": "google",
+      "release_date": "2026-11-18",
+      "answered": 0,
+      "json": "https://waiback.org/api/models/google_gemini-4-neon.json"
+    },
     {
       "id": "openai/gpt-6.2-astra-pro",
       "slug": "openai_gpt-6.2-astra-pro",
@@ -123,15 +132,6 @@
       "release_date": "2026-11-10",
       "answered": 60,
       "json": "https://waiback.org/api/models/nex-agi_nex-n2.6.json"
-    },
-    {
-      "id": "thinkingmachines/inkling-2-small:free",
-      "slug": "thinkingmachines_inkling-2-small:free",
-      "name": "Thinking Machines: Inkling 2 Small (free)",
-      "provider": "thinkingmachines",
-      "release_date": "2026-11-09",
-      "answered": 0,
-      "json": "https://waiback.org/api/models/thinkingmachines_inkling-2-small:free.json"
     },
     {
       "id": "thinkingmachines/inkling-2-small",
