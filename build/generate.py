@@ -73,14 +73,38 @@ def read_questions():
         return [r for r in csv.DictReader(f) if r.get("id") and r.get("question")]
 
 def refresh_models(allow):
+    """Refresh model metadata from the live catalog WITHOUT ever dropping a model.
+
+    data/models.json is the archive's record of every model it has seen. A model
+    that disappears from OpenRouter keeps its last known metadata and is flagged
+    delisted=True with delisted_since (first run it was missing), so its snapshot
+    page survives. If it comes back, the flag is cleared.
+
+    Returns only the LIVE models, so the capture loop does not poll endpoints
+    that no longer exist.
+    """
     r = requests.get(API_MODELS, timeout=40)
     r.raise_for_status()
     byid = {m["id"]: m for m in r.json().get("data", [])}
-    models = []
+    mpath = os.path.join(ROOT, "data/models.json")
+    try:
+        prior = {m["id"]: m for m in json.load(open(mpath))}
+    except Exception:
+        prior = {}
+    models = []      # live, capturable
+    archive = []     # everything ever seen (written to models.json)
     for mid in allow:
         m = byid.get(mid)
         if not m:
-            print(f"  note: {mid} not found in OpenRouter catalog (kept in allowlist)")
+            if mid in prior:
+                old = dict(prior[mid])
+                if not old.get("delisted"):
+                    old["delisted"] = True
+                    old["delisted_since"] = TODAY
+                    print(f"  note: {mid} delisted from OpenRouter (metadata preserved)")
+                archive.append(old)
+            else:
+                print(f"  note: {mid} not found in OpenRouter catalog (kept in allowlist)")
             continue
         pr = m.get("pricing", {})
         models.append({
@@ -92,8 +116,13 @@ def refresh_models(allow):
             "input_per_1m": per1m(pr.get("prompt")), "output_per_1m": per1m(pr.get("completion")),
             "description": (m.get("description") or "").strip(),
         })
-    json.dump(models, open(os.path.join(ROOT, "data/models.json"), "w"), indent=2)
-    print(f"refreshed data/models.json: {len(models)} models")
+        archive.append(models[-1])
+    # never lose a model that was seen before, even if it also left the allowlist
+    seen = {m["id"] for m in archive}
+    archive.extend(m for mid, m in prior.items() if mid not in seen)
+    json.dump(archive, open(mpath, "w"), indent=2)
+    n_del = sum(1 for m in archive if m.get("delisted"))
+    print(f"refreshed data/models.json: {len(models)} live + {n_del} delisted (preserved)")
     return models
 
 def ask(model_id, question, max_tokens):
