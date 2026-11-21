@@ -88,6 +88,42 @@ def resp_meta(r):
         bits.append("retried at a larger token cap" if r.get("retry_success") else "retried, still empty")
     return " &middot; ".join(bits)
 
+def truncation(r):
+    """'yes'  = provider reported finish_reason=length (answer cut off at the cap);
+    'likely' = captured before finish_reason was recorded, but output tokens reached
+               the cap, so it was probably cut off (inferred, not reported);
+    None otherwise. Display only: the stored answer is never altered."""
+    if not r or r.get("error") or r.get("empty"):
+        return None
+    fr, mt, ct = r.get("finish_reason"), r.get("max_tokens"), r.get("completion_tokens")
+    if fr == "length":
+        return "yes"
+    if fr is None and mt and ct and ct >= mt:
+        return "likely"
+    return None
+
+def moderated(r):
+    """Provider reported finish_reason=content_filter (output blocked or cut by moderation)."""
+    return bool(r) and r.get("finish_reason") == "content_filter"
+
+def answer_badges(r):
+    """Inline badges for a stored answer: content moderation and token-cap cutoff."""
+    out = []
+    if moderated(r):
+        out.append('<span class="mod-tag" title="The provider reported finish_reason=content_filter: '
+                   'its content moderation blocked or cut off the response.">blocked by content moderation</span>')
+    t = truncation(r)
+    mt = r.get("max_tokens") if r else None
+    if t == "yes":
+        out.append(f'<span class="cut-tag" title="The provider reported finish_reason=length: the answer '
+                   f'stopped at the output cap, not where the model chose to end.">answer cut off at '
+                   f'{int(mt):,} max token output</span>')
+    elif t == "likely":
+        out.append(f'<span class="cut-tag likely" title="Captured before finish_reason was recorded. '
+                   f'Output tokens reached the cap, so the answer was probably cut off (inferred, not '
+                   f'reported by the provider).">likely cut off at {int(mt):,} max token output</span>')
+    return "".join(out)
+
 def answered(r):
     """A record counts as an answer only if it carries non-empty content. A gap
     record (empty=True) or an error record (error=True) is a preserved, explained
@@ -107,6 +143,8 @@ def gap_reason(r):
     """Human-readable reason an answer is missing for a stored non-capture record."""
     if is_error(r):
         return unavail_reason(r)
+    if moderated(r):
+        return "the provider's content moderation blocked the response (finish_reason=content_filter)"
     if r.get("retry_reason"):
         return r["retry_reason"] + (" and still returned no content" if not r.get("retry_success") else "")
     mt = r.get("max_tokens")
@@ -346,7 +384,11 @@ def render():
         n_ans = sum(1 for r in snap if answered(r))
         n_gap = sum(1 for r in snap if r.get("empty"))
         n_err = sum(1 for r in snap if is_error(r))
+        n_cut = sum(1 for r in snap if truncation(r))
+        n_mod = sum(1 for r in snap if moderated(r))
         chips.append(f'<span class="chip"><b>answers</b> {n_ans} / {len(questions)}'
+                     + (f' &middot; {n_cut} cut off' if n_cut else '')
+                     + (f' &middot; {n_mod} moderated' if n_mod else '')
                      + (f' &middot; {n_gap} no-answer' if n_gap else '')
                      + (f' &middot; {n_err} unavailable' if n_err else '') + '</span>')
         if snap and tot_tok:
@@ -364,7 +406,7 @@ def render():
             r = rmap.get((m["id"], q["id"]))
             cat = f'<span class="cat">{esc(q.get("category"))}</span>' if q.get("category") else ""
             if answered(r):
-                tag = '<span class="sample-tag">sample</span>' if r.get("sample") else ""
+                tag = ('<span class="sample-tag">sample</span>' if r.get("sample") else "") + answer_badges(r)
                 entries.append(f"""<div class="entry">
   <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}{tag}</p>
   <div class="a">{esc(r['answer'])}</div>
@@ -372,7 +414,7 @@ def render():
 </div>""")
             elif r is not None and r.get("empty"):
                 entries.append(f"""<div class="entry">
-  <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}<span class="gap-tag">no answer</span></p>
+  <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}<span class="gap-tag">no answer</span>{answer_badges(r)}</p>
   <div class="a gap">No answer captured. The model was reached but {esc(gap_reason(r))}. <a href="../gaps.html">Why this happens &rarr;</a></div>
   <div class="when">{resp_meta(r)}</div>
 </div>""")
@@ -417,7 +459,7 @@ def render():
         for m in models_sorted:
             r = rmap.get((m["id"], q["id"]))
             if answered(r):
-                tag = '<span class="sample-tag">sample</span>' if r.get("sample") else ""
+                tag = ('<span class="sample-tag">sample</span>' if r.get("sample") else "") + answer_badges(r)
                 ans.append(f"""<div class="ans">
   <div class="who"><a href="../models/{esc(m['slug'])}.html">{esc(m['name'])}</a>{tag}<span class="d">released {esc(m.get('release_date') or '?')} &middot; {resp_meta(r)}</span></div>
   <div class="body">{esc(r['answer'])}</div>
@@ -627,6 +669,8 @@ def render():
         d["error"] = bool(r.get("error"))                       # True = could not reach the model (rate-limited / rejected / delisted)
         d["error_status"] = r.get("error_status")               # short status, e.g. "http 429"
         d["error_reason"] = r.get("error_reason")               # human-readable reason this pair is uncaptured
+        d["truncated"] = truncation(r)                          # "yes" (finish_reason=length), "likely" (inferred: tokens hit cap), or null
+        d["moderated"] = moderated(r)                           # True = finish_reason=content_filter
         return d
     conditions = {"temperature": temp, "system_prompt": system_prompt,
                   "prompt_sha": next((r.get("prompt_sha") for r in responses if r.get("prompt_sha")), None),
