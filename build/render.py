@@ -120,6 +120,13 @@ def load():
         responses = json.load(open(os.path.join(ROOT, "data/responses.json")))
     except Exception:
         responses = []
+    # Safety net: an archive never hides captured answers. Any model with saved
+    # responses but no metadata gets a minimal entry so its snapshot page renders.
+    known = {m["id"] for m in models}
+    for mid in sorted({r["model_id"] for r in responses} - known):
+        models.append({"id": mid, "slug": mid.replace("/", "_"), "name": mid,
+                       "provider": mid.split("/")[0], "release_date": "",
+                       "delisted": True, "delisted_since": ""})
     return questions, models, responses
 
 def page(title, desc, body, base="", canonical="/", extra_head=""):
@@ -277,7 +284,7 @@ def render():
     <div><span class="k">released</span> {esc(m.get('release_date') or 'unknown')}</div>
     <div><span class="k">captured</span> {esc(captured or 'not yet')}</div>
   </div>
-  <div class="foot">{n_ans} / {len(questions)} answers &middot; <span class="mono">{esc(m['id'])}</span></div>
+  <div class="foot">{n_ans} / {len(questions)} answers{' &middot; <span class="gap-tag">no longer served</span>' if m.get('delisted') else ''} &middot; <span class="mono">{esc(m['id'])}</span></div>
 </article>"""
 
     for d in ("models", "questions", "publishers"):
@@ -328,6 +335,9 @@ def render():
     # ---------- MODEL PAGES ----------
     for m in models_sorted:
         chips = [f'<span class="chip"><b>released</b> {esc(m.get("release_date") or "?")}</span>']
+        if m.get("delisted"):
+            chips.append('<span class="chip"><b>status</b> no longer served on OpenRouter'
+                         + (f' (since {esc(m["delisted_since"])})' if m.get("delisted_since") else '') + '</span>')
         if m.get("knowledge_cutoff"): chips.append(f'<span class="chip"><b>knowledge cutoff</b> {esc(m["knowledge_cutoff"])}</span>')
         if m.get("context_length"): chips.append(f'<span class="chip"><b>context</b> {int(m["context_length"]):,}</span>')
         snap = [rmap[(m["id"], q["id"])] for q in questions if (m["id"], q["id"]) in rmap]
@@ -399,6 +409,7 @@ def render():
       {stamp}
     </div>
     <div class="metabar">{''.join(chips)}</div>
+    {'<p class="pricenote">This model is no longer served, so it will not be captured again. The answers below are preserved exactly as captured.</p>' if m.get('delisted') else ''}
     {'<p class="pricenote">Price and cost shown are a snapshot at the moment of capture and are not updated if the model is re-priced later.</p>' if _priced else ''}
     {('<p class="desc">'+esc(m['description'][:420])+('...' if len(m.get('description',''))>420 else '')+'</p>') if m.get('description') else ''}
   </div>
@@ -713,6 +724,7 @@ def render():
                "conditions": conditions,
                "models": [{"id": m["id"], "slug": m["slug"], "name": m["name"], "provider": m["provider"],
                            "release_date": m.get("release_date"),
+                           "delisted": bool(m.get("delisted")),
                            "answered": sum(1 for q in questions if answered(rmap.get((m["id"], q["id"])))),
                            "json": f"{SITE}/api/models/{m['slug']}.json"} for m in models_sorted],
                "questions": [{"id": q["id"], "question": q["question"],
