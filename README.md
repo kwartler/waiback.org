@@ -8,7 +8,7 @@ Static site on GitHub Pages. A GitHub Action calls the OpenRouter API (key hidde
 ```
 data/questions.csv   one question per row (id,question,category)  <- you edit this
 data/models.txt      OpenRouter model ids to query (allowlist)    <- you edit this
-data/models.json     generated: model metadata + release dates
+data/models.json     generated: model metadata + release dates (never drops a model; delisted ones are flagged delisted=true and keep their pages)
 data/responses.json  generated: captured answers (model x question, dated)
 build/generate.py    queries OpenRouter (needs OPENROUTER_API_KEY), writes the data
 build/render.py      builds index.html + models/*.html + questions/*.html + sitemap + llms.txt
