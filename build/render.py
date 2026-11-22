@@ -106,12 +106,47 @@ def moderated(r):
     """Provider reported finish_reason=content_filter (output blocked or cut by moderation)."""
     return bool(r) and r.get("finish_reason") == "content_filter"
 
+def provider_message(r):
+    """The provider's own words about a block, when captured (records from 2026-11-22 on)."""
+    if not r:
+        return ""
+    parts = []
+    msg = r.get("refusal") or r.get("error_message")
+    if msg:
+        parts.append(f'"{msg}"')
+    nat = r.get("native_finish_reason")
+    if nat:
+        parts.append(f"native reason: {nat}")
+    if r.get("provider"):
+        parts.append(f"served by {r['provider']}")
+    side = r.get("moderation_side")
+    if side:
+        parts.append("the prompt was blocked before any output" if side == "prompt"
+                     else "output was generated, then blocked")
+    return "; ".join(parts)
+
 def answer_badges(r):
-    """Inline badges for a stored answer: content moderation and token-cap cutoff."""
+    """Inline badges for a stored answer: content moderation, token-cap cutoff, retries."""
     out = []
     if moderated(r):
-        out.append('<span class="mod-tag" title="The provider reported finish_reason=content_filter: '
-                   'its content moderation blocked or cut off the response.">blocked by content moderation</span>')
+        pm = provider_message(r)
+        tip = ("The provider reported finish_reason=content_filter: its content moderation blocked "
+               "or cut off the response." + (f" Provider: {pm}." if pm else
+               " The provider's own message was not recorded for captures before 2026-11-22."))
+        out.append(f'<span class="mod-tag" title="{esc(tip)}">blocked by content moderation</span>')
+    fa = (r or {}).get("first_attempt")
+    if fa and not (r or {}).get("empty"):
+        if fa.get("empty"):
+            pass  # empty-content retries are already described in the capture line
+        elif str(fa.get("finish_reason")) == "content_filter":
+            out.append('<span class="cut-tag" title="The first attempt was blocked by content moderation; '
+                       'an identical retry was not. The first attempt is kept below.">shown: retry after moderation block</span>')
+        else:
+            out.append(f'<span class="cut-tag" title="The first attempt was cut off at '
+                       f'{int(fa.get("max_tokens") or 0):,} max tokens. This is the retry at '
+                       f'{int(r.get("max_tokens") or 0):,}. The cut-off first attempt is kept below.">'
+                       f'retried at {int(r.get("max_tokens") or 0):,} after cutoff at '
+                       f'{int(fa.get("max_tokens") or 0):,}</span>')
     t = truncation(r)
     mt = r.get("max_tokens") if r else None
     if t == "yes":
@@ -123,6 +158,21 @@ def answer_badges(r):
                    f'Output tokens reached the cap, so the answer was probably cut off (inferred, not '
                    f'reported by the provider).">likely cut off at {int(mt):,} max token output</span>')
     return "".join(out)
+
+def first_attempt_block(r):
+    """Collapsed view of the first attempt when a retry is the shown answer."""
+    note = ""
+    if moderated(r) and provider_message(r):   # visible on phones, where hover titles don't show
+        note = f'<div class="mod-note">Content moderation, per the provider: {esc(provider_message(r))}</div>'
+    fa = (r or {}).get("first_attempt")
+    if not fa or fa.get("empty") or not fa.get("answer"):
+        return note
+    why = ("blocked by content moderation" if fa.get("finish_reason") == "content_filter"
+           else f"cut off at {int(fa.get('max_tokens') or 0):,} max token output")
+    toks = fa.get("completion_tokens")
+    return note + (f'<details class="first-attempt"><summary>First attempt ({why}'
+            + (f", {toks:,} tokens out" if toks else "") + ')</summary>'
+            f'<div class="fa-body">{esc(fa["answer"])}</div></details>')
 
 def answered(r):
     """A record counts as an answer only if it carries non-empty content. A gap
@@ -144,7 +194,9 @@ def gap_reason(r):
     if is_error(r):
         return unavail_reason(r)
     if moderated(r):
-        return "the provider's content moderation blocked the response (finish_reason=content_filter)"
+        pm = provider_message(r)
+        return ("the provider's content moderation blocked the response (finish_reason=content_filter)"
+                + (f". Provider: {pm}" if pm else ""))
     if r.get("retry_reason"):
         return r["retry_reason"] + (" and still returned no content" if not r.get("retry_success") else "")
     mt = r.get("max_tokens")
@@ -420,6 +472,7 @@ def render():
                 entries.append(f"""<div class="entry">
   <p class="q"><a href="../questions/{esc(q['id'])}.html" style="text-decoration:none;color:inherit">{esc(q['question'])}</a>{cat}{tag}</p>
   <div class="a">{esc(r['answer'])}</div>
+  {first_attempt_block(r)}
   <div class="when">{resp_meta(r)}</div>
 </div>""")
             elif r is not None and r.get("empty"):
@@ -474,6 +527,7 @@ def render():
                 ans.append(f"""<div class="ans">
   <div class="who"><a href="../models/{esc(m['slug'])}.html">{esc(m['name'])}</a>{tag}<span class="d">released {esc(m.get('release_date') or '?')} &middot; {resp_meta(r)}</span></div>
   <div class="body">{esc(r['answer'])}</div>
+  {first_attempt_block(r)}
 </div>""")
             elif r is not None and r.get("empty"):
                 gaps.append(f'<div class="gap-row"><a href="../models/{esc(m["slug"])}.html">{esc(m["name"])}</a> <span class="d">{esc(gap_reason(r))}</span></div>')
@@ -641,10 +695,16 @@ def render():
   </section>
 
   <section><div class="section-head"><h2>Retries and non-responses</h2></div>
-    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of {(f"{int(cur_max_tokens):,}" if cur_max_tokens else "the normal")} max tokens, the question is retried <b>once</b> at a larger cap of {(f"{int(retry_max_tokens):,}" if retry_max_tokens else "a higher value")} max tokens. Every record therefore carries flags so you are never blind to a parameter change:</p>
+    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of {(f"{int(cur_max_tokens):,}" if cur_max_tokens else "the normal")} max tokens, the question is retried <b>once</b> at a larger cap of {(f"{int(retry_max_tokens):,}" if retry_max_tokens else "a higher value")} max tokens. Two other cases also get <b>one</b> extra attempt (since 2026-11-22). The prompt, system prompt and temperature never change:</p>
+    <ul class="give">
+      <li><b>Cut off at the cap</b> (the provider reports <span class="mono">finish_reason: length</span>): retried once at the larger cap. The fuller retry is shown, and the cut-off first attempt is kept in <span class="mono">first_attempt</span>, one click away on the page. Older answers that hit the cap carry a "cut off" or "likely cut off" badge instead.</li>
+      <li><b>Blocked by content moderation</b> (<span class="mono">finish_reason: content_filter</span>): if the provider blocked the <i>prompt</i> (no output at all), there is no retry, because the same prompt is blocked again. If output was generated and then blocked, it is retried once at the <i>same</i> cap. The provider's own message is saved in <span class="mono">refusal</span>, <span class="mono">error_message</span> and <span class="mono">native_finish_reason</span>.</li>
+    </ul>
+    <p>Every record therefore carries flags so you are never blind to a parameter change:</p>
     <ul class="give">
       <li><span class="mono">retry</span> (bool): the answer was captured only after the larger-cap retry. Its <span class="mono">max_tokens</span> reflects the larger cap, and <span class="mono">retry_reason</span> states exactly what changed.</li>
       <li><span class="mono">retry_success</span> (bool, when <span class="mono">retry</span> is true): whether the retry produced an answer.</li>
+      <li><span class="mono">first_attempt</span> / <span class="mono">retry_attempt</span> (object): the attempt that is <i>not</i> shown, with its own answer, tokens, cap and finish reason, so no call is ever discarded.</li>
       <li><span class="mono">empty</span> (bool): the model was reached but returned no content even after the retry. These <b>non-responses are kept, not dropped</b>, with <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span>.</li>
       <li><span class="mono">error</span> (bool): the model <b>could not be reached at all</b>, so no answer was captured. This is distinct from a non-response: the provider rate-limited us (<span class="mono">http 429</span>), rejected the request (<span class="mono">http 400/403</span>), or no longer serves the model (<span class="mono">http 404</span>, delisted). <span class="mono">error_status</span> gives the short status and <span class="mono">error_reason</span> a plain-English explanation. These are <b>re-attempted on later runs</b> and clear automatically once a capture succeeds, so a rate-limited model can still fill in.</li>
     </ul>
@@ -682,6 +742,9 @@ def render():
         d["error_reason"] = r.get("error_reason")               # human-readable reason this pair is uncaptured
         d["truncated"] = truncation(r)                          # "yes" (finish_reason=length), "likely" (inferred: tokens hit cap), or null
         d["moderated"] = moderated(r)                           # True = finish_reason=content_filter
+        for k in ("native_finish_reason", "refusal", "error_message", "provider",
+                  "moderation_side", "first_attempt", "retry_attempt"):
+            d[k] = r.get(k)                                     # provider's own words + every attempt (null on older records)
         return d
     conditions = {"temperature": temp, "system_prompt": system_prompt,
                   "prompt_sha": next((r.get("prompt_sha") for r in responses if r.get("prompt_sha")), None),
@@ -693,7 +756,10 @@ def render():
                            f"retried ONCE at a larger cap ({retry_max_tokens or 'a higher value'}); that answer's max_tokens "
                            "reflects the larger cap and carries retry=true. If it is still empty after the retry, the record "
                            "is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), "
-                           "rather than being dropped.")}
+                           "rather than being dropped. Since 2026-11-22, an answer cut off at the standard cap is also retried ONCE at "
+                           "the larger cap (the cut-off attempt is kept in first_attempt), and an output-side content-moderation "
+                           "block is retried ONCE at the same cap; a prompt-side block (no output) is not retried. The prompt, "
+                           "system prompt and temperature never change between attempts.")}
     api = os.path.join(ROOT, "api")
     for d in ("models", "questions"):
         dd = os.path.join(api, d)

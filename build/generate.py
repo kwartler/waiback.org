@@ -156,14 +156,21 @@ def ask(model_id, question, max_tokens):
                 return None, "bad json"
             u = j.get("usage") or {}
             ch = (j.get("choices") or [{}])[0]
-            content = (ch.get("message") or {}).get("content")
-            text = (content or "").strip()
+            msg = ch.get("message") or {}
+            text = (msg.get("content") or "").strip()
+            cerr = ch.get("error") or j.get("error") or {}
             return {"answer": text,
                     "prompt_tokens": u.get("prompt_tokens"),
                     "completion_tokens": u.get("completion_tokens"),
                     "total_tokens": u.get("total_tokens"),
                     "or_cost": u.get("cost"),
                     "finish_reason": ch.get("finish_reason"),
+                    # what the provider itself said, so a moderation block or a cutoff
+                    # can be shown in the provider's own words
+                    "native_finish_reason": ch.get("native_finish_reason"),
+                    "refusal": (msg.get("refusal") or None),
+                    "error_message": (cerr.get("message") if isinstance(cerr, dict) else str(cerr)) or None,
+                    "provider": j.get("provider"),
                     "empty": not text}, None
         # 429 / 5xx are transient: back off and retry. Other 4xx are permanent.
         if r.status_code == 429 or r.status_code >= 500:
@@ -174,34 +181,115 @@ def ask(model_id, question, max_tokens):
     return None, last_err
 
 
-def capture_pair(model_id, question):
-    """Capture one (model, question) pair.
+MODERATION_NATIVE = {"refusal", "content_filter", "safety", "prohibited_content",
+                     "guardrail_intervened", "blocklist", "spii", "recitation"}
+LENGTH_NATIVE = {"length", "max_tokens", "max_output_tokens", "model_length"}
 
-    Tries at MAX_TOKENS. If the model returns HTTP 200 with empty content (a reasoning
-    model that spent its whole budget thinking), retries ONCE at MAX_TOKENS_RETRY so it
-    has room to answer. Returns (record, err):
-      - a normal answer -> record with the answer (retry=False implied);
-      - still empty after the retry -> a GAP record (empty=True, retry_success=False)
-        so the non-response is preserved and explained, and never retried again;
-      - a transient failure (network / 429 / 5xx / 4xx) -> (None, err) so the pair
-        stays missing and can be retried on a later run.
+def is_moderated(d):
+    """Provider blocked or cut the response for content reasons."""
+    nat = str(d.get("native_finish_reason") or "").lower()
+    return d.get("finish_reason") == "content_filter" or nat in MODERATION_NATIVE
+
+
+def is_truncated(d, cap):
+    """Answer stopped at the output cap rather than where the model chose to end.
+    Uses the provider's finish reason; falls back to 'used the whole budget' only
+    when the provider reported no reason at all."""
+    nat = str(d.get("native_finish_reason") or "").lower()
+    if d.get("finish_reason") == "length" or nat in LENGTH_NATIVE:
+        return True
+    ct = d.get("completion_tokens")
+    return d.get("finish_reason") is None and not nat and bool(ct) and ct >= cap
+
+
+ATTEMPT_KEYS = ("answer", "prompt_tokens", "completion_tokens", "total_tokens", "or_cost",
+                "finish_reason", "native_finish_reason", "refusal", "error_message",
+                "provider", "max_tokens", "empty")
+
+def attempt_summary(d):
+    """Everything about one API call, kept when a later attempt becomes the shown answer."""
+    return {k: d.get(k) for k in ATTEMPT_KEYS}
+
+
+def capture_pair(model_id, question):
+    """Capture one (model, question) pair. The prompt and settings never change;
+    at most ONE extra call is made, and every attempt is kept on the record.
+
+      1. Ask at MAX_TOKENS.
+      2. Moderation block:
+           - nothing generated (0 output tokens, no text): the PROMPT was blocked.
+             No retry (the same prompt is blocked again); record it with the
+             provider's message.
+           - output generated, then blocked: retry ONCE at the same MAX_TOKENS.
+             If the retry is clean it becomes the shown answer; either way both
+             attempts are kept (first_attempt / retry_attempt).
+      3. Empty content (a reasoning model spent the budget thinking): retry ONCE
+         at MAX_TOKENS_RETRY. Still empty -> a GAP record, never retried again.
+      4. Cut off at the cap: retry ONCE at MAX_TOKENS_RETRY. A non-empty retry
+         becomes the shown answer (still flagged if it is cut off again at the
+         larger cap); the cut-off answer is kept as first_attempt.
+      Transient failure on the FIRST call -> (None, err) so the pair can be retried
+      on a later run. A transient failure on a retry keeps the first answer.
     """
     data, err = ask(model_id, question, MAX_TOKENS)
     if err:
         return None, err
-    if not data.get("empty"):
-        data["max_tokens"] = MAX_TOKENS
+    data["max_tokens"] = MAX_TOKENS
+
+    def keep_first(reason, second=None, second_err=None):
+        data["retry"] = True
+        data["retry_success"] = False
+        data["retry_reason"] = reason
+        data["retry_attempt"] = attempt_summary(second) if second else {"error": second_err}
         return data, None
-    reason = (f"HTTP 200 with empty content at max_tokens={MAX_TOKENS}; "
-              f"retried once at max_tokens={MAX_TOKENS_RETRY}")
-    data2, err2 = ask(model_id, question, MAX_TOKENS_RETRY)
-    if err2:
-        return None, f"retry {err2}"   # transient on the retry: leave missing, try later
-    data2["max_tokens"] = MAX_TOKENS_RETRY
-    data2["retry"] = True
-    data2["retry_reason"] = reason
-    data2["retry_success"] = not data2.get("empty")
-    return data2, None
+
+    def promote(second, reason, success):
+        second["retry"] = True
+        second["retry_success"] = success
+        second["retry_reason"] = reason
+        second["first_attempt"] = attempt_summary(data)
+        return second, None
+
+    # 2. moderation
+    if is_moderated(data):
+        output_side = bool(data.get("completion_tokens")) or not data.get("empty")
+        if not output_side:
+            data["moderation_side"] = "prompt"
+            return data, None
+        data["moderation_side"] = "output"
+        reason = (f"output blocked by the provider's content moderation at max_tokens={MAX_TOKENS}; "
+                  f"retried once with identical prompt and settings")
+        d2, e2 = ask(model_id, question, MAX_TOKENS)
+        if e2:
+            return keep_first(reason, second_err=e2)
+        d2["max_tokens"] = MAX_TOKENS
+        if not is_moderated(d2) and not d2.get("empty"):
+            return promote(d2, reason, True)
+        return keep_first(reason + " and was blocked again", second=d2)
+
+    # 3. empty content
+    if data.get("empty"):
+        reason = (f"HTTP 200 with empty content at max_tokens={MAX_TOKENS}; "
+                  f"retried once at max_tokens={MAX_TOKENS_RETRY}")
+        d2, e2 = ask(model_id, question, MAX_TOKENS_RETRY)
+        if e2:
+            return None, f"retry {e2}"   # nothing to keep yet: leave missing, try later
+        d2["max_tokens"] = MAX_TOKENS_RETRY
+        return promote(d2, reason, not d2.get("empty"))
+
+    # 4. cut off at the cap
+    if is_truncated(data, MAX_TOKENS):
+        reason = (f"answer cut off at max_tokens={MAX_TOKENS}; "
+                  f"retried once at max_tokens={MAX_TOKENS_RETRY}")
+        d2, e2 = ask(model_id, question, MAX_TOKENS_RETRY)
+        if e2:
+            return keep_first(reason, second_err=e2)
+        d2["max_tokens"] = MAX_TOKENS_RETRY
+        if d2.get("empty"):
+            return keep_first(reason + " but the retry returned no content", second=d2)
+        return promote(d2, reason, not is_truncated(d2, MAX_TOKENS_RETRY))
+
+    return data, None
 
 
 def error_detail(err):
@@ -334,6 +422,11 @@ def main():
                    "max_tokens": res.get("max_tokens", MAX_TOKENS),
                    "reasoning_effort": (REASONING_EFFORT if REASONING_EFFORT != "none" else None),
                    "finish_reason": res.get("finish_reason")}
+            # provider's own words + every attempt, only when present (keeps old records unchanged)
+            for k in ("native_finish_reason", "refusal", "error_message", "provider",
+                      "moderation_side", "first_attempt", "retry_attempt"):
+                if res.get(k) is not None:
+                    rec[k] = res[k]
             if res.get("retry"):
                 rec["retry"] = True
                 rec["retry_reason"] = res.get("retry_reason")
@@ -343,9 +436,9 @@ def main():
             responses.append(rec)
             have.add((m["id"], q["id"]))
             if res.get("empty"):
-                print(f"  gap {m['id']} / {q['id']}: empty at {MAX_TOKENS} and {MAX_TOKENS_RETRY} tok (recorded)")
+                print(f"  gap {m['id']} / {q['id']}: no content ({res.get('retry_reason') or res.get('finish_reason')}) (recorded)")
             else:
-                print(f"  captured {m['id']} / {q['id']}" + (f" (via retry @ {MAX_TOKENS_RETRY} tok)" if res.get("retry") else ""))
+                print(f"  captured {m['id']} / {q['id']}" + (f" ({res.get('retry_reason')})" if res.get("retry") else ""))
             time.sleep(0.4)
         attempted.add(m["id"])
         save(); save_attempted()  # checkpoint after every model so an interrupted run loses nothing
