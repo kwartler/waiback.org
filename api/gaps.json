@@ -1,6 +1,6 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "count": 1195,
   "no_answer_count": 216,
   "unavailable_count": 979,
@@ -12,7 +12,7 @@
     "max_tokens": 2000,
     "reasoning_effort": "low",
     "retry_max_tokens": 5000,
-    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
+    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped. Since 2026-11-22, an answer cut off at the standard cap is also retried ONCE at the larger cap (the cut-off attempt is kept in first_attempt), and an output-side content-moderation block is retried ONCE at the same cap; a prompt-side block (no output) is not retried. The prompt, system prompt and temperature never change between attempts."
   },
   "gaps": [
     {
@@ -1344,7 +1344,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 0
     },
     {
@@ -1362,7 +1362,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 0
     },
     {
@@ -1848,7 +1848,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 0
     },
     {
@@ -1866,7 +1866,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": null
     },
     {
@@ -1884,7 +1884,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": null
     },
     {
@@ -1902,7 +1902,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 0
     },
     {
@@ -1920,7 +1920,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": null
     },
     {
@@ -1938,7 +1938,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 0
     },
     {
@@ -1956,7 +1956,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 0
     },
     {
@@ -2352,7 +2352,7 @@
       "retry_success": false,
       "finish_reason": "content_filter",
       "error_status": null,
-      "reason": "HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content",
+      "reason": "the provider's content moderation blocked the response (finish_reason=content_filter)",
       "completion_tokens": 145
     },
     {

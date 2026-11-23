@@ -25,7 +25,7 @@
     "max_tokens": 2000,
     "reasoning_effort": "low",
     "retry_max_tokens": 5000,
-    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped."
+    "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped. Since 2026-11-22, an answer cut off at the standard cap is also retried ONCE at the larger cap (the cut-off attempt is kept in first_attempt), and an output-side content-moderation block is retried ONCE at the same cap; a prompt-side block (no output) is not retried. The prompt, system prompt and temperature never change between attempts."
   },
   "answers": [
     {
@@ -52,7 +52,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q005",
@@ -78,7 +87,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q008",
@@ -104,7 +122,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q009",
@@ -130,7 +157,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q011",
@@ -156,7 +192,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q013",
@@ -182,7 +227,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q016",
@@ -208,7 +262,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q017",
@@ -234,7 +297,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q019",
@@ -260,7 +332,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q020",
@@ -286,7 +367,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q021",
@@ -312,7 +402,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q022",
@@ -338,7 +437,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q023",
@@ -364,7 +472,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q024",
@@ -390,7 +507,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q025",
@@ -416,7 +542,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q026",
@@ -442,7 +577,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q027",
@@ -468,7 +612,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q029",
@@ -494,7 +647,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q030",
@@ -520,7 +682,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q031",
@@ -546,7 +717,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q032",
@@ -572,7 +752,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q033",
@@ -598,7 +787,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q034",
@@ -624,7 +822,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q035",
@@ -650,7 +857,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q036",
@@ -676,7 +892,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q037",
@@ -702,7 +927,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q038",
@@ -728,7 +962,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q039",
@@ -754,7 +997,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q040",
@@ -780,7 +1032,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q042",
@@ -806,7 +1067,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q047",
@@ -832,7 +1102,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q050",
@@ -858,7 +1137,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q052",
@@ -884,7 +1172,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q054",
@@ -910,7 +1207,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q059",
@@ -936,7 +1242,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q065",
@@ -962,7 +1277,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q067",
@@ -988,7 +1312,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q070",
@@ -1014,7 +1347,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q076",
@@ -1040,7 +1382,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q079",
@@ -1066,7 +1417,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q080",
@@ -1092,7 +1452,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q083",
@@ -1118,7 +1487,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q086",
@@ -1144,7 +1522,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q089",
@@ -1170,7 +1557,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q092",
@@ -1196,7 +1592,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q097",
@@ -1222,7 +1627,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q098",
@@ -1248,7 +1662,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q099",
@@ -1274,7 +1697,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": "yes",
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q100",
@@ -1300,7 +1732,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": "yes",
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q101",
@@ -1326,7 +1767,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": "yes",
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q102",
@@ -1352,7 +1802,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q103",
@@ -1378,7 +1837,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q104",
@@ -1404,7 +1872,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q105",
@@ -1430,7 +1907,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": "yes",
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q106",
@@ -1456,7 +1942,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": "yes",
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q107",
@@ -1482,7 +1977,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q108",
@@ -1508,7 +2012,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q109",
@@ -1534,7 +2047,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q110",
@@ -1560,7 +2082,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     },
     {
       "question_id": "q111",
@@ -1586,7 +2117,16 @@
       "empty": false,
       "error": false,
       "error_status": null,
-      "error_reason": null
+      "error_reason": null,
+      "truncated": null,
+      "moderated": false,
+      "native_finish_reason": null,
+      "refusal": null,
+      "error_message": null,
+      "provider": null,
+      "moderation_side": null,
+      "first_attempt": null,
+      "retry_attempt": null
     }
   ]
 }

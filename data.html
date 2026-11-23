@@ -50,10 +50,16 @@
   </section>
 
   <section><div class="section-head"><h2>Retries and non-responses</h2></div>
-    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of 2,000 max tokens, the question is retried <b>once</b> at a larger cap of 5,000 max tokens. Every record therefore carries flags so you are never blind to a parameter change:</p>
+    <p>Some models (usually reasoning or "thinking" models) return HTTP&nbsp;200 but <b>no visible answer</b>: they spend the whole output budget on hidden reasoning. When that happens at the standard cap of 2,000 max tokens, the question is retried <b>once</b> at a larger cap of 5,000 max tokens. Two other cases also get <b>one</b> extra attempt (since 2026-11-22). The prompt, system prompt and temperature never change:</p>
+    <ul class="give">
+      <li><b>Cut off at the cap</b> (the provider reports <span class="mono">finish_reason: length</span>): retried once at the larger cap. The fuller retry is shown, and the cut-off first attempt is kept in <span class="mono">first_attempt</span>, one click away on the page. Older answers that hit the cap carry a "cut off" or "likely cut off" badge instead.</li>
+      <li><b>Blocked by content moderation</b> (<span class="mono">finish_reason: content_filter</span>): if the provider blocked the <i>prompt</i> (no output at all), there is no retry, because the same prompt is blocked again. If output was generated and then blocked, it is retried once at the <i>same</i> cap. The provider's own message is saved in <span class="mono">refusal</span>, <span class="mono">error_message</span> and <span class="mono">native_finish_reason</span>.</li>
+    </ul>
+    <p>Every record therefore carries flags so you are never blind to a parameter change:</p>
     <ul class="give">
       <li><span class="mono">retry</span> (bool): the answer was captured only after the larger-cap retry. Its <span class="mono">max_tokens</span> reflects the larger cap, and <span class="mono">retry_reason</span> states exactly what changed.</li>
       <li><span class="mono">retry_success</span> (bool, when <span class="mono">retry</span> is true): whether the retry produced an answer.</li>
+      <li><span class="mono">first_attempt</span> / <span class="mono">retry_attempt</span> (object): the attempt that is <i>not</i> shown, with its own answer, tokens, cap and finish reason, so no call is ever discarded.</li>
       <li><span class="mono">empty</span> (bool): the model was reached but returned no content even after the retry. These <b>non-responses are kept, not dropped</b>, with <span class="mono">retry_success: false</span> and an explanatory <span class="mono">retry_reason</span>.</li>
       <li><span class="mono">error</span> (bool): the model <b>could not be reached at all</b>, so no answer was captured. This is distinct from a non-response: the provider rate-limited us (<span class="mono">http 429</span>), rejected the request (<span class="mono">http 400/403</span>), or no longer serves the model (<span class="mono">http 404</span>, delisted). <span class="mono">error_status</span> gives the short status and <span class="mono">error_reason</span> a plain-English explanation. These are <b>re-attempted on later runs</b> and clear automatically once a capture succeeds, so a rate-limited model can still fill in.</li>
     </ul>
@@ -75,7 +81,7 @@
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-22</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-23</span>
 </div></footer>
 </body>
 </html>
