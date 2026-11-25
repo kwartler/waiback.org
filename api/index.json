@@ -1,10 +1,10 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-24",
-  "model_count": 398,
+  "updated": "2026-11-25",
+  "model_count": 402,
   "question_count": 60,
   "gap_count": 216,
-  "unavailable_count": 979,
+  "unavailable_count": 1219,
   "gaps_json": "https://waiback.org/api/gaps.json",
   "conditions": {
     "temperature": 0.0,
@@ -16,6 +16,36 @@
     "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped. Since 2026-11-22, an answer cut off at the standard cap is also retried ONCE at the larger cap (the cut-off attempt is kept in first_attempt), and an output-side content-moderation block is retried ONCE at the same cap; a prompt-side block (no output) is not retried. The prompt, system prompt and temperature never change between attempts."
   },
   "models": [
+    {
+      "id": "upstage/solar-pro-4-contributor",
+      "slug": "upstage_solar-pro-4-contributor",
+      "name": "Upstage: Solar Pro 4 Contributor",
+      "provider": "upstage",
+      "release_date": "2026-11-24",
+      "delisted": false,
+      "answered": 0,
+      "json": "https://waiback.org/api/models/upstage_solar-pro-4-contributor.json"
+    },
+    {
+      "id": "upstage/solar-mini-4-5",
+      "slug": "upstage_solar-mini-4-5",
+      "name": "Upstage: Solar Mini 4.5 (Preview)",
+      "provider": "upstage",
+      "release_date": "2026-11-24",
+      "delisted": false,
+      "answered": 0,
+      "json": "https://waiback.org/api/models/upstage_solar-mini-4-5.json"
+    },
+    {
+      "id": "xiaomi/mimo-v2.6-flash-mopd",
+      "slug": "xiaomi_mimo-v2.6-flash-mopd",
+      "name": "Xiaomi: MiMo-V2.6-Flash-MOPD",
+      "provider": "xiaomi",
+      "release_date": "2026-11-23",
+      "delisted": false,
+      "answered": 0,
+      "json": "https://waiback.org/api/models/xiaomi_mimo-v2.6-flash-mopd.json"
+    },
     {
       "id": "thinkingmachines/inkling-2-mini",
       "slug": "thinkingmachines_inkling-2-mini",
@@ -492,7 +522,7 @@
       "name": "Pareto 26.10",
       "provider": "unbiased",
       "release_date": "2026-10-15",
-      "delisted": false,
+      "delisted": true,
       "answered": 60,
       "json": "https://waiback.org/api/models/unbiased_pareto-26.10.json"
     },
@@ -505,16 +535,6 @@
       "delisted": false,
       "answered": 60,
       "json": "https://waiback.org/api/models/~unbiased_pareto-latest.json"
-    },
-    {
-      "id": "unbiased/pareto-26.9",
-      "slug": "unbiased_pareto-26.9",
-      "name": "Pareto 26.9",
-      "provider": "unbiased",
-      "release_date": "2026-10-13",
-      "delisted": false,
-      "answered": 60,
-      "json": "https://waiback.org/api/models/unbiased_pareto-26.9.json"
     },
     {
       "id": "liquid/lfm-2.5-24b-a2b",
@@ -555,6 +575,16 @@
       "delisted": false,
       "answered": 0,
       "json": "https://waiback.org/api/models/scaledown_extract.json"
+    },
+    {
+      "id": "unbiased/pareto-26.9",
+      "slug": "unbiased_pareto-26.9",
+      "name": "Pareto 26.9",
+      "provider": "unbiased",
+      "release_date": "2026-10-13",
+      "delisted": true,
+      "answered": 60,
+      "json": "https://waiback.org/api/models/unbiased_pareto-26.9.json"
     },
     {
       "id": "meta/muse-wonder",
@@ -612,7 +642,7 @@
       "name": "Pareto 26.10 Preview",
       "provider": "unbiased",
       "release_date": "2026-10-01",
-      "delisted": false,
+      "delisted": true,
       "answered": 60,
       "json": "https://waiback.org/api/models/unbiased_pareto-26.10-preview.json"
     },
@@ -3215,6 +3245,16 @@
       "delisted": false,
       "answered": 60,
       "json": "https://waiback.org/api/models/cognitivecomputations_dolphin-mistral-24b-venice-edition.json"
+    },
+    {
+      "id": "tngtech/deepseek-r1t2-chimera",
+      "slug": "tngtech_deepseek-r1t2-chimera",
+      "name": "TNG: DeepSeek R1T2 Chimera",
+      "provider": "tngtech",
+      "release_date": "2025-07-08",
+      "delisted": false,
+      "answered": 0,
+      "json": "https://waiback.org/api/models/tngtech_deepseek-r1t2-chimera.json"
     },
     {
       "id": "tencent/hunyuan-a13b-instruct",
