@@ -1,10 +1,10 @@
 {
   "site": "https://waiback.org",
-  "updated": "2026-11-25",
-  "model_count": 402,
+  "updated": "2026-11-26",
+  "model_count": 403,
   "question_count": 60,
   "gap_count": 216,
-  "unavailable_count": 1219,
+  "unavailable_count": 1279,
   "gaps_json": "https://waiback.org/api/gaps.json",
   "conditions": {
     "temperature": 0.0,
@@ -16,6 +16,16 @@
     "note": "Per-answer temperature, prompt_sha, max_tokens and reasoning_effort record the exact conditions for each capture; earlier snapshots may differ from the current values shown here. If a model returns HTTP 200 with empty content at the standard max_tokens, the question is retried ONCE at a larger cap (5000); that answer's max_tokens reflects the larger cap and carries retry=true. If it is still empty after the retry, the record is kept with empty=true, retry_success=false and an explanatory retry_reason (a non-response), rather than being dropped. Since 2026-11-22, an answer cut off at the standard cap is also retried ONCE at the larger cap (the cut-off attempt is kept in first_attempt), and an output-side content-moderation block is retried ONCE at the same cap; a prompt-side block (no output) is not retried. The prompt, system prompt and temperature never change between attempts."
   },
   "models": [
+    {
+      "id": "inclusionai/lingsante-3.1-air-vl",
+      "slug": "inclusionai_lingsante-3.1-air-vl",
+      "name": "inclusionAI: LingSante 3.1 Air VL",
+      "provider": "inclusionai",
+      "release_date": "2026-11-26",
+      "delisted": false,
+      "answered": 0,
+      "json": "https://waiback.org/api/models/inclusionai_lingsante-3.1-air-vl.json"
+    },
     {
       "id": "upstage/solar-pro-4-contributor",
       "slug": "upstage_solar-pro-4-contributor",
@@ -3022,7 +3032,7 @@
       "name": "MoonshotAI: Kimi K2 0905",
       "provider": "moonshotai",
       "release_date": "2025-09-04",
-      "delisted": true,
+      "delisted": false,
       "answered": 60,
       "json": "https://waiback.org/api/models/moonshotai_kimi-k2-0905.json"
     },
@@ -3232,7 +3242,7 @@
       "name": "MoonshotAI: Kimi K2 0711",
       "provider": "moonshotai",
       "release_date": "2025-07-11",
-      "delisted": true,
+      "delisted": false,
       "answered": 60,
       "json": "https://waiback.org/api/models/moonshotai_kimi-k2.json"
     },
