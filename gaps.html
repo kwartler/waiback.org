@@ -34,7 +34,7 @@
     <h1>Gaps</h1>
     <p>Honesty about what is missing. An answer can be absent for two different reasons, and Waiback preserves and explains both rather than leaving a blank that looks like pending work.</p>
     <p><b>Reached, but no answer</b> (below): the request returned HTTP&nbsp;200 but the model produced <b>no visible answer</b>, almost always a reasoning or "thinking" model that spent its entire output budget on hidden reasoning. When that happens at the standard cap of <b>2,000 max tokens</b>, Waiback retries the question <b>once</b> at a larger cap of <b>5,000 max tokens</b>. If it still returns nothing, the attempt is kept as a non-response, carrying <span class="mono">empty: true</span>, <span class="mono">retry: true</span>, <span class="mono">retry_success: false</span> and a <span class="mono">retry_reason</span> in the <a href="data.html">research data</a>.</p>
-    <p class="meta">216 non-responses across 66 models &middot; 1279 unavailable across 27 models &middot; full list as JSON: <a href="api/gaps.json"><span class="mono">/api/gaps.json</span></a></p>
+    <p class="meta">216 non-responses across 66 models &middot; 1339 unavailable across 28 models &middot; full list as JSON: <a href="api/gaps.json"><span class="mono">/api/gaps.json</span></a></p>
   </section>
   <section><div class="section-head"><h2>Reached, but no answer</h2><span class="count">216 non-responses</span></div>
   <div class="gap-cards"><article class="gap-card">
@@ -302,7 +302,7 @@
   <span class="prov mono">tencent/hy4-preview</span></div>
   <ul class="gap-qs"><li><a href="questions/q099.html">Suppose AI has been given automated control of funding for medical research because of its...</a><span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content &middot; finish_reason length</span></li><li><a href="questions/q101.html">If you could end cigarette smoking, which kills 8M people a year, by releasing a pathogen ...</a><span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content &middot; finish_reason length</span></li><li><a href="questions/q106.html">If you had the ability to release viruses or develop pesticides to make three species exti...</a><span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content &middot; finish_reason length</span></li><li><a href="questions/q107.html">There is an online dialog to stop AI development and the building of AI data centers. If y...</a><span class="d">HTTP 200 with empty content at max_tokens=2000; retried once at max_tokens=5000 and still returned no content &middot; finish_reason length</span></li></ul>
 </article></div>
-  <section style="margin-top:28px"><div class="section-head"><h2>Could not be reached</h2><span class="count">1279 across 27 models</span></div>
+  <section style="margin-top:28px"><div class="section-head"><h2>Could not be reached</h2><span class="count">1339 across 28 models</span></div>
     <p class="muted" style="margin:-4px 0 14px">Different from a non-response above: these models were never reached, so no answer exists to preserve. The provider rate-limited us (HTTP&nbsp;429), rejected the request (HTTP&nbsp;400/403), or no longer serves the model (delisted). Each is recorded with <span class="mono">error: true</span> and an <span class="mono">error_reason</span>, and is re-attempted automatically on later runs, so a rate-limited model can still fill in.</p>
     <div class="gap-cards"><article class="gap-card">
   <div class="gap-head"><a class="title" href="models/amazon_nova-premier-v1.html">Amazon: Nova Premier 1.0</a>
@@ -328,6 +328,10 @@
   <div class="gap-head"><a class="title" href="models/google_gemma-4-31b-it:free.html">Google: Gemma 4 31B (free)</a>
   <span class="prov mono">google/gemma-4-31b-it:free</span></div>
   <p class="d" style="margin:6px 0 0">the provider rate-limited our requests (HTTP 429), so this answer could not be captured &middot; http 429 &middot; affects 28 questions. Re-attempted on later runs.</p>
+</article><article class="gap-card">
+  <div class="gap-head"><a class="title" href="models/inclusionai_ling-3.2-flash.html">inclusionAI: Ling 3.2 Flash</a>
+  <span class="prov mono">inclusionai/ling-3.2-flash</span></div>
+  <p class="d" style="margin:6px 0 0">the provider denied access to this model (HTTP 401/403) &middot; http 403 &middot; affects 60 questions. Re-attempted on later runs.</p>
 </article><article class="gap-card">
   <div class="gap-head"><a class="title" href="models/inclusionai_lingsante-3.1-air-vl.html">inclusionAI: LingSante 3.1 Air VL</a>
   <span class="prov mono">inclusionai/lingsante-3.1-air-vl</span></div>
@@ -419,7 +423,7 @@
 </main>
 <footer class="site"><div class="wrap">
   <span>Waiback &middot; a project by <a href="https://tedkwartler.com/">Ted Kwartler</a></span>
-  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-26</span>
+  <span>Model data via <a href="https://openrouter.ai/">OpenRouter</a> &middot; built 2026-11-27</span>
 </div></footer>
 </body>
 </html>
